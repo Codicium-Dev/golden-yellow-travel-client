@@ -1,24 +1,20 @@
 "use client";
-import React from "react";
 
+import React from "react";
+import UserReviewCard from "./UserReviewCard";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
 
-import UserReviewCard from "./UserReviewCard";
-
-const UserReviews = () => {
-  const { data: users } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () =>
-      await fetch("https://jsonplaceholder.typicode.com/users/1/posts").then(
-        (res) => res.json()
-      ),
+const UserReviews = ({ tourId }: { tourId: string }) => {
+  const { data: reviews, isLoading } = useQuery({
+    queryKey: ["reviews", tourId],
+    queryFn: () => getRequest(`review/list?columns=tour_id&search=${tourId}`),
   });
 
   return (
     <div className="flex flex-col gap-y-6 mt-4 overflow-auto">
-      {users?.map((user: any) => (
-        <UserReviewCard user={user} />
+      {reviews?.data?.data?.map((review: any) => (
+        <UserReviewCard key={review?.id} review={review} />
       ))}
     </div>
   );

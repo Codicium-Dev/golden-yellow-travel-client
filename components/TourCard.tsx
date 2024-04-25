@@ -38,7 +38,7 @@ const TourCard = ({ tour, reverse }: any) => {
 
       {/* reviews */}
       <div
-        className={`w-full lg:w-[57%] h-[300px] lg:h-full pt-5 lg:pt-10 pb-4 px-6 flex-col justify-between open-sans ${
+        className={`w-full lg:w-[57%] h-[300px] lg:h-full pt-5 lg:pt-10 pb-4 px-6 flex-col gap-1 open-sans ${
           reviewIn
             ? `flex animate-slideReviewInMobile ${
                 reverse
@@ -109,7 +109,7 @@ const TourCard = ({ tour, reverse }: any) => {
           </div>
         </div>
 
-        <UserReviews />
+        <UserReviews tourId={tour?.id} />
       </div>
 
       {/* content */}
