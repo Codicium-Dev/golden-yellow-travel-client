@@ -44,8 +44,6 @@ const Header = () => {
   //       `/city/list?columns=country_id&search=${countryId ? countryId : "333085282644933"
   //       }`
   //     ),
-  //   refetchOnMount: true,
-  //   refetchOnWindowFocus: true,
   // });
 
   const {
@@ -54,10 +52,8 @@ const Header = () => {
     isError: countryIsError,
     error: countryError,
   } = useQuery({
-    queryKey: ["country"],
+    queryKey: ["countries"],
     queryFn: () => getRequest("/country/list"),
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
   });
 
   const handleDes = () => {

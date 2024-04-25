@@ -78,8 +78,6 @@ export default function tours() {
   const { data: tours, isLoading: tourLoading } = useQuery({
     queryKey: ["tour-detail", params.get("tourDetail")],
     queryFn: () => getRequest(`tour/show/${params.get("tourDetail")}`),
-    // refetchOnMount: true,
-    // refetchOnWindowFocus: true,
   });
   const { data: inclusions, isLoading: inclusionLoading } = useQuery({
     queryKey: ["inclusions", params.get("tourDetail")],
