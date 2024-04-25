@@ -100,7 +100,7 @@ const Header = () => {
 
   // Change Background Color of Navbar
   const [bgColor, setBgColor] = useState("bg-[#010e3b]");
-  console.log("path name > ", pathname);
+  // console.log("path name > ", pathname);
 
   useEffect(() => {
     const handleScroll = () => {
