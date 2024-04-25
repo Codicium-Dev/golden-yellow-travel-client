@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { BsCheck2All } from "react-icons/bs";
 import { FaMountain } from "react-icons/fa";
@@ -10,10 +11,10 @@ import { PuffLoader } from "react-spinners";
 import TourCard from "@/components/TourCard";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 
 const page = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["cityTourList", searchParams.get("city")],
@@ -21,18 +22,9 @@ const page = () => {
       getRequest(
         `/tour/list?columns=city_id&search=${searchParams.get("city")}`
       ),
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-    enabled: false,
   });
 
   console.log(data);
-
-  // useEffect(() => {
-  //   if (searchParams.get("city")) {
-  //     refetch();
-  //   }
-  // }, [searchParams]);
 
   if (isLoading) {
     return (
@@ -40,6 +32,12 @@ const page = () => {
         <PuffLoader color={"#010E3B"} aria-label="Loading Spinner" />
       </div>
     );
+  }
+
+  if (data?.data?.data?.length === 0) {
+    setTimeout(() => {
+      router.push("/");
+    }, 2000);
   }
 
   return (
@@ -58,12 +56,12 @@ const page = () => {
         </h1>
       </div>
 
-      <div className="px-[20px] md:px-[130px] my-10  flex  flex-col md:flex-wrap md:flex-row items-center justify-center gap-5">
-        {data?.data?.data?.length === 0 && (
-          <div className="flex min-h-screen items-start justify-center">
-            <h1 className="text-2xl font-bold">No Tour Available</h1>
-          </div>
-        )}
+      {data?.data?.data?.length === 0 && (
+        <div className="flex mt-12 min-h-screen items-start justify-center">
+          <h1 className="text-2xl font-bold">No Tour Available</h1>
+        </div>
+      )}
+      <div className="my-10 gap-8 flex flex-col px-6 md:px-16 justify-center items-center">
         {data?.data?.data?.length !== 0 &&
           data?.data?.data?.map((tour: any, index: number) => {
             return (

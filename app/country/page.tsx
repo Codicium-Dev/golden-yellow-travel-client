@@ -16,14 +16,11 @@ const page = () => {
   const country = searchParams.get("countryName");
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["countryName"],
+    queryKey: ["countryName", searchParams.get("countryName")],
     queryFn: () =>
       getRequest(
         `/tour/list?columns=name&search=${searchParams.get("countryName")}`
       ),
-    refetchOnMount: true,
-    refetchOnWindowFocus: false,
-    enabled: false,
   });
 
   // console.log("data >>> ", data)
@@ -48,7 +45,7 @@ const page = () => {
         photo={country == "Thailand" ? "/thailand.webp" : "/vietnam.jpg"}
         title={country}
       />
-      <div className="px-6 lg:px-16 my-20 gap-5 lg:gap-14 flex flex-col justify-center items-center">
+      <div className="px-6 md:px-16 my-20 gap-5 lg:gap-14 flex flex-col justify-center items-center">
         {data?.data?.data?.map((tour: any, index: number) => {
           return <TourCard key={index} tour={tour} reverse={index % 2 !== 0} />;
         })}

@@ -1,19 +1,19 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import { getRequest } from "@/services/api/apiService";
-import { setMainSearch } from "@/services/redux/reducer/mainSearchSlice";
 import {
   mobileIsClose,
   mobileIsOpen,
 } from "@/services/redux/reducer/mobileSlice";
-import { useQuery } from "@tanstack/react-query";
+import { useDispatch, useSelector } from "react-redux";
 
+import Link from "next/link";
 import type { RootState } from "@/services/lib/store";
+import { getRequest } from "@/services/api/apiService";
+import { setMainSearch } from "@/services/redux/reducer/mainSearchSlice";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+
 const SideNavComponent = () => {
   const [dropC, setDropC] = useState(false);
   const [dropCity, setDropCity] = useState(false);
@@ -27,20 +27,15 @@ const SideNavComponent = () => {
   const { data: countries } = useQuery({
     queryKey: ["dropCounty"],
     queryFn: () => getRequest("/country/list"),
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
   });
   const { data: cities, refetch } = useQuery({
-    queryKey: ["dropCity"],
+    queryKey: ["cities", selectCountry],
     queryFn: () =>
       getRequest(
         `/city/list?columns=country_id&search=${
           selectCountry !== null ? selectCountry : ""
         }`
       ),
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-    enabled: false,
   });
 
   // console.log(cities);

@@ -27,8 +27,6 @@ export default function Recommendations() {
   } = useQuery({
     queryKey: ["recommendations"],
     queryFn: () => getRequest(`tour/list?page=1&per_page=4`),
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
   });
   useEffect(() => {
     setTours(Tours?.data?.data);

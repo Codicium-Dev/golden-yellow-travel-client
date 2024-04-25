@@ -49,7 +49,7 @@ const page = () => {
   }
 
   return (
-    <div className="flex flex-wrap justify-center mx-auto px-6 lg:px-16 mt-[20px] mb-[30px] ">
+    <div className="flex flex-wrap justify-center mx-auto px-6 md:px-16 mt-[20px] mb-[30px] ">
       <div className="mt-32 mb-7">
         {data?.data?.data?.length === 0 && (
           <div className="flex min-h-screen items-start justify-center">

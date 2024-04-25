@@ -100,8 +100,6 @@ const page = () => {
   } = useQuery({
     queryKey: ["countrys"],
     queryFn: () => getRequest("/country/list"),
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
   });
 
   if (countryId !== "") {
