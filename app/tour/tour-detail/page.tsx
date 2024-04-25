@@ -20,6 +20,7 @@ import Link from "next/link";
 import { MdOutlineDateRange } from "react-icons/md";
 import { PuffLoader } from "react-spinners";
 import RedixAccordion from "@/components/RedixAccordion";
+import Reviews from "@/components/Reviews";
 import { SiYourtraveldottv } from "react-icons/si";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
@@ -30,12 +31,8 @@ const NavLinks = [
     href: "overview",
   },
   {
-    title: "Itinerary",
-    href: "itinerary",
-  },
-  {
-    title: "Inclusion",
-    href: "inclusion",
+    title: "Reviews",
+    href: "reviews",
   },
 ];
 
@@ -72,6 +69,7 @@ interface inclusion {}
 
 export default function tours() {
   const params = useSearchParams();
+  const [activeNav, setActiveNav] = useState("Overview");
   // const [inclusion, setInclusion] = useState<any | inclusion>();
   // const [similarTour, setSimilarTour] = useState<any>();
 
@@ -80,6 +78,8 @@ export default function tours() {
     queryKey: ["tour-detail", params.get("tourDetail")],
     queryFn: () => getRequest(`tour/show/${params.get("tourDetail")}`),
   });
+
+  console.log(tours, "Tours >> ");
   const { data: inclusions, isLoading: inclusionLoading } = useQuery({
     queryKey: ["inclusions", params.get("tourDetail")],
     queryFn: () =>
@@ -311,69 +311,89 @@ export default function tours() {
               </div>
             </div>
 
-            <div className=" mt-5">
-              <ItineraryNavLink NavLinks={NavLinks} />
-            </div>
+            <div className="col-span-3 mt-5">
+              <ItineraryNavLink
+                NavLinks={NavLinks}
+                activeNav={activeNav}
+                setActiveNav={setActiveNav}
+              />
+              {/* Conditionally render Overview or Reviews based on activeNav */}
+              {activeNav === "Overview" && (
+                <>
+                  <div className=" mt-5">
+                    <p className=" text-gray-700 text-lg break-words">
+                      {tours?.data?.overview}
+                    </p>
+                  </div>
 
-            <div className=" mt-5">
-              <p className=" text-gray-700 text-lg break-words">
-                {tours?.data?.overview}
-              </p>
+                  <div className="">
+                    <div className="col-span-5 md:col-span-3 mt-5">
+                      <div id="itinerary" className="h-fit mb-5">
+                        <h1 className=" font-bold text-orange-500 text-xl">
+                          Itinerary
+                        </h1>
+
+                        <RedixAccordion id={params.get("tourDetail")} />
+                      </div>
+                    </div>
+
+                    <div className=" col-start-4 col-span-2"></div>
+                  </div>
+
+                  <h1 className=" font-bold text-xl">Inclusion</h1>
+
+                  <div className=" flex items-start gap-5 mt-5">
+                    <GiForkKnifeSpoon size={20} />
+                    <div>
+                      <h3 className=" font-bold text-lg">Meals</h3>
+                      <div>{inclusions?.data?.data[0]?.meals}</div>
+                    </div>
+                  </div>
+
+                  <div className=" flex items-start gap-5 mt-5">
+                    <AiOutlineCar size={20} />
+                    <div>
+                      <h3 className=" font-bold text-lg">Transport</h3>
+                      <p>{inclusions?.data?.data[0]?.transport}</p>
+                    </div>
+                  </div>
+
+                  <div className=" flex items-center gap-5 mt-5">
+                    <FaBed size={20} />
+                    <div>
+                      <h3 className=" font-bold text-lg">Accommodation</h3>
+                      <p>{inclusions?.data?.data[0]?.accommodation}</p>
+                    </div>
+                  </div>
+
+                  <div className=" flex items-center gap-5 mt-5">
+                    <SiYourtraveldottv size={20} />
+                    <div>
+                      <h3 className=" font-bold text-lg">
+                        Included activities
+                      </h3>
+                      <p>{inclusions?.data?.data[0]?.included_activities}</p>
+                    </div>
+                  </div>
+
+                  <div className=" flex items-center gap-5 mt-5">
+                    <CreateReview />
+                  </div>
+                </>
+              )}
+              {activeNav === "Reviews" && (
+                <>
+                  <div className=" mt-5">
+                    <Reviews />
+                  </div>
+                  <div className="mt-5">
+                    <CreateReview />
+                  </div>
+                </>
+              )}
             </div>
           </div>
           {/* </div> */}
-
-          <div className="">
-            <div className="col-span-5 md:col-span-3 mt-5">
-              <div id="itinerary" className="h-fit mb-5">
-                <h1 className=" font-bold text-orange-500 text-xl">
-                  Itinerary
-                </h1>
-
-                <RedixAccordion id={params.get("tourDetail")} />
-              </div>
-            </div>
-
-            <div className=" col-start-4 col-span-2"></div>
-          </div>
-
-          <h1 className=" font-bold text-xl">Inclusion</h1>
-
-          <div className=" flex items-start gap-5 mt-5">
-            <GiForkKnifeSpoon size={20} />
-            <div>
-              <h3 className=" font-bold text-lg">Meals</h3>
-              <div>{inclusions?.data?.data[0]?.meals}</div>
-            </div>
-          </div>
-
-          <div className=" flex items-start gap-5 mt-5">
-            <AiOutlineCar size={20} />
-            <div>
-              <h3 className=" font-bold text-lg">Transport</h3>
-              <p>{inclusions?.data?.data[0]?.transport}</p>
-            </div>
-          </div>
-
-          <div className=" flex items-center gap-5 mt-5">
-            <FaBed size={20} />
-            <div>
-              <h3 className=" font-bold text-lg">Accommodation</h3>
-              <p>{inclusions?.data?.data[0]?.accommodation}</p>
-            </div>
-          </div>
-
-          <div className=" flex items-center gap-5 mt-5">
-            <SiYourtraveldottv size={20} />
-            <div>
-              <h3 className=" font-bold text-lg">Included activities</h3>
-              <p>{inclusions?.data?.data[0]?.included_activities}</p>
-            </div>
-          </div>
-
-          <div className=" flex items-center gap-5 mt-5">
-            <CreateReview />
-          </div>
         </div>
 
         <div className=" min-h-[400px] bg-gray-200">
@@ -462,55 +482,3 @@ export default function tours() {
     </>
   );
 }
-
-// const res: any = await fetch(`https://api.goldenyellowtravel.yolodigitalmyanmar.com/api/v1/tour/show/${params.get('tourDetail')}`)
-// const tours : any = await res.json();
-
-// const fetchInclusion = async () => {
-//   await fetch(
-//     `https://api.goldenyellowtravel.yolodigitalmyanmar.com/api/v1/inclusion/list?columns=tour_id&search=${params.get(
-//       "tourDetail"
-//     )}`
-//   )
-//     .then((res: any) => {
-//       return res.json();
-//     })
-//     .then((data: any) => {
-//       return setInclusion(data);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
-
-//   console.log(inclusion);
-
-// const fetchSimilarTour = async () => {
-//   await fetch(
-//     `https://api.goldenyellowtravel.yolodigitalmyanmar.com/api/v1/tour/show/${params.get(
-//       "tourDetail"
-//     )}`
-//   )
-//     .then((response) => {
-//       return response.json();
-//     })
-//     .then((data) => {
-//       return fetch(
-//         `https://api.goldenyellowtravel.yolodigitalmyanmar.com/api/v1/tour/list?columns=city_id&page=1&per_page=4&search=${data?.data?.city_id}`
-//       );
-//     })
-//     .then((secondApiResponse) => {
-//       return secondApiResponse.json();
-//     })
-//     .then((similarTour) => {
-//       return setSimilarTour(similarTour);
-//     })
-//     .catch((error) => {
-//       console.error("Error:", error);
-//     });
-// };
-
-// useEffect(() => {
-// fetchInclusion();
-// fetchSimilarTour();
-// }, [inclusions]);

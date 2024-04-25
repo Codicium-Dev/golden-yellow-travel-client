@@ -1,10 +1,16 @@
 import { FaRegStar, FaStar } from "react-icons/fa";
 import React, { useState } from "react";
 
+import { PuffLoader } from "react-spinners";
 import { postRequest } from "@/services/api/apiService";
+import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 
-const CreateReview = ({ tourId }: { tourId: string | null }) => {
+const CreateReview = () => {
+  const params = useSearchParams();
+
+  const tour_id = params.get("tourDetail");
   const [rating, setRating] = useState(0);
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
@@ -18,14 +24,6 @@ const CreateReview = ({ tourId }: { tourId: string | null }) => {
     }) => postRequest("/review/create", data),
   });
 
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   setRating(0);
-  //   setName("");
-  //   setReview("");
-  // };
-
   const handleRatingChange = (value: number) => {
     // Toggle the rating if the clicked star is already filled
     if (rating === value) {
@@ -37,22 +35,27 @@ const CreateReview = ({ tourId }: { tourId: string | null }) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      {createReviewMutation.isError && <p className="text-red-500">Error</p>}
-      {createReviewMutation.isSuccess && (
-        <p className="text-green-500">Success</p>
-      )}
       <h1 className="text-xl font-bold">Create Review</h1>
       <p>Fill out the form below to create a review.</p>
       <form
         onSubmit={(e) => {
-          if (rating > 0) {
+          if (rating === 0) {
+            toast.error("Please Select A Rating");
+            e.preventDefault();
+            return;
+          }
+          if (rating > 0 || tour_id === null) {
             e.preventDefault();
             createReviewMutation.mutateAsync({
-              tour_id: tourId,
+              tour_id,
               name,
               review,
               rating: rating.toString(),
             });
+
+            setRating(0);
+            setName("");
+            setReview("");
           }
         }}
         className="flex flex-col gap-y-4"
@@ -79,7 +82,6 @@ const CreateReview = ({ tourId }: { tourId: string | null }) => {
             value={review}
             onChange={(e) => setReview(e.target.value)}
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200"
-            required
           />
         </div>
         <div className="flex gap-x-2 items-center">
@@ -96,10 +98,14 @@ const CreateReview = ({ tourId }: { tourId: string | null }) => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-200 text-center cursor-pointer"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-200 flex justify-center items-center text-center cursor-pointer"
         >
           {createReviewMutation.isLoading ? (
-            <span className="spinner-border spinner-border-sm"></span>
+            <PuffLoader
+              color={"#010E3B"}
+              size={25}
+              aria-label="Loading Spinner"
+            />
           ) : (
             "Submit"
           )}
