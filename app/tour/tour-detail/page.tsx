@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 
 import { BiCategory } from "react-icons/bi";
+import CreateReview from "@/components/CreateReview";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import HeroSection from "@/components/HeroSection";
 import { HiUserGroup } from "react-icons/hi";
@@ -208,8 +209,8 @@ export default function tours() {
         <div className="w-full h-[190px] lg:w-[30%] lg:h-full">
           <Image
             src={tours?.data?.tour_photo ? tours?.data?.tour_photo : ""}
-            width={300}
-            height={300}
+            width={600}
+            height={600}
             alt="Tour Photo"
             className=" w-full h-full object-cover rounded-md overflow-hidden shadow-xl"
           />
@@ -369,6 +370,10 @@ export default function tours() {
               <p>{inclusions?.data?.data[0]?.included_activities}</p>
             </div>
           </div>
+
+          <div className=" flex items-center gap-5 mt-5">
+            <CreateReview />
+          </div>
         </div>
 
         <div className=" min-h-[400px] bg-gray-200">
@@ -378,7 +383,7 @@ export default function tours() {
             </h1>
           </div>
           {/* similar tours */}
-          <div className=" px-[20px] md:px-[130px] flex flex-wrap justify-between gap-10 pb-5">
+          <div className=" px-[20px] md:px-[130px] flex flex-wrap gap-10 pb-5">
             {similarTours?.data?.data?.map((tour: any, index: number) => {
               if (tour.id !== tours?.data?.id) {
                 return (
