@@ -241,7 +241,7 @@ const Index = () => {
               <div className="my-7 md:border-[#8698ab] md:border-r-2"></div>
             </div>
 
-            {/* start city */}
+            {/* select city */}
             <div className=" h-full w-full flex lg:w-[30%] cursor-pointer lg:ml-5 items-center relative">
               <button
                 className=" w-full h-full pl-[25px] lg:pl-0 flex justify-start items-center gap-[10px]"
@@ -260,7 +260,6 @@ const Index = () => {
                   className="hero-icon"
                 />
                 <span className="font-bold tracking-wider text-[16px] xl:text-xl">
-                  {" "}
                   {cityName !== "" ? cityName : "Choose City"}
                 </span>
               </button>
@@ -296,7 +295,7 @@ const Index = () => {
             </div>
             {/* end city */}
 
-            {/* start duration */}
+            {/* select duration */}
             <div className=" h-full w-full flex lg:w-[30%] cursor-pointer lg:ml-5 items-center relative">
               <button
                 className=" w-full h-full pl-[25px] lg:pl-0 flex justify-start items-center gap-[10px]"

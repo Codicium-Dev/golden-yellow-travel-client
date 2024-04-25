@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
 
-import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
 
 const UserReviewCard = ({ user }: { user: any }) => {
-  console.log(user);
+  // console.log(user);
   const { data: userData } = useQuery({
     queryKey: ["User", user?.id],
     queryFn: async () =>
@@ -14,7 +14,7 @@ const UserReviewCard = ({ user }: { user: any }) => {
       ).then((res) => res.json()),
   });
 
-  console.log(userData);
+  // console.log(userData);
   return (
     <div className="grid grid-flow-col items-start gap-4">
       <Image
