@@ -23,38 +23,10 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const Duration = [
-  { name: "1 Days", id: 1 },
-  { name: "2 Days", id: 2 },
-  { name: "3 Days", id: 3 },
-  { name: "4 Days", id: 4 },
-  { name: "5 Days", id: 5 },
-  { name: "6 Days", id: 6 },
-  { name: "7 Days", id: 7 },
-  { name: "8 Days", id: 8 },
-  { name: "9 Days", id: 9 },
-  { name: "10 Days", id: 10 },
-  { name: "11 Days", id: 11 },
-  { name: "12 Days", id: 12 },
-  { name: "13 Days", id: 13 },
-  { name: "14 Days", id: 14 },
-  { name: "15 Days", id: 15 },
-  { name: "16 Days", id: 16 },
-  { name: "17 Days", id: 17 },
-  { name: "18 Days", id: 18 },
-  { name: "19 Days", id: 19 },
-  { name: "20 Days", id: 20 },
-  { name: "21 Days", id: 21 },
-  { name: "22 Days", id: 22 },
-  { name: "23 Days", id: 23 },
-  { name: "24 Days", id: 24 },
-  { name: "25 Days", id: 25 },
-  { name: "26 Days", id: 26 },
-  { name: "27 Days", id: 27 },
-  { name: "28 Days", id: 28 },
-  { name: "29 Days", id: 29 },
-  { name: "30 Days", id: 30 },
-];
+const Duration: { name: string; id: number }[] = [];
+for (let index = 0; index < 30; index++) {
+  Duration.push({ name: `${index + 2} Days`, id: index + 2 });
+}
 
 const Index = () => {
   const [cityId, setCityId] = useState("");
@@ -191,7 +163,7 @@ const Index = () => {
             onSubmit={handleSearchForm}
           >
             {/* select country */}
-            <div className="w-full flex lg:w-[30%] cursor-pointer relative items-center lg:ml-3">
+            <div className="w-full h-full flex lg:w-[30%] cursor-pointer lg:ml-3 items-center relative">
               <button
                 className=" w-full h-full pl-[25px] lg:pl-0 flex justify-start items-center gap-[10px]"
                 onClick={() => {
@@ -216,7 +188,7 @@ const Index = () => {
               {selectCountry && (
                 <div
                   ref={countryRef}
-                  className=" bg-slate-50 shadow-lg absolute top-[60px] right-[5px] w-full z-40"
+                  className="max-h-[180px] overflow-y-scroll bg-slate-50 shadow-lg absolute top-[120px] right-[5px] w-full z-40"
                 >
                   <ul className="">
                     {countries?.data?.data?.map((country: any) => {
@@ -243,7 +215,7 @@ const Index = () => {
             </div>
 
             {/* select city */}
-            <div className=" h-full w-full flex lg:w-[30%] cursor-pointer lg:ml-5 items-center relative red">
+            <div className="w-full h-full flex lg:w-[30%] cursor-pointer lg:ml-5 items-center relative">
               <button
                 className=" w-full h-full pl-[25px] lg:pl-0 flex justify-start items-center gap-[10px]"
                 onClick={() => {
@@ -269,7 +241,7 @@ const Index = () => {
               {selectStyle && countryId !== "" && (
                 <div
                   ref={cityRef}
-                  className=" min-h-[200px] bg-slate-50 shadow-lg overflow-y-auto absolute top-[60px] right-[5px] w-full z-40"
+                  className=" max-h-[180px] bg-slate-50 shadow-lg overflow-y-auto absolute top-[120px] right-[5px] w-full z-40"
                 >
                   <ul className="">
                     {cities?.data?.data?.map((city: any) => {
@@ -323,7 +295,7 @@ const Index = () => {
               {selectModal && (
                 <div
                   ref={durationRef}
-                  className=" max-h-[200px] bg-slate-50 shadow-lg overflow-y-auto absolute top-[50px] left-0 w-full z-40"
+                  className=" max-h-[200px] bg-slate-50 shadow-lg overflow-y-auto absolute top-[120px] right-[5px] w-full z-40"
                 >
                   <ul className="">
                     {Duration?.map((d: any) => {
@@ -359,6 +331,7 @@ const Index = () => {
                 alt="hero-icon"
                 className="hero-icon"
               />
+              {/* Leeches */}
               <DatePicker
                 className="w-full flex outline-none font-bold tracking-wider text-[16px] xl:text-xl pl-[10px]"
                 selected={startDate}
