@@ -125,7 +125,7 @@ export default function tours() {
                 width={60}
                 height={60}
                 alt="Tour Photo"
-                className="w-[30px] lg:w-[40px] h-[30px] lg:h-[40px] object-cover"
+                className="w-[30px] lg:w-[40px] h-[30px] lg:h-[40px] object-cover cursor-pointer"
               />
             </div>
           </Link>
@@ -220,7 +220,7 @@ export default function tours() {
         <div className="w-full p-5 lg:w-[30%] h-[100px] lg:min-h-[50%] lg:h-fit bg-[#ffefe5]">
           <span className="block">See next place &gt;</span>
 
-          {similarTours?.data?.data?.map((tour: any, index: number) => {
+          {similarTours?.data?.map((tour: any, index: number) => {
             if (!titleRendered && tour.id !== tours?.data?.id) {
               // Check if title hasn't been rendered and ID is not the same as current tour's ID
               titleRendered = true; // Set titleRendered to true to prevent rendering additional titles
