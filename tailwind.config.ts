@@ -207,9 +207,9 @@ const config: Config = {
           },
         },
         fadeIn: {
-          "0%": { opacity: "0" },
-          "50%": { opacity: "0.3" },
-          "100%": { opacity: "1" },
+          "0%": { opacity: "0", transform: "scale(1.03)" },
+          "50%": { opacity: "0.2" },
+          "100%": { opacity: "1", transform: "scale(1)" },
         },
       },
       animation: {
@@ -227,8 +227,8 @@ const config: Config = {
         slideReviewOutMobile: "slideReviewOutMobile 0.8s ease-in",
         slideContentInMobile: "slideContentInMobile 0.8s ease-in",
         slideContentOutMobile: "slideContentOutMobile 0.8s ease-in",
-        fadeIn: "fadeIn 0.5s ease-in",
-        slowFadeIn: "fadeIn 0.8s ease-in",
+        fadeIn: "fadeIn 0.7s ease-in",
+        slowFadeIn: "fadeIn 1s ease-in",
       },
     },
   },

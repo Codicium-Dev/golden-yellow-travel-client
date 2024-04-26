@@ -87,7 +87,7 @@ export default function Recommendations() {
             clipRule="evenodd"
           ></path>
         </svg>
-        <span className="w-[300px] select-none mx-10 pt-4 md:py-7 block tracking-widest text-[50px] md:text-[60px] text-center capitalize font-bold text-[#ff7b00] ">
+        <span className="w-[300px] select-none md:mx-10 py-4 md:py-7 block tracking-widest text-[50px] md:text-[60px] text-center capitalize font-bold text-[#ff7b00] ">
           {season}
         </span>
         <svg
@@ -109,7 +109,7 @@ export default function Recommendations() {
       </div>
 
       {/* card container */}
-      <div className="flex w-full justify-center px-5 lg:px-[190px]">
+      <div className="mx-auto flex w-full max-w-[2000px] justify-center px-5 lg:px-[190px]">
         <div className="w-full md:w-[90%] h-full ">
           {tours?.map((tour: any, index: number) => {
             if (index === 0) {
@@ -161,18 +161,18 @@ export default function Recommendations() {
 
           {/* sub pictures */}
           <div
-            className={`pt-5 md:pt-9 flex justify-between gap-3 md:gap-5 xl:gap-8 w-full h-[90px] md:h-[180px] lg:h-[180px] xl:h-[230px] 2xl:h-[250px] ${
+            className={`pt-5 md:pt-8 xl:pt-10 flex justify-between gap-[10px] md:gap-4 xl:gap-5 w-full h-[100px] md:h-[180px] lg:h-[180px] xl:h-[230px] 2xl:h-[250px] ${
               tours?.length >= 2 ? "block" : "hidden"
             }`}
           >
             {tours?.length >= 2 &&
               tours?.map((tour: any, index: number) => {
-                if (index > 0 && index < 5) {
+                if (index > 0 && index < 4) {
                   return (
                     <div
                       key={tour?.id}
                       onClick={() => handleItemClick(index)}
-                      className={`w-[29.5%] md:w-[31.5%] lg:w-[30%] xl:w-1/3 h-full shadow-lg object-cover cursor-pointer ${
+                      className={`w-1/3 h-full shadow-lg object-cover cursor-pointer ${
                         seasonChange ? "animate-slowFadeIn" : ""
                       }`}
                     >
