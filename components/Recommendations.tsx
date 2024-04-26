@@ -51,7 +51,7 @@ export default function Recommendations() {
   //   setTours(Tours?.data?.data);
   // }, [Tours]);
   useEffect(() => {
-    const filteredTours = Tours?.data?.data.filter(
+    const filteredTours = Tours?.data?.data?.filter(
       (tour: { recommend: string }) => tour.recommend === season
     );
     setTours(filteredTours);
