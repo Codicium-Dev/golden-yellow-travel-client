@@ -1,6 +1,7 @@
 import { FaRegStar, FaStar } from "react-icons/fa";
 import React, { useState } from "react";
 
+import BadWordsFilter from "bad-words"; // Import bad-words library
 import { PuffLoader } from "react-spinners";
 import { postRequest } from "@/services/api/apiService";
 import { toast } from "react-toastify";
@@ -9,6 +10,7 @@ import { useSearchParams } from "next/navigation";
 
 const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
   const params = useSearchParams();
+  const filter = new BadWordsFilter();
 
   const tour_id = params.get("tourDetail");
   const [rating, setRating] = useState(0);
@@ -56,7 +58,18 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
             e.preventDefault();
             return;
           }
-          if (rating > 0 || tour_id === null) {
+
+          if (!name.trim()) {
+            toast.error("Name cannot be empty");
+            return;
+          }
+
+          if (filter.isProfane(name) || filter.isProfane(review)) {
+            toast.warning("Name or review contains inappropriate words");
+            return;
+          }
+
+          if (rating > 0 || tour_id === null || !name.trim()) {
             e.preventDefault();
             createReviewMutation.mutateAsync({
               tour_id,
