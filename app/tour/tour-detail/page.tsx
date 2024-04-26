@@ -382,14 +382,9 @@ export default function tours() {
                 </>
               )}
               {activeNav === "Reviews" && (
-                <>
-                  <div className=" mt-5">
-                    <Reviews />
-                  </div>
-                  <div className="mt-5">
-                    <CreateReview />
-                  </div>
-                </>
+                <div className=" mt-5">
+                  <Reviews />
+                </div>
               )}
             </div>
           </div>

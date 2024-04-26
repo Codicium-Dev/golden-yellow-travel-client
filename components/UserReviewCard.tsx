@@ -11,10 +11,10 @@ const UserReviewCard = ({ review }: { review: any }) => {
       <h2 className="lg:text-xl text-md font-semibold">{review?.name}</h2>
       <div className="flex flex-row gap-x-1 text-yellow-400">
         {[...Array(review?.rating)].map((_, index) => (
-          <FaStar key={index} className="w-6 h-6" />
+          <FaStar key={index} className="w-5 h-5" />
         ))}
       </div>
-      <p className="lg:text-md text-sm mt-2">{review?.review}</p>
+      <p className="lg:text-lg text-base mt-2">{review?.review}</p>
     </div>
   );
 };
