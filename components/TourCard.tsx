@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
-import UserReviews from "./UserReviews";
+import TourCardReviews from "./TourCardReviews";
 
 const TourCard = ({ tour, reverse }: any) => {
   const [reviewIn, setReviewIn] = useState(false);
@@ -52,64 +52,11 @@ const TourCard = ({ tour, reverse }: any) => {
               }`
         } ${reverse ? "lg:pr-12 lg:pl-3" : "lg:pl-12 lg:pr-3"}`}
       >
-        <div className="">
-          <h2 className="text-lg lg:text-[32px] xl:text-[26px] text-[#224466] font-bold leading-8">
-            {tour?.name}
-          </h2>
-
-          {/* <div className="flex flex-1 pt-5 pb-2">
-            <p className="text-base lg:text-[22px] leading-[28px] text-[#010E3B] font-normal line-clamp-5">
-              {tour?.overview}
-            </p>
-          </div> */}
-          <div className="flex flex-wrap gap-2 flex-row lg:gap-4 justify-start items-center pt-3">
-            <span className="text-2xl lg:text-3xl text-[#224466] font-bold">
-              5.5
-            </span>
-            <div className="flex items-center gap-x-[2px]">
-              <Image
-                width={28}
-                height={29}
-                alt="full star"
-                src="/fullStar.png"
-                className="w-[25px] h-[25px] lg:w-full lg:h-full object-cover"
-              />
-              <Image
-                width={28}
-                height={29}
-                alt="full star"
-                src="/fullStar.png"
-                className="w-[25px] h-[25px] lg:w-full lg:h-full object-cover"
-              />
-              <Image
-                width={28}
-                height={29}
-                alt="full star"
-                src="/fullStar.png"
-                className="w-[25px] h-[25px] lg:w-full lg:h-full object-cover"
-              />
-              <Image
-                width={28}
-                height={29}
-                alt="full star"
-                src="/fullStar.png"
-                className="w-[25px] h-[25px] lg:w-full lg:h-full object-cover"
-              />
-              <Image
-                width={12}
-                height={24}
-                alt="full star"
-                src="/halfStar.png"
-                className="lg:w-full lg:h-full object-cover"
-              />
-            </div>
-            <span className="text-[#706C6C] text-sm lg:text-base font-bold">
-              39 reviews
-            </span>
-          </div>
-        </div>
-
-        <UserReviews tourId={tour?.id} />
+        <TourCardReviews
+          tourId={tour?.id}
+          tourName={tour?.name}
+          tourRating={Number(tour?.rating)}
+        />
       </div>
 
       {/* content */}

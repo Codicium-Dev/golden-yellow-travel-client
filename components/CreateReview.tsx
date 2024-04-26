@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 
-const CreateReview = () => {
+const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
   const params = useSearchParams();
 
   const tour_id = params.get("tourDetail");
@@ -22,6 +22,18 @@ const CreateReview = () => {
       review: string;
       rating: string;
     }) => postRequest("/review/create", data),
+    onSuccess: () => {
+      setRating(0);
+      setName("");
+      setReview("");
+      if (refetchReviews !== undefined) {
+        refetchReviews(); // Refetch reviews after successful mutation
+      }
+      toast.success("Review Created Successfully");
+    },
+    onError: () => {
+      toast.error("Failed to Create Review. Please try again later.");
+    },
   });
 
   const handleRatingChange = (value: number) => {
@@ -40,7 +52,7 @@ const CreateReview = () => {
       <form
         onSubmit={(e) => {
           if (rating === 0) {
-            toast.error("Please Select A Rating");
+            toast.error("Please Select a Rating");
             e.preventDefault();
             return;
           }
@@ -52,10 +64,6 @@ const CreateReview = () => {
               review,
               rating: rating.toString(),
             });
-
-            setRating(0);
-            setName("");
-            setReview("");
           }
         }}
         className="flex flex-col gap-y-4"
