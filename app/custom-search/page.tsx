@@ -13,9 +13,9 @@ const page = () => {
   const params = useSearchParams();
   const router = useRouter();
 
-  console.log(params.get("cityId"));
-  console.log(params.get("duration"));
-  console.log(params.get("startDate"));
+  // console.log(params.get("cityId"));
+  // console.log(params.get("duration"));
+  // console.log(params.get("startDate"));
 
   const { data, isLoading } = useQuery({
     queryKey: [

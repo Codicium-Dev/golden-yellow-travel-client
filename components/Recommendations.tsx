@@ -110,6 +110,7 @@ export default function Recommendations() {
 
       {/* card container */}
       <div className="mx-auto flex w-full max-w-[2000px] justify-center px-5 lg:px-[190px]">
+        {/* main picture */}
         <div className="w-full md:w-[90%] h-full ">
           {tours?.map((tour: any, index: number) => {
             if (index === 0) {
@@ -146,7 +147,7 @@ export default function Recommendations() {
                       </span>
                       <span className="text-md md:text-xl xl:text-2xl block">
                         {tour?.overview?.length > 100
-                          ? tour?.overview?.substring(0, 250) + "..."
+                          ? tour?.overview?.substring(0, 210) + "..."
                           : tour?.overview}
                       </span>
                     </div>
@@ -155,9 +156,6 @@ export default function Recommendations() {
               );
             }
           })}
-          {/* inner */}
-
-          {/* main picture */}
 
           {/* sub pictures */}
           <div
