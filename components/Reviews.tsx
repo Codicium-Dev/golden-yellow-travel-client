@@ -40,6 +40,10 @@ const Reviews = () => {
           </div>
         )}
 
+        {reviews?.data?.data?.length === 0 && (
+          <p className="w-full text-center text-[#010E3B]">No reviews yet</p>
+        )}
+
         {!isRefetching &&
           reviews?.data?.data?.map((review: any) => (
             <div key={review?.id} className="bg-[#F9F9F9] p-4">
