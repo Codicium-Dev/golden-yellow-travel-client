@@ -31,6 +31,7 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
     "သောက်"
   );
 
+
   const tour_id = params.get("tourDetail");
   const [rating, setRating] = useState(0);
   const [name, setName] = useState("");
@@ -92,6 +93,11 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
           }
 
           if (rating > 0 || tour_id === null) {
+            toast.warning("Name or review contains inappropriate words");
+            return;
+          }
+
+          if (rating > 0 || tour_id === null || !name.trim()) {
             e.preventDefault();
             createReviewMutation.mutateAsync({
               tour_id,
