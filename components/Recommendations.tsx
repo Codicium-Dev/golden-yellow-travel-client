@@ -68,7 +68,7 @@ export default function Recommendations() {
       <span className="block tracking-widest text-2xl md:text-3xl text-center font-bold">
         Recommendation Places
       </span>
-      <div className="flex justify-center items-center">
+      <div className="mx-5 flex justify-center items-center">
         <svg
           width="50"
           height="50"
@@ -85,7 +85,7 @@ export default function Recommendations() {
             clipRule="evenodd"
           ></path>
         </svg>
-        <span className="w-[300px] select-none md:mx-10 py-4 md:py-7 block tracking-widest text-[50px] md:text-[60px] text-center capitalize font-bold text-[#ff7b00] ">
+        <span className="px-5 w-full md:w-[300px] select-none md:mx-10 py-4 md:py-7 block tracking-widest text-[40px] md:text-[60px] text-center capitalize font-bold text-[#ff7b00] ">
           {season}
         </span>
         <svg
@@ -143,7 +143,7 @@ export default function Recommendations() {
                           ? tour?.name.substring(0, 45) + "..."
                           : tour?.name}
                       </span>
-                      <span className="text-md md:text-xl xl:text-2xl block">
+                      <span className="text-base md:text-xl xl:text-2xl block">
                         {tour?.overview?.length > 100
                           ? tour?.overview?.substring(0, 210) + "..."
                           : tour?.overview}

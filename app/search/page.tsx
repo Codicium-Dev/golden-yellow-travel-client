@@ -43,27 +43,21 @@ const page = () => {
   return (
     <>
       <div className="flex flex-wrap justify-center mx-auto px-[20px] md:px-[130px] mt-[20px] mb-[30px] ">
-        <div className="mt-32 mb-7">
+        <div className="mt-28 mb-7 text-base md:text-lg">
           {mainSearch ? (
-            <p
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-                fontSize: "xl",
-              }}
-            >
+            <p className="text-center font-bold text-base md:text-lg text-gray-500">
               Top tour result matching for
-              <span className="text-orange-500 ms-1">{mainSearch}</span>
+              <span className="text-[#1a264e] ms-1">{mainSearch}</span>
             </p>
           ) : (
-            <p className="text-red-500 text-center font-semibold text-lg">
-              ! Search something in the Search box.. Showing all tour packages..
+            <p className="text-[#8f306a] text-center font-semibold text-base md:text-lg">
+              Search something in the Search box! Showing all tour packages..
             </p>
           )}
         </div>
       </div>
-      <div className="my-10 gap-8 flex flex-col px-6 md:px-16 justify-center items-center">
-        {search?.data?.data?.map((tour: any, index: number) => {
+      <div className="mt-10 gap-8 flex flex-col px-6 md:px-16 justify-center items-center">
+        {search?.data?.map((tour: any, index: number) => {
           return (
             <div className="mb-7" key={index}>
               <TourCard tour={tour} reverse={index % 2 !== 0} />

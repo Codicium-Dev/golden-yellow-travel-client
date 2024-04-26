@@ -76,7 +76,7 @@ const SideNavComponent = () => {
             {/* search input */}
             <label
               htmlFor="default-search"
-              className="mb-2 text-xs font-medium  text-gray-900 sr-only dark:text-white search"
+              className="mb-2 text-xs font-medium  text-gray-900 sr-only dark:text-white"
             >
               Search
             </label>
@@ -84,7 +84,7 @@ const SideNavComponent = () => {
               <input
                 type="text"
                 id="default-search"
-                className="block w-full h-[40px] pl-10 text-xs border border-gray-200 text-black rounded-sm bg-stone-200 focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 outline-none"
+                className="block w-full h-[40px] pl-5 text-xs border border-gray-200 text-black rounded-sm bg-stone-200 focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 outline-none"
                 placeholder="Search..."
                 required
                 onKeyPress={(e) => handleSearch(e)}
