@@ -10,7 +10,27 @@ import { useSearchParams } from "next/navigation";
 
 const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
   const params = useSearchParams();
-  const filter = new BadWordsFilter();
+  const filter = new BadWordsFilter(); // Create an instance of bad-words filter
+
+  filter.addWords(
+    "lee",
+    "chee",
+    "nga",
+    "loe",
+    "sapat",
+    "spat",
+    "လီး",
+    "လိုး",
+    "စက်",
+    "ပတ်",
+    "စပ",
+    "ခွေး",
+    "စပတ်",
+    "စပက်",
+    "စောက်",
+    "သောက်"
+  );
+
 
   const tour_id = params.get("tourDetail");
   const [rating, setRating] = useState(0);
@@ -61,10 +81,18 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
 
           if (!name.trim()) {
             toast.error("Name cannot be empty");
+            e.preventDefault();
             return;
           }
 
           if (filter.isProfane(name) || filter.isProfane(review)) {
+            // Check if name or review contains profanity
+            toast.warning("Name or review contains inappropriate words");
+            e.preventDefault();
+            return;
+          }
+
+          if (rating > 0 || tour_id === null) {
             toast.warning("Name or review contains inappropriate words");
             return;
           }
