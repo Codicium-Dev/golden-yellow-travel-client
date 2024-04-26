@@ -53,6 +53,7 @@ const Page: React.FC = () => {
               className=" rounded shadow-xl"
               style={{ width: "100%", height: "5 00px" }}
               alt="New Detail photo"
+              priority
             />
 
             <h1 className="text-xl lg:text-3xl py-8 text-[#224466] font-bold">
@@ -83,6 +84,7 @@ const Page: React.FC = () => {
                       className=" rounded"
                       style={{ width: "100%", height: "300px" }}
                       alt="New Content photo"
+                      priority
                     />
                   </div>
                 );

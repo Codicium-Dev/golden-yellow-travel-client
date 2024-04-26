@@ -17,6 +17,7 @@ export default function HeroSection({
   return (
     <div>
       <Image
+        priority
         src={photo}
         alt="hero"
         width={2000}
