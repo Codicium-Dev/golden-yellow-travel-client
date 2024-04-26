@@ -108,7 +108,7 @@ const page = () => {
 
   const loadingData = async () => {
     const Tour = await fetch(
-      `https://api.goldenyellowtravel.yolodigitalmyanmar.com/api/v1/city/list?columns=name&search=${searchParams.get(
+      `https://newapi.goldenyellowtravel.com/api/v1/city/list?columns=name&search=${searchParams.get(
         "navTag"
       )}`
     )
@@ -117,7 +117,7 @@ const page = () => {
       })
       .then((data) => {
         return fetch(
-          `https://api.goldenyellowtravel.yolodigitalmyanmar.com/api/v1/tour/list?columns=city_id&search=${data?.data.data[0]?.id}`
+          `https://newapi.goldenyellowtravel.com/api/v1/tour/list?columns=city_id&search=${data?.data.data[0]?.id}`
         );
       })
       .then((secondApiResponse) => {

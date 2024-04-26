@@ -386,7 +386,7 @@ const Index = () => {
         </h1>
 
         <div className="my-10 gap-8 flex flex-col px-6 md:px-16 justify-center items-center">
-          {Tours?.data?.data?.map((tour: any, index: number) => {
+          {Tours?.data?.map((tour: any, index: number) => {
             return (
               <TourCard key={index} tour={tour} reverse={index % 2 !== 0} />
             );

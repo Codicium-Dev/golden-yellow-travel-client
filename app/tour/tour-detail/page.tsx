@@ -399,7 +399,7 @@ export default function tours() {
           </div>
           {/* similar tours */}
           <div className=" px-[20px] md:px-[130px] flex flex-wrap gap-10 pb-5">
-            {similarTours?.data?.data?.map((tour: any, index: number) => {
+            {similarTours?.data?.map((tour: any, index: number) => {
               if (tour.id !== tours?.data?.id) {
                 return (
                   <div

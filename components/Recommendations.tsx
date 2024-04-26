@@ -47,11 +47,9 @@ export default function Recommendations() {
     queryKey: ["recommendations"],
     queryFn: () => getRequest(`tour/list?page=1&per_page=1000`),
   });
-  // useEffect(() => {
-  //   setTours(Tours?.data?.data);
-  // }, [Tours]);
+
   useEffect(() => {
-    const filteredTours = Tours?.data?.data?.filter(
+    const filteredTours = Tours?.data?.filter(
       (tour: { recommend: string }) => tour.recommend === season
     );
     setTours(filteredTours);
