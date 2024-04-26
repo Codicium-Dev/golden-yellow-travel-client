@@ -5,7 +5,7 @@ import React from "react";
 const MostPopularDestinations = ({ cityTour }: { cityTour: any }) => {
   return (
     <div className="bg-white mb-12">
-      <h1 className="text-center text-3xl font-bold text-primary my-8">
+      <h1 className="text-center text-3xl font-bold text-primary mt-14 mb-8">
         The Most Popular Destinations
       </h1>
 

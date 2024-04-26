@@ -188,7 +188,7 @@ const Index = () => {
               {selectCountry && (
                 <div
                   ref={countryRef}
-                  className="max-h-[180px] overflow-y-scroll bg-slate-50 shadow-lg absolute top-[120px] right-[5px] w-full z-40"
+                  className="max-h-[180px] overflow-y-auto bg-slate-50 shadow-lg absolute top-[120px] right-[5px] w-full z-40"
                 >
                   <ul className="">
                     {countries?.data?.data?.map((country: any) => {
@@ -202,7 +202,7 @@ const Index = () => {
                           key={country?.id}
                           className=" border-b-[#c1d0d2] border-b"
                         >
-                          <div className=" p-5 flex justify-center items-center">
+                          <div className=" p-[18px] flex justify-center items-center">
                             <span>{country?.name}</span>
                           </div>
                         </li>
@@ -255,7 +255,7 @@ const Index = () => {
                           key={city?.id}
                           className=" border-b-[#c1d0d2] border-b"
                         >
-                          <div className=" p-5 flex justify-center items-center">
+                          <div className=" p-[18px] flex justify-center items-center">
                             <span>{city?.name}</span>
                           </div>
                         </li>
@@ -309,7 +309,7 @@ const Index = () => {
                           }}
                           className=" border-b-[#c1d0d2] border-b"
                         >
-                          <div className=" p-5 flex justify-center items-center">
+                          <div className=" p-[18px] flex justify-center items-center">
                             <span>{d?.name}</span>
                           </div>
                         </li>
@@ -380,12 +380,12 @@ const Index = () => {
 
       {/* Most popular & best adventures */}
 
-      <div className="bg-[#fff] py-12">
-        <h1 className="open-sans text-center text-3xl font-bold ">
+      <div className="bg-[#fff] py-14">
+        <h1 className="px-5 open-sans text-center text-3xl font-bold ">
           Our most popular & best adventures
         </h1>
 
-        <div className="my-10 gap-8 flex flex-col px-6 md:px-16 justify-center items-center">
+        <div className="mt-10 gap-8 flex flex-col px-6 md:px-16 justify-center items-center">
           {Tours?.data?.map((tour: any, index: number) => {
             return (
               <TourCard key={index} tour={tour} reverse={index % 2 !== 0} />

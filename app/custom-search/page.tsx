@@ -32,6 +32,8 @@ const page = () => {
       ),
   });
 
+  console.log("custom search data \n", data);
+
   const [clickSearched, setClickSearch] = useState("");
 
   if (isLoading) {

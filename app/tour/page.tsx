@@ -325,7 +325,7 @@ const page = () => {
             alt="money back guaranteed"
             className="img"
           />
-          <p>MONEY BACK GUARANTEE</p>
+          <p className="text-sm md:text-lg lg:text-xl">MONEY BACK GUARANTEE</p>
         </div>
 
         <div className="money flex items-center align-middle">
@@ -336,7 +336,7 @@ const page = () => {
             alt="best price guaranteed"
             className="img"
           />
-          <p>BEST PRICE GUARANTEED</p>
+          <p className="text-sm md:text-lg lg:text-xl">BEST PRICE GUARANTEED</p>
         </div>
 
         <div className="money flex items-center align-middle">
@@ -347,7 +347,9 @@ const page = () => {
             alt="customizable by local experts"
             className="img"
           />
-          <p className=" text-xs md:text-base">CUSTOMIZABLE BY LOCAL EXPERTS</p>
+          <p className="text-sm md:text-lg lg:text-xl">
+            CUSTOMIZABLE BY LOCAL EXPERTS
+          </p>
         </div>
       </div>
 
@@ -357,7 +359,7 @@ const page = () => {
           {searchParams.get("navTag")} {new Date().getFullYear()}
         </h1>
 
-        <div className="px-[20px] md:px-[130px]  my-10 gap-8   flex flex-wrap  justify-center">
+        <div className="px-[20px] md:px-[130px] my-10 gap-8 flex flex-wrap justify-center">
           {tourLists?.data?.data?.map((tour: any) => {
             return (
               <div

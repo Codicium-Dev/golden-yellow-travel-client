@@ -72,7 +72,7 @@ const Footer = () => {
 
   return (
     <div>
-      <div className="sticky bottom-0 px-[20px] lg:px-[40px] py-5 bg-[#f1f2f3] grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-0">
+      <div className="sticky bottom-0 px-[20px] lg:px-[70px] py-5 bg-[#f1f2f3] grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-0">
         <div>
           <div className=" flex items-center gap-5">
             <Image

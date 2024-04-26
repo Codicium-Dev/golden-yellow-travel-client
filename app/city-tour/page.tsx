@@ -17,10 +17,10 @@ const page = () => {
   const router = useRouter();
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["cityTourList", searchParams.get("city")],
+    queryKey: ["cityId", searchParams.get("city")],
     queryFn: () =>
       getRequest(
-        `/tour/list?columns=city_id&search=${searchParams.get("city")}`
+        `/tour/list?columns=city_id&search=${searchParams.get("cityId")}`
       ),
   });
 
@@ -61,7 +61,7 @@ const page = () => {
           <h1 className="text-2xl font-bold">No Tour Available</h1>
         </div>
       )}
-      <div className="my-10 gap-8 flex flex-col px-6 md:px-16 justify-center items-center">
+      <div className="mt-10 gap-8 flex flex-col px-6 md:px-16 justify-center items-center">
         {data?.data?.data?.length !== 0 &&
           data?.data?.data?.map((tour: any, index: number) => {
             return (
