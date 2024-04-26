@@ -215,7 +215,7 @@ const Index = () => {
               {selectCountry && (
                 <div
                   ref={countryRef}
-                  className=" bg-slate-50 shadow-lg absolute top-[50px] left-0 w-full z-40"
+                  className=" bg-slate-50 shadow-lg absolute top-[60px] right-[5px] w-full z-40"
                 >
                   <ul className="">
                     {countries?.data?.data?.map((country: any) => {
@@ -227,7 +227,7 @@ const Index = () => {
                               setCountryName(country?.name);
                           }}
                           key={country?.id}
-                          className=" border-b-[#010e3a] border-b-2"
+                          className=" border-b-[#c1d0d2] border-b"
                         >
                           <div className=" p-5 flex justify-center items-center">
                             <span>{country?.name}</span>
@@ -242,7 +242,7 @@ const Index = () => {
             </div>
 
             {/* select city */}
-            <div className=" h-full w-full flex lg:w-[30%] cursor-pointer lg:ml-5 items-center relative">
+            <div className=" h-full w-full flex lg:w-[30%] cursor-pointer lg:ml-5 items-center relative red">
               <button
                 className=" w-full h-full pl-[25px] lg:pl-0 flex justify-start items-center gap-[10px]"
                 onClick={() => {
@@ -268,7 +268,7 @@ const Index = () => {
               {selectStyle && countryId !== "" && (
                 <div
                   ref={cityRef}
-                  className=" min-h-[200px] bg-slate-50 shadow-lg overflow-y-auto absolute top-[50px] left-0 w-full z-40"
+                  className=" min-h-[200px] bg-slate-50 shadow-lg overflow-y-auto absolute top-[60px] right-[5px] w-full z-40"
                 >
                   <ul className="">
                     {cities?.data?.data?.map((city: any) => {
@@ -280,7 +280,7 @@ const Index = () => {
                               setCityName(city?.name);
                           }}
                           key={city?.id}
-                          className=" border-b-[#010e3a] border-b-2"
+                          className=" border-b-[#c1d0d2] border-b"
                         >
                           <div className=" p-5 flex justify-center items-center">
                             <span>{city?.name}</span>
@@ -334,7 +334,7 @@ const Index = () => {
                               setSelectModal(!selectModal),
                               setDurationName(d?.name);
                           }}
-                          className=" border-b-[#010e3a] border-b-2"
+                          className=" border-b-[#c1d0d2] border-b"
                         >
                           <div className=" p-5 flex justify-center items-center">
                             <span>{d?.name}</span>
