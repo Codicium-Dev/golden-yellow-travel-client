@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import Image from "next/image";
 import React from "react";
+import { getTimestamp } from "@/helper/utils";
 import { toast } from "react-toastify";
 import { useAuth } from "@clerk/nextjs";
 
@@ -43,9 +44,12 @@ const UserReviewCard = ({
             }}
           />
         ) : (
-          ""
+          <></>
         )}
       </div>
+      <p className="lg:text-base text-sm text-gray-400">
+        {getTimestamp(new Date(review?.created_at))}
+      </p>
       <div className="flex flex-row gap-x-1 text-yellow-400">
         {[...Array(review?.rating)].map((_, index) => (
           <FaStar key={index} className="w-5 h-5" />
