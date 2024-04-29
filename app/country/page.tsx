@@ -18,15 +18,27 @@ const page = () => {
   let prefetchCountry =
     searchParams.get("countryName") === "Vietnam" ? "Thailand" : "Vietnam";
 
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["countryName", searchParams.get("countryName")],
     queryFn: () =>
       getRequest(
         `/tour/list?columns=name&search=${searchParams.get("countryName")}`
       ),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const queryClient = useQueryClient();
+
+  // useEffect(() => {
+  //   if (searchParams.get("countryName")) {
+  //     queryClient.prefetchQuery({
+  //       queryKey: ["countryName", prefetchCountry],
+  //       queryFn: () =>
+  //         getRequest(`/tour/list?columns=name&search=${prefetchCountry}`),
+  //     });
+  //   }
+  // }, [searchParams.get("countryName")]);
 
   useEffect(() => {
     if (searchParams.get("countryName")) {
@@ -37,12 +49,6 @@ const page = () => {
       });
     }
   }, [searchParams.get("countryName")]);
-
-  useEffect(() => {
-    if (searchParams.get("countryName")) {
-      refetch();
-    }
-  }, [searchParams]);
 
   if (isLoading) {
     return (
@@ -64,7 +70,7 @@ const page = () => {
             <PuffLoader color={"#010E3B"} aria-label="Loading Spinner" />
           </div>
         )}
-        {data?.data?.data?.map((tour: any, index: number) => {
+        {data?.data?.map((tour: any, index: number) => {
           return <TourCard key={index} tour={tour} reverse={index % 2 !== 0} />;
         })}
       </div>
