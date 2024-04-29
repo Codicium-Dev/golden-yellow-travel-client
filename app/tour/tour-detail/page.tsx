@@ -7,7 +7,6 @@ import {
 } from "react-icons/ai";
 import { FaBed, FaMapMarkedAlt, FaMountain } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
 
 import { BiCategory } from "react-icons/bi";
 import CreateReview from "@/components/CreateReview";
@@ -24,6 +23,7 @@ import Reviews from "@/components/Reviews";
 import { SiYourtraveldottv } from "react-icons/si";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 
 const NavLinks = [
   {

@@ -126,6 +126,8 @@ const Header = () => {
             "/news/news-detail",
             "/term-conditions",
             "/privacy-statement",
+            "/sign-in",
+            "/sign-up",
           ].includes(pathname)
             ? "bg-[#010e3b]"
             : bgColor
