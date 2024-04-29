@@ -30,16 +30,6 @@ const page = () => {
 
   const queryClient = useQueryClient();
 
-  // useEffect(() => {
-  //   if (searchParams.get("countryName")) {
-  //     queryClient.prefetchQuery({
-  //       queryKey: ["countryName", prefetchCountry],
-  //       queryFn: () =>
-  //         getRequest(`/tour/list?columns=name&search=${prefetchCountry}`),
-  //     });
-  //   }
-  // }, [searchParams.get("countryName")]);
-
   useEffect(() => {
     if (searchParams.get("countryName")) {
       queryClient.prefetchQuery({
