@@ -1,6 +1,6 @@
 import { FaRegStar, FaStar } from "react-icons/fa";
 import React, { useState } from "react";
-import { SignIn, useAuth, useSession } from "@clerk/nextjs";
+import { SignIn, SignOutButton, useAuth, useSession } from "@clerk/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import BadWordsFilter from "bad-words"; // Import bad-words library
@@ -53,6 +53,7 @@ const CreateReview = ({
   const createReviewMutation = useMutation({
     mutationFn: (data: {
       tour_id: string | null;
+      user_id: string | null;
       name: string;
       review: string;
       rating: string;
@@ -84,7 +85,8 @@ const CreateReview = ({
     if (!userId || !session || !session.session) {
       e.preventDefault();
       router.push(
-        "/sign-in?callbackUrl=/tour/tour-detail?tourDetail=" + tour_id
+        "/sign-in?redirect_url=http://localhost:3000/tour/tour-detail?tourDetail=" +
+          tour_id
       );
       return;
     }
@@ -93,7 +95,8 @@ const CreateReview = ({
       e.preventDefault();
       toast.error("Your session has expired. Please sign in again.");
       router.push(
-        "/sign-in?callbackUrl=/tour/tour-detail?tourDetail=" + tour_id
+        "/sign-in?redirect_url=http://localhost:3000/tour/tour-detail?tourDetail=" +
+          tour_id
       );
       return;
     }
@@ -117,10 +120,11 @@ const CreateReview = ({
       return;
     }
 
-    if (rating > 0 || tour_id === null || !name.trim()) {
+    if (rating > 0 || tour_id !== null || !name.trim() || userId !== null) {
       e.preventDefault();
       createReviewMutation.mutateAsync({
         tour_id,
+        user_id: userId,
         name,
         review,
         rating: rating.toString(),
