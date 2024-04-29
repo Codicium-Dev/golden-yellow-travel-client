@@ -1,12 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@layer primereact;
-
 @import "@radix-ui/colors/black-alpha.css";
 @import "@radix-ui/colors/mauve.css";
 @import "@radix-ui/colors/violet.css";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer primereact;
 /* reset */
 button,
 h3 {

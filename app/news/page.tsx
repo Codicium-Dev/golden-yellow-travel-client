@@ -3,10 +3,10 @@
 import BlogCard from "@/components/BlogCard";
 import HeroSection from "@/components/HeroSection";
 import InfiniteScroll from "react-infinite-scroller";
+import { PuffLoader } from "react-spinners";
 import React from "react";
 import { getRequest } from "@/services/api/apiService";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { PuffLoader } from "react-spinners";
 
 const Page = () => {
   const {
@@ -60,7 +60,7 @@ const Page = () => {
           hasMore={hasNextPage}
           loader={
             <div className="flex items-center justify-center">
-              <img className=" w-[50px]" src="/loading.svg" alt="" />
+              <PuffLoader color={"#010E3B"} aria-label="Loading Spinner" />
             </div>
           }
         />
