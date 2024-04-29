@@ -348,3 +348,8 @@ body {
 .primaryBtn:hover {
   background-color: #c2410c;
 }
+
+/* hidden clerk */
+.cl-internal-180wb59 {
+  display: none;
+}

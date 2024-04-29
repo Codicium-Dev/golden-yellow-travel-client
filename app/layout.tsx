@@ -1,6 +1,7 @@
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 
+import { ClerkProvider } from "@clerk/nextjs";
 import Footer from "@/components/Footer";
 import Header from "../components/Header";
 import { Inter } from "next/font/google";
@@ -45,19 +46,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ReactQueryProvider>
-      <html lang="en">
-        <body
-          className={`${inter.variable} ${openSans.variable} ${monda.variable}`}
-        >
-          <ReduxProvider>
-            <Header />
-            <ToastContainer />
-            {children}
-            <Footer />
-          </ReduxProvider>
-        </body>
-      </html>
-    </ReactQueryProvider>
+    <ClerkProvider>
+      <ReactQueryProvider>
+        <html lang="en">
+          <body
+            className={`${inter.variable} ${openSans.variable} ${monda.variable}`}
+          >
+            <ReduxProvider>
+              <Header />
+              <ToastContainer />
+              {children}
+              <Footer />
+            </ReduxProvider>
+          </body>
+        </html>
+      </ReactQueryProvider>
+    </ClerkProvider>
   );
 }

@@ -21,6 +21,7 @@ const Reviews = () => {
         `review/list?columns=tour_id&search=${params.get("tourDetail")}`
       ),
     refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {
@@ -47,7 +48,7 @@ const Reviews = () => {
         {!isRefetching &&
           reviews?.data?.data?.map((review: any) => (
             <div key={review?.id} className="bg-[#F9F9F9] p-4">
-              <UserReviewCard review={review} />
+              <UserReviewCard refetchReviews={refetchReviews} review={review} />
             </div>
           ))}
       </div>

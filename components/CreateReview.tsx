@@ -1,14 +1,28 @@
 import { FaRegStar, FaStar } from "react-icons/fa";
 import React, { useState } from "react";
+import { SignIn, SignOutButton, useAuth, useSession } from "@clerk/nextjs";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import BadWordsFilter from "bad-words"; // Import bad-words library
 import { PuffLoader } from "react-spinners";
 import { postRequest } from "@/services/api/apiService";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 
-const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
+const CreateReview = ({
+  refetchReviews,
+}: {
+  refetchReviews?: () => void;
+  userId: string | null;
+}) => {
+  const { userId } = useAuth();
+  const session = useSession();
+
+  console.log("userId", userId);
+  console.log("session", session);
+
+  const router = useRouter();
+  console.log(userId);
   const params = useSearchParams();
   const filter = new BadWordsFilter(); // Create an instance of bad-words filter
 
@@ -31,7 +45,6 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
     "သောက်"
   );
 
-
   const tour_id = params.get("tourDetail");
   const [rating, setRating] = useState(0);
   const [name, setName] = useState("");
@@ -40,6 +53,7 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
   const createReviewMutation = useMutation({
     mutationFn: (data: {
       tour_id: string | null;
+      user_id: string | null;
       name: string;
       review: string;
       rating: string;
@@ -67,48 +81,62 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (!userId || !session || !session.session) {
+      e.preventDefault();
+      router.push(
+        "/sign-in?redirect_url=http://localhost:3000/tour/tour-detail?tourDetail=" +
+          tour_id
+      );
+      return;
+    }
+
+    if (session?.session?.expireAt < new Date()) {
+      e.preventDefault();
+      toast.error("Your session has expired. Please sign in again.");
+      router.push(
+        "/sign-in?redirect_url=http://localhost:3000/tour/tour-detail?tourDetail=" +
+          tour_id
+      );
+      return;
+    }
+
+    if (rating === 0) {
+      toast.error("Please Select a Rating");
+      e.preventDefault();
+      return;
+    }
+
+    if (!name.trim()) {
+      toast.error("Name cannot be empty");
+      e.preventDefault();
+      return;
+    }
+
+    if (filter.isProfane(name.trim()) || filter.isProfane(review.trim())) {
+      // Check if name or review contains profanity
+      toast.warning("Name or review contains inappropriate words");
+      e.preventDefault();
+      return;
+    }
+
+    if (rating > 0 || tour_id !== null || !name.trim() || userId !== null) {
+      e.preventDefault();
+      createReviewMutation.mutateAsync({
+        tour_id,
+        user_id: userId,
+        name,
+        review,
+        rating: rating.toString(),
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col gap-y-4">
       <h1 className="text-xl font-bold">Create Review</h1>
       <p>Fill out the form below to create a review.</p>
-      <form
-        onSubmit={(e) => {
-          if (rating === 0) {
-            toast.error("Please Select a Rating");
-            e.preventDefault();
-            return;
-          }
-
-          if (!name.trim()) {
-            toast.error("Name cannot be empty");
-            e.preventDefault();
-            return;
-          }
-
-          if (filter.isProfane(name) || filter.isProfane(review)) {
-            // Check if name or review contains profanity
-            toast.warning("Name or review contains inappropriate words");
-            e.preventDefault();
-            return;
-          }
-
-          if (rating > 0 || tour_id === null) {
-            toast.warning("Name or review contains inappropriate words");
-            return;
-          }
-
-          if (rating > 0 || tour_id === null || !name.trim()) {
-            e.preventDefault();
-            createReviewMutation.mutateAsync({
-              tour_id,
-              name,
-              review,
-              rating: rating.toString(),
-            });
-          }
-        }}
-        className="flex flex-col gap-y-4"
-      >
+      <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-y-4">
         <div className="flex flex-col gap-y-2">
           <label htmlFor="name" className="font-semibold">
             Name
