@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Golden Yellow Travel - Terms and Conditions",
+  description: "This is the terms and conditions page of Golden Yellow Travel.",
+  keywords: "Golden Yellow Travel, Terms and Conditions",
+};
 
 const page = () => {
   return (

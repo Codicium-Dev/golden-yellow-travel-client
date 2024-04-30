@@ -128,6 +128,7 @@ const Header = () => {
             "/privacy-statement",
             "/sign-in",
             "/sign-up",
+            "/book-form",
           ].includes(pathname)
             ? "bg-[#010e3b]"
             : bgColor
