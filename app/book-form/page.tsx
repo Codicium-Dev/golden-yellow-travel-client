@@ -5,9 +5,9 @@ import { getRequest, postRequest } from "@/services/api/apiService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { BiSolidBook } from "react-icons/bi";
+import { PuffLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { useSearchParams } from "next/navigation";
-import { PuffLoader } from "react-spinners";
 
 type payload = {
   gender: string;
@@ -21,17 +21,8 @@ type payload = {
 };
 
 const page = () => {
-  const [payload, setPayload] = useState<payload | any>({
-    tour_id: "",
-    gender: "",
-    full_name: "",
-    email: "",
-    phone: "",
-    country: "",
-    city: "",
-    social_media: "",
-  });
-  const [tourId, setTourId] = useState("");
+  const params = useSearchParams();
+
   const [gender, setGender] = useState("");
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
@@ -40,65 +31,49 @@ const page = () => {
   const [city, setCity] = useState("");
   const [socialMedia, setSocialMedia] = useState("");
 
-  const params = useSearchParams();
   console.log(params.get("tourCode"));
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ["bookTour"],
+  const { data, isLoading } = useQuery({
+    queryKey: ["bookTour", params.get("tourCode")],
     queryFn: () => getRequest(`tour/show/${params.get("tourCode")}`),
-    enabled: false,
-    onSuccess: () => {
-      setTourId(data?.data?.id);
-    },
   });
 
-  useEffect(() => {
-    refetch();
-  }, [params]);
+  const mutation = useMutation(
+    (data: {
+      tour_id: string;
+      gender: string;
+      full_name: string;
+      email: string;
+      phone: string;
+      country: string;
+      city: string;
+      social_media: string;
+    }) => postRequest("/book-form/create", data)
+  );
 
-  console.log(payload);
-
-  const mutation = useMutation((newTodo) => {
-    return postRequest("/book-form/create", newTodo);
-  });
-
-  useEffect(() => {
-    if (mutation.isSuccess) {
-      toast.success("Success booking", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
-  }, [mutation]);
-
-  useEffect(() => {
-    setPayload({
-      tour_id: data?.data?.id,
-      gender: gender,
-      full_name: fullName,
-      email: email,
-      phone: phone,
-      country: country,
-      city: city,
-      social_media: socialMedia,
-    });
-  }, [data, gender, fullName, email, phone, country, city, socialMedia]);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center ">
         <PuffLoader color={"#010E3B"} aria-label="Loading Spinner" />
       </div>
     );
   }
 
   return (
-    <div className=" min-h-screen">
-      <div className=" px-[20px] md:px-[130px]">
-        <h1 className=" text-center font-bold text-2xl text-orange-600 tracking-wider mt-10">
+    <div className="min-h-screen pt-[90px] md:pt-[120px] bg-[#E2F3FF] open-sans">
+      <div className="px-6 pb-8 lg:px-20 lg:pb-12">
+        <h1 className=" text-center font-bold lg:text-4xl text-2xl text-orange-600 tracking-wider mt-10">
           Your Booking Tour
         </h1>
 
-        <div className=" bg-slate-50 pb-5 shadow rounded mt-20 mb-20 overflow-hidden relative">
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className=" bg-slate-50 pb-5 shadow rounded mt-20 mb-20 overflow-hidden relative"
+        >
           <div className=" w-20 h-20 rounded-full bg-orange-500 absolute -top-10 -right-10"></div>
 
           <div className=" grid grid-cols-2 gap-2">
@@ -181,8 +156,8 @@ const page = () => {
                       <div className=" block lg:flex items-center gap-5">
                         <p className=" text-slate-500">Price : </p>
                         <p className="">
-                          {data?.data?.price}{" "}
                           <span className=" text-orange-500">$</span>
+                          {data?.data?.price}{" "}
                         </p>
                       </div>
                     </div>
@@ -192,8 +167,8 @@ const page = () => {
                       <div className=" block lg:flex items-center gap-5">
                         <p className=" text-slate-500">Sale Price : </p>
                         <p className="">
-                          {data?.data?.sale_price}{" "}
                           <span className=" text-orange-500">$</span>
+                          {data?.data?.sale_price}{" "}
                         </p>
                       </div>
                     </div>
@@ -205,13 +180,17 @@ const page = () => {
 
           <div className=" grid grid-cols-2 gap-5 px-3 py-2">
             <div className=" col-start-1 col-span-12 lg:col-span-1">
-              <h1 className=" mb-2 font-semibold text-orange-600">Gender</h1>
+              <label
+                htmlFor="gender"
+                className="mb-2 font-semibold text-orange-600"
+              >
+                Gender
+              </label>
               <select
                 // onChange={handleChange}
                 onChange={(e) => setGender(e.target.value)}
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
-                name=""
-                id=""
+                className="w-full border border-orange-600 px-3 py-2 rounded-lg"
+                name="gender"
               >
                 <option value="male">Mr.</option>
                 <option value="female">Ms.</option>
@@ -219,13 +198,14 @@ const page = () => {
               </select>
             </div>
             <div className=" col-start-1 lg:col-start-2 col-span-12 lg:col-span-1">
-              <h1 className=" mb-2 font-semibold text-orange-600">Full Name</h1>
+              <label className=" mb-2 font-semibold text-orange-600">
+                Full Name
+              </label>
               <input
                 type="text"
                 // value={payload.full_name}
                 onChange={(e) => setFullName(e.target.value)}
                 name=""
-                id=""
                 placeholder="Enter your full name"
                 className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
                 required
@@ -236,27 +216,29 @@ const page = () => {
 
           <div className=" grid grid-cols-2 gap-5 px-3 py-2">
             <div className=" col-start-1 col-span-12 lg:col-span-1">
-              <h1 className=" mb-2 font-semibold text-orange-600">Email</h1>
+              <label className=" mb-2 font-semibold text-orange-600">
+                Email
+              </label>
               <input
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 name=""
-                id=""
                 required
                 className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
                 // onChange={(e) => setBudget(e.target.value)}
               />
             </div>
             <div className=" col-start-1 lg:col-start-2 col-span-12 lg:col-span-1">
-              <h1 className=" mb-2 font-semibold text-orange-600">Phone</h1>
+              <label className=" mb-2 font-semibold text-orange-600">
+                Phone
+              </label>
               <input
                 type="number"
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Enter your phone number"
                 name=""
                 required
-                id=""
                 className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
                 // onChange={(e) => setBudget(e.target.value)}
               />
@@ -265,27 +247,29 @@ const page = () => {
 
           <div className=" grid grid-cols-2 gap-5 px-3 py-2">
             <div className=" col-start-1 col-span-12 md:col-span-1">
-              <h1 className=" mb-2 font-semibold text-orange-600">Country</h1>
+              <label className=" mb-2 font-semibold text-orange-600">
+                Country
+              </label>
               <input
                 type="text"
                 onChange={(e) => setCountry(e.target.value)}
                 placeholder="Enter your country name"
                 name=""
                 required
-                id=""
                 className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
                 // onChange={(e) => setBudget(e.target.value)}
               />
             </div>
             <div className=" col-start-1 md:col-start-2 col-span-12 md:col-span-1">
-              <h1 className=" mb-2 font-semibold text-orange-600">City</h1>
+              <label className=" mb-2 font-semibold text-orange-600">
+                City
+              </label>
               <input
                 type="text"
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="Enter your city name"
                 name=""
                 required
-                id=""
                 className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
                 // onChange={(e) => setBudget(e.target.value)}
               />
@@ -294,16 +278,15 @@ const page = () => {
 
           <div className=" grid grid-cols-2 gap-5 px-3 py-2">
             <div className=" col-start-1 col-span-12 md:col-span-1">
-              <h1 className=" mb-2 font-semibold text-orange-600">
+              <label className=" mb-2 font-semibold text-orange-600">
                 Social Media
-              </h1>
+              </label>
               <input
                 type="text"
                 onChange={(e) => setSocialMedia(e.target.value)}
                 placeholder="Enter your social media"
                 name=""
                 required
-                id=""
                 className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
                 // onChange={(e) => setBudget(e.target.value)}
               />
@@ -312,9 +295,6 @@ const page = () => {
               <div className=" h-full flex items-end justify-end">
                 <button
                   disabled={mutation?.isLoading}
-                  onClick={() => {
-                    mutation.mutate(payload);
-                  }}
                   className=" px-3 py-2 bg-orange-500 text-white rounded-lg flex items-center gap-2"
                 >
                   Submit
@@ -323,7 +303,7 @@ const page = () => {
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

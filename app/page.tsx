@@ -9,6 +9,7 @@ import HeroSection from "@/components/HeroSection";
 import Image from "next/image";
 import Link from "next/link";
 import Loading from "./loading";
+import type { Metadata } from "next";
 import MostPopularDestinations from "@/components/MostPopularDestinations";
 import Recommendations from "@/components/Recommendations";
 import { RootState } from "@/services/lib/store";
