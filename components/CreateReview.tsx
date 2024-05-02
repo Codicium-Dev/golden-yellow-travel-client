@@ -120,7 +120,7 @@ const CreateReview = ({
       return;
     }
 
-    if (rating > 0 || tour_id !== null || !name.trim() || userId !== null) {
+    if (rating > 0 && tour_id !== null && !name.trim() && userId !== null) {
       e.preventDefault();
       createReviewMutation.mutateAsync({
         tour_id,
