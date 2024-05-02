@@ -31,16 +31,16 @@ const page = () => {
   const [city, setCity] = useState("");
   const [socialMedia, setSocialMedia] = useState("");
 
-  console.log(params.get("tourCode"));
+  const tour_id = params.get("tourCode");
 
   const { data, isLoading } = useQuery({
     queryKey: ["bookTour", params.get("tourCode")],
     queryFn: () => getRequest(`tour/show/${params.get("tourCode")}`),
   });
 
-  const mutation = useMutation(
-    (data: {
-      tour_id: string;
+  const bookFormMutation = useMutation({
+    mutationFn: (data: {
+      tour_id: string | null;
       gender: string;
       full_name: string;
       email: string;
@@ -48,11 +48,47 @@ const page = () => {
       country: string;
       city: string;
       social_media: string;
-    }) => postRequest("/book-form/create", data)
-  );
+    }) => postRequest("/book-form/create", data),
+    onSuccess: () => {
+      setGender("");
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setCountry("");
+      setCity("");
+      setSocialMedia("");
+      toast.success("Booking Successful");
+    },
+    onError: () => {
+      toast.error("Booking Failed. Please try again later");
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (
+      tour_id !== "" &&
+      tour_id !== null &&
+      gender !== "" &&
+      fullName !== "" &&
+      email !== "" &&
+      phone !== "" &&
+      country !== "" &&
+      city !== "" &&
+      socialMedia !== ""
+    ) {
+      bookFormMutation.mutateAsync({
+        tour_id,
+        gender,
+        full_name: fullName,
+        email,
+        phone,
+        country,
+        city,
+        social_media: socialMedia,
+      });
+    }
   };
 
   if (isLoading) {
@@ -66,7 +102,7 @@ const page = () => {
   return (
     <div className="min-h-screen pt-[90px] md:pt-[120px] bg-[#E2F3FF] open-sans">
       <div className="px-6 pb-8 lg:px-20 lg:pb-12">
-        <h1 className=" text-center font-bold lg:text-4xl text-2xl text-orange-600 tracking-wider mt-10">
+        <h1 className=" text-center font-bold lg:text-4xl text-2xl text-orange-600 tracking-wider mt-6">
           Your Booking Tour
         </h1>
 
@@ -86,7 +122,7 @@ const page = () => {
             </div>
             <div className=" col-start-1 lg:col-start-2 col-span-2 lg:col-span-1">
               <div className=" p-5">
-                <h1 className=" text-orange-500 font-semibold text-lg">
+                <h1 className=" text-orange-500 font-semibold text-2xl mb-4">
                   {data?.data?.name}
                 </h1>
 
@@ -294,11 +330,22 @@ const page = () => {
             <div className=" col-start-1 md:col-start-2 col-span-12 md:col-span-1">
               <div className=" h-full flex items-end justify-end">
                 <button
-                  disabled={mutation?.isLoading}
-                  className=" px-3 py-2 bg-orange-500 text-white rounded-lg flex items-center gap-2"
+                  type="submit"
+                  disabled={bookFormMutation?.isLoading}
+                  className=" px-3 py-2 bg-orange-500 text-white rounded-lg flex items-center gap-2 cursor-pointer hover:opacity-90 transition-all"
                 >
-                  Submit
-                  <BiSolidBook />
+                  {bookFormMutation?.isLoading ? (
+                    <PuffLoader
+                      color={"#010E3B"}
+                      size={22}
+                      aria-label="Loading Spinner"
+                    />
+                  ) : (
+                    <>
+                      Submit
+                      <BiSolidBook />
+                    </>
+                  )}
                 </button>
               </div>
             </div>
