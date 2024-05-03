@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
+import { PuffLoader } from "react-spinners";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
 
@@ -46,6 +47,8 @@ export default function Recommendations() {
   } = useQuery({
     queryKey: ["recommendations"],
     queryFn: () => getRequest(`tour/list?page=1&per_page=1000`),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -106,6 +109,11 @@ export default function Recommendations() {
         </svg>
       </div>
 
+      {isLoading && (
+        <div className="mx-auto flex w-full max-w-[2000px] justify-center px-5 lg:px-[190px]">
+          <PuffLoader color={"#010E3B"} aria-label="Loading Spinner" />
+        </div>
+      )}
       {/* card container */}
       <div className="mx-auto flex w-full max-w-[2000px] justify-center px-5 lg:px-[190px]">
         {/* main picture */}

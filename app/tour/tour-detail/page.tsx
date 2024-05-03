@@ -7,6 +7,7 @@ import {
 } from "react-icons/ai";
 import { FaBed, FaMapMarkedAlt, FaMountain } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { BiCategory } from "react-icons/bi";
 import CreateReview from "@/components/CreateReview";
@@ -23,7 +24,6 @@ import Reviews from "@/components/Reviews";
 import { SiYourtraveldottv } from "react-icons/si";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 
 const NavLinks = [
   {
@@ -68,6 +68,7 @@ type Tour = {
 interface inclusion {}
 
 export default function tours() {
+  const router = useRouter();
   const params = useSearchParams();
   const [activeNav, setActiveNav] = useState("Overview");
   // const [inclusion, setInclusion] = useState<any | inclusion>();
@@ -99,10 +100,16 @@ export default function tours() {
 
   let titleRendered = false; // Variable to track if title has been rendered
 
-  // console.log("Tours >>", tours);
-  // console.log("Inclusions >> ", inclusions);
-  // console.log("Similar >> ", similarTours);
-  // console.log("Similar >> ", similarTours?.data?.data);
+  useEffect(() => {
+    if (
+      !params.get("tourDetail") ||
+      params.get("tourDetail") === "" ||
+      params.get("tourDetail") === undefined
+    ) {
+      router.push("/");
+    }
+  }, [params.get("tourDetail")]);
+
   if (tourLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">

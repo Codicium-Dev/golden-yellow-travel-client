@@ -42,12 +42,19 @@ const page = () => {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center mx-auto px-[20px] md:px-[130px] mt-[20px] mb-[30px] ">
-        <div className="mt-28 mb-7 text-base md:text-lg">
+      <div className="flex flex-wrap justify-center mx-auto px-[20px] md:px-[130px] mt-[20px] mb-[30px]">
+        <div
+          className={`mt-28 mb-7 text-base md:text-lg ${
+            search?.data?.length === 0 && "min-h-screen"
+          }`}
+        >
           {mainSearch ? (
             <p className="text-center font-bold text-base md:text-lg text-gray-500">
               Top tour result matching for
               <span className="text-[#1a264e] ms-1">{mainSearch}</span>
+              {search?.data?.length === 0 && (
+                <h1 className="pt-4 text-2xl font-bold">No Tour Found</h1>
+              )}
             </p>
           ) : (
             <p className="text-[#8f306a] text-center font-semibold text-base md:text-lg">

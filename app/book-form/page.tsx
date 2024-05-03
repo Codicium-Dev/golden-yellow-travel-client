@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { getRequest, postRequest } from "@/services/api/apiService";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { BiSolidBook } from "react-icons/bi";
+import Image from "next/image";
 import { PuffLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import { useSearchParams } from "next/navigation";
 
 type payload = {
   gender: string;
@@ -21,6 +22,7 @@ type payload = {
 };
 
 const page = () => {
+  const router = useRouter();
   const params = useSearchParams();
 
   const [gender, setGender] = useState("");
@@ -58,6 +60,7 @@ const page = () => {
       setCity("");
       setSocialMedia("");
       toast.success("Booking Successful");
+      router.push(`tour/tour-detail?tourDetail=${tour_id}`);
     },
     onError: () => {
       toast.error("Booking Failed. Please try again later");
@@ -66,6 +69,19 @@ const page = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (
+      tour_id === "" ||
+      tour_id === null ||
+      gender === "" ||
+      fullName === "" ||
+      email === "" ||
+      phone === "" ||
+      country === "" ||
+      city === "" ||
+      socialMedia === ""
+    ) {
+      toast.error("Please fill all the fields for booking");
+    }
 
     if (
       tour_id !== "" &&
@@ -114,15 +130,17 @@ const page = () => {
 
           <div className=" grid grid-cols-2 gap-2">
             <div className=" col-start-1 col-span-2 lg:col-span-1">
-              <img
+              <Image
+                width={1440}
+                height={700}
                 src={data?.data?.tour_photo}
-                className=" w-full h-[300px] rounded"
-                alt=""
+                className="w-full h-[400px] rounded-tl-md object-cover"
+                alt={data?.data?.name}
               />
             </div>
             <div className=" col-start-1 lg:col-start-2 col-span-2 lg:col-span-1">
               <div className=" p-5">
-                <h1 className=" text-orange-500 font-semibold text-2xl mb-4">
+                <h1 className=" text-orange-500 font-semibold text-2xl mb-8">
                   {data?.data?.name}
                 </h1>
 
@@ -152,7 +170,7 @@ const page = () => {
                 )}
 
                 {data?.data?.departure && (
-                  <div className=" block md:flex items-center gap-5 my-2">
+                  <div className=" block md:flex gap-5 my-2">
                     <p className=" text-slate-500 min-w-[150px]">
                       Departure :{" "}
                     </p>
@@ -167,7 +185,7 @@ const page = () => {
                   </div>
                 )}
 
-                <div className=" grid grid-cols-2 gap-2 my-2">
+                <div className=" grid grid-cols-2 gap-2 mt-6">
                   <div className=" col-start-1 col-span-1">
                     {data?.data?.start_date && (
                       <div className=" block lg:flex items-center gap-5">
@@ -192,7 +210,7 @@ const page = () => {
                       <div className=" block lg:flex items-center gap-5">
                         <p className=" text-slate-500">Price : </p>
                         <p className="">
-                          <span className=" text-orange-500">$</span>
+                          <span className=" text-[#010E3B]">$</span>
                           {data?.data?.price}{" "}
                         </p>
                       </div>
@@ -203,7 +221,7 @@ const page = () => {
                       <div className=" block lg:flex items-center gap-5">
                         <p className=" text-slate-500">Sale Price : </p>
                         <p className="">
-                          <span className=" text-orange-500">$</span>
+                          <span className=" text-[#010E3B]">$</span>
                           {data?.data?.sale_price}{" "}
                         </p>
                       </div>
@@ -214,7 +232,7 @@ const page = () => {
             </div>
           </div>
 
-          <div className=" grid grid-cols-2 gap-5 px-3 py-2">
+          <div className="mt-4 grid grid-cols-2 gap-5 px-3 py-2">
             <div className=" col-start-1 col-span-12 lg:col-span-1">
               <label
                 htmlFor="gender"
@@ -223,9 +241,9 @@ const page = () => {
                 Gender
               </label>
               <select
-                // onChange={handleChange}
+                value={gender}
                 onChange={(e) => setGender(e.target.value)}
-                className="w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className="w-full border border-orange-600 px-3 py-2 rounded-lg "
                 name="gender"
               >
                 <option value="male">Mr.</option>
@@ -239,13 +257,12 @@ const page = () => {
               </label>
               <input
                 type="text"
-                // value={payload.full_name}
+                value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 name=""
                 placeholder="Enter your full name"
                 className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
                 required
-                // onChange={(e) => setBudget(e.target.value)}
               />
             </div>
           </div>
@@ -257,12 +274,12 @@ const page = () => {
               </label>
               <input
                 type="email"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 name=""
                 required
                 className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
-                // onChange={(e) => setBudget(e.target.value)}
               />
             </div>
             <div className=" col-start-1 lg:col-start-2 col-span-12 lg:col-span-1">
@@ -270,13 +287,13 @@ const page = () => {
                 Phone
               </label>
               <input
-                type="number"
+                type="text"
+                value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Enter your phone number"
                 name=""
                 required
                 className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
-                // onChange={(e) => setBudget(e.target.value)}
               />
             </div>
           </div>
@@ -287,13 +304,13 @@ const page = () => {
                 Country
               </label>
               <input
+                value={country}
                 type="text"
                 onChange={(e) => setCountry(e.target.value)}
                 placeholder="Enter your country name"
                 name=""
                 required
                 className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
-                // onChange={(e) => setBudget(e.target.value)}
               />
             </div>
             <div className=" col-start-1 md:col-start-2 col-span-12 md:col-span-1">
@@ -301,6 +318,7 @@ const page = () => {
                 City
               </label>
               <input
+                value={city}
                 type="text"
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="Enter your city name"
@@ -315,17 +333,23 @@ const page = () => {
           <div className=" grid grid-cols-2 gap-5 px-3 py-2">
             <div className=" col-start-1 col-span-12 md:col-span-1">
               <label className=" mb-2 font-semibold text-orange-600">
-                Social Media
+                Where do you know us?
               </label>
-              <input
-                type="text"
+              <select
+                value={socialMedia}
                 onChange={(e) => setSocialMedia(e.target.value)}
-                placeholder="Enter your social media"
-                name=""
-                required
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
-                // onChange={(e) => setBudget(e.target.value)}
-              />
+                className="w-full border border-orange-600 px-3 py-2 rounded-lg "
+                name="social_media"
+              >
+                <option value="" selected>
+                  ---
+                </option>
+                <option value="facebook">Facebook</option>
+                <option value="internet">Internet</option>
+                <option value="friends">Friends</option>
+                <option value="ads">Ads</option>
+                <option value="other">Other</option>
+              </select>
             </div>
             <div className=" col-start-1 md:col-start-2 col-span-12 md:col-span-1">
               <div className=" h-full flex items-end justify-end">
