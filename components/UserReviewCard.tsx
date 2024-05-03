@@ -35,7 +35,12 @@ const UserReviewCard = ({
   return (
     <div>
       <div className="flex flex-row justify-between">
-        <h2 className="lg:text-xl text-md font-semibold">{review?.name}</h2>
+        <div className="flex items-end gap-x-2">
+          <h2 className="lg:text-xl text-md font-semibold">{review?.name}</h2>
+          <p className="lg:text-base text-sm text-gray-400">
+            {getTimestamp(new Date(review?.created_at))}
+          </p>
+        </div>
         {userId && userId === review.user_id ? (
           <FaTrash
             className="w-5 h-5 cursor-pointer hover:text-red-500"
@@ -47,9 +52,7 @@ const UserReviewCard = ({
           <></>
         )}
       </div>
-      <p className="lg:text-base text-sm text-gray-400">
-        {getTimestamp(new Date(review?.created_at))}
-      </p>
+
       <div className="flex flex-row gap-x-1 text-yellow-400">
         {[...Array(review?.rating)].map((_, index) => (
           <FaStar key={index} className="w-5 h-5" />

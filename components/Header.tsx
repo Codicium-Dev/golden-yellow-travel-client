@@ -20,6 +20,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const Header = () => {
   const [active, setActive] = useState(false);
+  const [search, setSearch] = useState("");
   const [activeCountry, setActiveCountry] = useState("");
   // const [countryId, setCountryId] = useState(0);
   // const [search, setSearch] = useState("");
@@ -30,21 +31,6 @@ const Header = () => {
 
   const mobile = useSelector((state: RootState) => state.mobile.isOpen);
   const dispatch = useDispatch();
-
-  // const {
-  //   data: Cities,
-  //   refetch: cityRefetch,
-  //   isLoading: cityLoading,
-  //   isError: cityIsError,
-  //   error: cityError,
-  // } = useQuery({
-  //   queryKey: ["cities"],
-  //   queryFn: () =>
-  //     getRequest(
-  //       `/city/list?columns=country_id&search=${countryId ? countryId : "333085282644933"
-  //       }`
-  //     ),
-  // });
 
   const {
     data: countries,
@@ -73,11 +59,10 @@ const Header = () => {
   };
 
   const handleSearch = (e: any) => {
-    // e.preventDefault();
-    if (e.charCode == 13) {
-      dispatch(setMainSearch(e.target.value));
-      router.push("/search");
-    }
+    e.preventDefault();
+    dispatch(setMainSearch(search));
+    router.push("/search");
+    setSearch("");
   };
 
   useEffect(() => {
@@ -255,41 +240,43 @@ const Header = () => {
             </div>
 
             {/* search box */}
-            <label
-              htmlFor="default-search"
-              className="mb-2 text-sm font-md sr-only text-white"
-            >
-              Search
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                id="default-search"
-                className="block lg:w-[200px] h-[34px] pl-[10px] rounded-sm border-white bg-transparent focus:ring-white focus:border-white outline-none
+            <form onSubmit={(e) => handleSearch(e)}>
+              <label
+                htmlFor="default-search"
+                className="mb-2 text-sm font-md sr-only text-white"
+              >
+                Search
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  id="default-search"
+                  value={search}
+                  className="block lg:w-[200px] h-[34px] pl-[10px] rounded-sm border-white bg-transparent focus:ring-white focus:border-white outline-none
                 text-sm border text-white placeholder-white open-sans"
-                placeholder="Search..."
-                required
-                onKeyPress={(e) => handleSearch(e)}
-              />
-              {/* lens icon */}
-              <div className="absolute inset-y-0 right-[10px] flex items-center pl-3 pointer-events-none">
-                <svg
-                  className="w-4 h-4 text-white"
-                  aria-hidden="true"
-                  xmlns="https://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
+                  placeholder="Search..."
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                {/* lens icon */}
+                <div className="absolute inset-y-0 right-[10px] flex items-center pl-3 pointer-events-none">
+                  <svg
+                    className="w-4 h-4 text-white"
+                    aria-hidden="true"
+                    xmlns="https://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                    />
+                  </svg>
+                </div>
               </div>
-            </div>
+            </form>
 
             <Link
               href={"/inquery-form"}
