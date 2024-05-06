@@ -13,10 +13,10 @@ const page = () => {
         <div className="mb-5">
           <div>
             <p className=" mb-2">
-              Established in 2010, Golden Yellow Travel is one of the leading
-              travel companies in Indochina. We provide tours, hotel booking,
-              flight booking and other travel services in Thailand & Vietnam
-              with the <strong>Golden Yellow Guarantee</strong>.
+              Established in 2010, Golden Asia Expectations is one of the
+              leading travel companies in Indochina. We provide tours, hotel
+              booking, flight booking and other travel services in Thailand &
+              Vietnam with the <strong>Golden Yellow Guarantee</strong>.
             </p>
 
             <p className=" mb-2">
@@ -67,8 +67,8 @@ const page = () => {
                 </h1>
                 <p className=" mb-2">
                   We want our employees to develop their potential fully and
-                  freely. That is why Golden Yellow Travel provide a comfortable
-                  and inspiring working environment.
+                  freely. That is why Golden Asia Expectations provide a
+                  comfortable and inspiring working environment.
                 </p>
               </li>
               <li className=" list-item list-disc">
@@ -105,8 +105,8 @@ const page = () => {
           <h1 className=" text-xl font-bold font-sans mb-2">Our Core Values</h1>
 
           <p className=" mb-2">
-            The core values of Golden Yellow Travel, as a benchmark company in
-            the touristic industry, are focused on offering very high
+            The core values of Golden Asia Expectations, as a benchmark company
+            in the touristic industry, are focused on offering very high
             added-value services to our clients guaranteeing the Golden Yellow
             and quality. In this way, our customers will be totally satisfied by
             choosing our services. In order to match the expectations of the
@@ -126,7 +126,8 @@ const page = () => {
                   packages, from standard to luxury, all of them at the best
                   price. Besides saving your money, we will save your time as
                   well, because you will not need to waste it looking for the
-                  best price; since Golden Yellow Travel provides it for you.
+                  best price; since Golden Asia Expectations provides it for
+                  you.
                 </p>
               </li>
               <li className=" list-item list-disc">
@@ -134,8 +135,8 @@ const page = () => {
                   Quality guaranteed
                 </h1>
                 <p className=" mb-2">
-                  Golden Yellow Travel is synonym of quality, because both, our
-                  personnel and our partners, we strive to provide you high
+                  Golden Asia Expectations is synonym of quality, because both,
+                  our personnel and our partners, we strive to provide you high
                   quality services. We take very seriously the election of our
                   partners, since they will convert you trip in an unforgettable
                   experience. That is why,{" "}
@@ -151,9 +152,9 @@ const page = () => {
                 <p className=" mb-2">
                   One of our main goals, is supplying our customers a better or
                   equal experience than they expect, in other words, we want our
-                  clients to be fully satisfied. Golden Yellow Travel ensures,
-                  by the selection of the best partners, that the services we
-                  offer, provide you{" "}
+                  clients to be fully satisfied. Golden Asia Expectations
+                  ensures, by the selection of the best partners, that the
+                  services we offer, provide you{" "}
                   <strong>TRUE VALUE, AT THE Golden Yellow</strong>, and being
                   fully <strong>RELIABLE</strong> at the same time.
                 </p>
@@ -319,12 +320,12 @@ const page = () => {
           <ul className=" mb-5">
             <li className=" list-item my-2">
               International Trading Name in English:{" "}
-              <strong>GOLDEN YELLOW TRAVEL., JSC</strong>
+              <strong>Golden Asia Expectations., JSC</strong>
             </li>
 
             <li className=" list-item my-2">
               Company Name in English:{" "}
-              <strong>GOLDEN YELLOW TRAVEL COMPANY LIMITED</strong>
+              <strong>Golden Asia Expectations COMPANY LIMITED</strong>
             </li>
 
             {/* <li className=" list-item my-2">

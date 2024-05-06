@@ -82,8 +82,8 @@ const CreateReview = ({
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!userId || !session || !session.session) {
-      e.preventDefault();
       router.push(
         "/sign-in?redirect_url=http://localhost:3000/tour/tour-detail?tourDetail=" +
           tour_id
@@ -92,7 +92,6 @@ const CreateReview = ({
     }
 
     if (session?.session?.expireAt < new Date()) {
-      e.preventDefault();
       toast.error("Your session has expired. Please sign in again.");
       router.push(
         "/sign-in?redirect_url=http://localhost:3000/tour/tour-detail?tourDetail=" +
@@ -103,25 +102,21 @@ const CreateReview = ({
 
     if (rating === 0) {
       toast.error("Please Select a Rating");
-      e.preventDefault();
       return;
     }
 
     if (!name.trim()) {
       toast.error("Name cannot be empty");
-      e.preventDefault();
       return;
     }
 
     if (filter.isProfane(name.trim()) || filter.isProfane(review.trim())) {
       // Check if name or review contains profanity
       toast.warning("Name or review contains inappropriate words");
-      e.preventDefault();
       return;
     }
 
-    if (rating > 0 && tour_id !== null && !name.trim() && userId !== null) {
-      e.preventDefault();
+    if (rating > 0 && tour_id !== null && userId !== null) {
       createReviewMutation.mutateAsync({
         tour_id,
         user_id: userId,

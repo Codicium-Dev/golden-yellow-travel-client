@@ -68,7 +68,7 @@ const SideNavComponent = () => {
                 w-[77%] md:w-1/2 h-screen fixed top-0 left-0 z-50 bg-stone-100 shadow-md px-3 py-5`}
         >
           <div className=" font-bold text-[#010e3b] md:text-lg">
-            Golden Yellow Travel
+            Golden Asia Expectations
           </div>
 
           {/* <form> */}

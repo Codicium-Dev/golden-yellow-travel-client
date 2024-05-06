@@ -415,7 +415,7 @@ export default function tours() {
                   >
                     <Link
                       href={{
-                        pathname: "tour/tour-detail",
+                        pathname: "/tour/tour-detail",
                         query: {
                           tourDetail: tour?.id,
                         },

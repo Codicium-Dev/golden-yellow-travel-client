@@ -128,10 +128,10 @@ const Header = () => {
                 height={60}
                 id="GY_icon"
                 className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] "
-                alt="Picture of Golden Yellow Travel"
+                alt="Picture of Golden Asia Expectations"
               />
               <span className="hidden xl:block text-white text-base md:text-2xl lg:text-2xl font-bold tracking-widest monda">
-                Golden Yellow Travel
+                Golden Asia Expectations
               </span>
             </div>
           </Link>

@@ -13,7 +13,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   return {
-    title: searchParams?.countryName || "Golden Yellow Travel",
+    title: searchParams?.countryName || "Golden Asia Expectations",
     description: "This website is provided from YoLo Digital Marketing.",
     keywords:
       searchParams?.countryName === "Thailand"

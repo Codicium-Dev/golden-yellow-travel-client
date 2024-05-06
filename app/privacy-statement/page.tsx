@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Golden Yellow Travel - Privacy & Policy",
-  description: "This is the privacy & Policy page of Golden Yellow Travel.",
-  keywords: "Golden Yellow Travel, Privacy & Policy",
+  title: "Golden Asia Expectations - Privacy & Policy",
+  description: "This is the privacy & Policy page of Golden Asia Expectations.",
+  keywords: "Golden Asia Expectations, Privacy & Policy",
 };
 
 const page = () => {
@@ -66,7 +66,7 @@ const page = () => {
             <p>
               <strong>Company</strong> (referred to as either &quot;the
               Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot;
-              in this Agreement) refers to Golden Yellow Travel, No. 69, 3rd
+              in this Agreement) refers to Golden Asia Expectations, No. 69, 3rd
               fl., Room 2E, Hlaing Myit Mo St., 10 Ward, Kan Myint Mo Condo,
               Hlaing Township, Yangon..
             </p>
@@ -121,7 +121,7 @@ const page = () => {
           </li>
           <li>
             <p>
-              <strong>Website</strong> refers to Golden Yellow Travel,
+              <strong>Website</strong> refers to Golden Asia Expectations,
               accessible from{" "}
               <a
                 href="https://goldenyellowtravel.com"
