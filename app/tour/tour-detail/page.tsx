@@ -71,10 +71,7 @@ export default function tours() {
   const router = useRouter();
   const params = useSearchParams();
   const [activeNav, setActiveNav] = useState("Overview");
-  // const [inclusion, setInclusion] = useState<any | inclusion>();
-  // const [similarTour, setSimilarTour] = useState<any>();
 
-  //
   const { data: tours, isLoading: tourLoading } = useQuery({
     queryKey: ["tour-detail", params.get("tourDetail")],
     queryFn: () => getRequest(`tour/show/${params.get("tourDetail")}`),
@@ -122,126 +119,130 @@ export default function tours() {
     <>
       <HeroSection photo="/summer1.png" />
       {/* content over hero section */}
-      <div className="absolute flex flex-col lg:flex-row gap-5 top-[150px] md:top-[200px] lg:top-[300px] h-fit md:h-[400px] w-full max-w-[1200px] left-1/2 -translate-x-1/2 px-5 lg:px-0 ">
-        {/* country name & cross */}
-        <div className="w-full lg:w-[10%] lg:pb-0 flex flex-row-reverse lg:flex-col justify-between ">
-          <Link href={"/"}>
-            <div className="block text-lg font-bold text-[30px] w-fit ">
+      <div className="absolute top-[150px] md:top-[200px] lg:top-[250px] h-fit md:h-[420px] lg:h-[450px] w-full max-w-[1200px] left-1/2 -translate-x-1/2 pb-5 lg:px-0 blue">
+        <div className="relative w-full h-full flex flex-col lg:flex-row gap-5 red">
+          {/* country name & cross */}
+          <div className="w-full lg:w-[10%] lg:pb-0 flex flex-row-reverse lg:flex-col justify-between ">
+            {/* <div className="w-[30px] lg:w-[40px] h-[30px] lg:h-[40px] cursor-pointer"></div> */}
+            <Link href={"/"} className="absolute left-0 top-0 ">
               <Image
                 src="/cross-icon.png"
-                width={60}
-                height={60}
+                width={40}
+                height={40}
                 alt="Tour Photo"
-                className="w-[30px] lg:w-[40px] h-[30px] lg:h-[40px] object-cover cursor-pointer"
+                className="object-cover"
               />
-            </div>
-          </Link>
-          <div className="relative">
-            <span className="lg:absolute block lg:-left-[190px] lg:bottom-[200px] lg:w-[400px] lg:-rotate-90 uppercase leading-[30px] tracking-widest text-[#e1f9ff] lg:text-[#224466] text-[30px] font-bold open-sans ">
+            </Link>
+          </div>
+
+          <div className="lg:absolute block lg:left-[20px] lg:-bottom-[10px] lg:w-[400px] lg:-rotate-90 origin-left">
+            <span className=" uppercase leading-[30px] tracking-widest text-[#e1f9ff] lg:text-[#224466] text-[32px] font-bold open-sans ">
               {tours?.data?.country_name}
             </span>
           </div>
-        </div>
 
-        {/* tour specifications */}
-        <div className="w-full lg:w-[30%] h-fit lg:h-[400px]  ">
-          <div className="flex flex-col h-full justify-between bg-[#e1f9ff] rounded-md overflow-hidden p-5">
-            <h1 className=" text-[#444444] text-lg md:text-3xl font-bold mb-8">
-              {tours?.data?.name}
-            </h1>
+          {/* tour specifications */}
+          <div className="w-full lg:w-[30%] h-fit lg:h-full">
+            <div className="flex flex-col h-full justify-between bg-[#e1f9ff] rounded-md overflow-hidden p-5">
+              <h1 className=" text-[#444444] text-lg md:text-3xl font-bold mb-8">
+                {tours?.data?.name}
+              </h1>
 
-            <div className=" grid grid-cols-7 mb-5">
-              <div className="mb-3 col-start-1 col-span-7 md:col-span-3 flex flex-row items-center align-middle gap-3">
-                <AiOutlineClockCircle
-                  size={45}
-                  color={"#828282"}
-                  className="w-[30px] h-[30px]"
-                />
-                <div className=" flex-col align-middle items-center justify-center">
-                  <h1 className=" text-[#828282] mb-1 font-sans">DURATION</h1>
-                  <p className=" font-semibold">{tours?.data?.duration}</p>
+              <div className=" grid grid-cols-7 mb-5">
+                <div className="mb-3 col-start-1 col-span-7 md:col-span-3 flex flex-row items-center align-middle gap-3">
+                  <AiOutlineClockCircle
+                    size={45}
+                    color={"#828282"}
+                    className="w-[30px] h-[30px]"
+                  />
+                  <div className=" flex-col align-middle items-center justify-center">
+                    <h1 className=" text-[#828282] mb-1 font-sans">DURATION</h1>
+                    <p className=" font-semibold">{tours?.data?.duration}</p>
+                  </div>
                 </div>
-              </div>
-              <div className=" col-start-1 md:col-start-4 col-span-7 md:col-span-4 lg:border lg:border-l-[#828282] border-b-0 border-t-0 border-r-0">
-                <div className=" flex gap-3 align-middle items-center lg:px-5">
-                  <span className="px-2 py-1 w-[30px] h-[32px] bg-green-500 text-white text-center border-green-500 rounded-md ">
-                    {tours?.data?.rating}
-                  </span>
-                  <div className=" flex gap-2">
-                    <div className=" flex flex-col">
-                      <h1 className=" text-[#828282] mb-1 font-sans">
-                        TRIP RATING
-                      </h1>
-                      <p className=" text-green-500 font-semibold">Excellent</p>
+                <div className=" col-start-1 md:col-start-4 col-span-7 md:col-span-4 lg:border lg:border-l-[#828282] border-b-0 border-t-0 border-r-0">
+                  <div className=" flex gap-3 align-middle items-center lg:px-5">
+                    <span className="px-2 py-1 w-[30px] h-[32px] bg-green-500 text-white text-center border-green-500 rounded-md ">
+                      {tours?.data?.rating}
+                    </span>
+                    <div className=" flex gap-2">
+                      <div className=" flex flex-col">
+                        <h1 className=" text-[#828282] mb-1 font-sans">
+                          TRIP RATING
+                        </h1>
+                        <p className=" text-green-500 font-semibold">
+                          Excellent
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className=" border border-r-0 border-l-0 border-t-[#828282]  border-b-[#828282] py-3 gap-2 flex justify-between align-bottom items-baseline">
-              <p className=" text-[#828282] ">FROM</p>
+              <div className=" border border-r-0 border-l-0 border-t-[#828282]  border-b-[#828282] py-3 gap-2 flex justify-between align-bottom items-baseline ">
+                <p className=" text-[#828282] ">FROM</p>
 
-              {tours?.data?.price && (
-                <del className="text-red-500 ">US ${tours?.data?.price}</del>
-              )}
-              {tours?.data?.sale_price && (
-                <p className=" text-xl text-[#828282] font-bold">
-                  {" "}
-                  US ${tours?.data?.sale_price}
-                </p>
-              )}
-            </div>
+                {tours?.data?.price && (
+                  <del className="text-red-500 ">US ${tours?.data?.price}</del>
+                )}
+                {tours?.data?.sale_price && (
+                  <p className=" text-xl text-[#828282] font-bold">
+                    {" "}
+                    US ${tours?.data?.sale_price}
+                  </p>
+                )}
+              </div>
 
-            <div className=" mt-10 ">
-              <Link
-                href={{
-                  pathname: "/book-form",
-                  query: {
-                    tourCode: tours?.data?.id,
-                  },
-                }}
-                // as={`https://goldenyellowtravel.com/book-form?tourCode=${tours?.data?.id}`}
-              >
-                <button className=" w-full py-3 text-center bg-[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
-                  {" "}
-                  Book Now
-                </button>
-              </Link>
+              <div className=" ">
+                <Link
+                  href={{
+                    pathname: "/book-form",
+                    query: {
+                      tourCode: tours?.data?.id,
+                    },
+                  }}
+                  // as={`https://goldenyellowtravel.com/book-form?tourCode=${tours?.data?.id}`}
+                >
+                  <button className=" w-full py-3 text-center bg-[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
+                    Book Now
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* tour photo */}
-        <div className="w-full h-[190px] lg:w-[30%] lg:h-full">
-          <Image
-            src={tours?.data?.tour_photo ? tours?.data?.tour_photo : ""}
-            width={600}
-            height={600}
-            alt="Tour Photo"
-            className=" w-full h-full object-cover rounded-md overflow-hidden shadow-xl"
-          />
-        </div>
+          {/* tour photo */}
+          {/* h-fit */}
+          <div className="w-full h-[190px] lg:w-[30%] lg:h-full">
+            <Image
+              src={tours?.data?.tour_photo ? tours?.data?.tour_photo : ""}
+              width={600}
+              height={600}
+              alt="Tour Photo"
+              className=" w-full h-full object-cover rounded-md overflow-hidden shadow-xl "
+            />
+          </div>
 
-        {/* similar tours */}
-        <div className="w-full p-5 lg:w-[30%] h-[100px] lg:min-h-[50%] lg:h-fit bg-[#ffefe5]">
-          <span className="block">See next place &gt;</span>
+          {/* similar tours */}
+          <div className="w-full p-5 lg:w-[30%] h-[100px] lg:min-h-[50%] lg:h-fit bg-[#ffefe5]">
+            <span className="block">See next place &gt;</span>
 
-          {similarTours?.data?.map((tour: any, index: number) => {
-            if (!titleRendered && tour.id !== tours?.data?.id) {
-              // Check if title hasn't been rendered and ID is not the same as current tour's ID
-              titleRendered = true; // Set titleRendered to true to prevent rendering additional titles
-              return (
-                <p
-                  key={index}
-                  className="text-[#444444] text-lg md:text-2xl font-bold pt-7"
-                >
-                  {tour?.name}
-                </p>
-              );
-            }
-            return null;
-          })}
+            {similarTours?.data?.map((tour: any, index: number) => {
+              if (!titleRendered && tour.id !== tours?.data?.id) {
+                // Check if title hasn't been rendered and ID is not the same as current tour's ID
+                titleRendered = true; // Set titleRendered to true to prevent rendering additional titles
+                return (
+                  <p
+                    key={index}
+                    className="text-[#444444] text-lg md:text-2xl font-bold pt-7"
+                  >
+                    {tour?.name}
+                  </p>
+                );
+              }
+              return null;
+            })}
+          </div>
         </div>
       </div>
 
