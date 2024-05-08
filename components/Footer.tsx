@@ -45,19 +45,15 @@ const FooterLinks = [
 const Footer = () => {
   const [subscribeMail, setSubscribeMail] = useState("");
 
-  const { data: subscribedMails, isLoading: subscribedMailsLoading } = useQuery(
-    {
-      queryKey: ["subscribedMails"],
-      queryFn: () => getRequest(`subscribe/list`),
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
-
   const subscribeMutation = useMutation({
     mutationFn: (data: { email: string }) =>
-      postRequest("/review/create", data),
-    onSuccess: () => {
+      postRequest("/subscribe/create", data),
+    onSuccess: (response) => {
+      if (response.status === 422) {
+        setSubscribeMail("");
+        toast.info("Email already in subscription");
+        return;
+      }
       setSubscribeMail("");
       toast.success("Successfully Subscribe");
     },
@@ -70,32 +66,13 @@ const Footer = () => {
   const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (subscribedMailsLoading) {
-      return;
-    }
-
-    const alreadySubscribed = checkAlreadySubscribe(subscribeMail);
-
-    if (alreadySubscribed) {
-      toast.info("Email already in subscription");
+    if (subscribeMail === "") {
       return;
     }
 
     subscribeMutation.mutateAsync({
       email: subscribeMail,
     });
-  };
-
-  const checkAlreadySubscribe = (email) => {
-    const alreadySubscribeMails = subscribedMails.data.data.filter(
-      (mail) => mail.email === email
-    );
-
-    if (alreadySubscribeMails.length !== 0) {
-      return true;
-    }
-
-    return false;
   };
 
   return (
