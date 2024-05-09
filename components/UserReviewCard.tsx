@@ -13,9 +13,11 @@ import { useAuth } from "@clerk/nextjs";
 const UserReviewCard = ({
   refetchReviews,
   review,
+  setReviewDeleted,
 }: {
   refetchReviews?: () => void;
   review: any;
+  setReviewDeleted?: any;
 }) => {
   const { userId } = useAuth();
 
@@ -46,6 +48,7 @@ const UserReviewCard = ({
             className="w-5 h-5 cursor-pointer hover:text-red-500"
             onClick={() => {
               deleteReviewMutation.mutateAsync();
+              setReviewDeleted(true);
             }}
           />
         ) : (

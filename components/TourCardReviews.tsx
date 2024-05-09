@@ -1,8 +1,8 @@
 "use client";
 
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
 
-import React from "react";
 import UserReviewCard from "./UserReviewCard";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
@@ -16,10 +16,21 @@ const TourCardReviews = ({
   tourName: string;
   tourRating: number;
 }) => {
-  const { data: reviews, isLoading } = useQuery({
+  const [reviewDeleted, setReviewDeleted] = useState(false);
+
+  const {
+    data: reviews,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["reviews", tourId],
     queryFn: () => getRequest(`review/list?columns=tour_id&search=${tourId}`),
   });
+
+  useEffect(() => {
+    refetch();
+    setReviewDeleted(false);
+  }, [reviewDeleted]);
 
   let averageRating = 0;
   if (reviews?.data?.data?.length > 0) {
@@ -117,7 +128,11 @@ const TourCardReviews = ({
           </p>
         )}
         {reviews?.data?.data?.map((review: any) => (
-          <UserReviewCard key={review?.id} review={review} />
+          <UserReviewCard
+            key={review?.id}
+            review={review}
+            setReviewDeleted={setReviewDeleted}
+          />
         ))}
       </div>
     </>
