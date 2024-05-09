@@ -56,14 +56,14 @@ const page = () => {
         </h1>
       </div>
 
-      {data?.data?.data?.length === 0 && (
+      {data?.data?.length === 0 && (
         <div className="flex mt-12 min-h-screen items-start justify-center">
           <h1 className="text-2xl font-bold">No Tour Available</h1>
         </div>
       )}
       <div className="mt-10 gap-8 flex flex-col px-6 md:px-16 justify-center items-center">
-        {data?.data?.data?.length !== 0 &&
-          data?.data?.data?.map((tour: any, index: number) => {
+        {data?.data?.length !== 0 &&
+          data?.data?.map((tour: any, index: number) => {
             return (
               <div className="mb-7" key={index}>
                 <TourCard tour={tour} reverse={index % 2 !== 0} />
