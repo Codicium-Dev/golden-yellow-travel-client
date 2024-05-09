@@ -346,10 +346,6 @@ export default function tours() {
                   </p>
 
                   <div id="itinerary" className="h-fit mt-5 mb-3">
-                    <span className=" font-bold text-orange-500 text-xl">
-                      Itinerary
-                    </span>
-
                     <RedixAccordion id={params.get("tourDetail")} />
                   </div>
 

@@ -20,7 +20,7 @@ const page = () => {
     queryKey: ["cityId", searchParams.get("city")],
     queryFn: () =>
       getRequest(
-        `/tour/list?columns=city_id&search=${searchParams.get("cityId")}`
+        `/tour/list?columns=city_id&search=${searchParams.get("city")}`
       ),
   });
 
@@ -34,7 +34,7 @@ const page = () => {
     );
   }
 
-  if (data?.data?.length === 0) {
+  if (data.data.length === 0) {
     setTimeout(() => {
       router.push("/");
     }, 2000);
