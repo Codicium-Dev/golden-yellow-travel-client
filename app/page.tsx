@@ -56,7 +56,6 @@ const Index = () => {
   } = useQuery({
     queryKey: ["tours"],
     queryFn: () => getRequest(`tour/list?page=1&per_page=6`),
-    refetchOnMount: true,
   });
 
   const {
@@ -69,7 +68,8 @@ const Index = () => {
       getRequest(
         `city/list?columns=country_id&search=${countryId ? countryId : ""}`
       ),
-    // enabled : isCountry
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const {
@@ -80,11 +80,15 @@ const Index = () => {
   } = useQuery({
     queryKey: ["countries"],
     queryFn: () => getRequest("/country/list"),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: cityTour, isLoading: cityTourLoading } = useQuery({
     queryKey: ["cityTour"],
     queryFn: () => getRequest("/city/list?page=1&per_page=6"),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
