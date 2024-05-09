@@ -78,7 +78,6 @@ export default function tours() {
     queryFn: () => getRequest(`tour/show/${params.get("tourDetail")}`),
   });
 
-  console.log(tours, "Tours >> ");
   const { data: inclusions, isLoading: inclusionLoading } = useQuery({
     queryKey: ["inclusions", params.get("tourDetail")],
     queryFn: () =>
@@ -87,6 +86,7 @@ export default function tours() {
       ),
     enabled: !!tours,
   });
+
   const { data: similarTours, isLoading: similarToursLoading } = useQuery({
     queryKey: ["similar_tours", tours?.data?.city_id],
     queryFn: () =>
@@ -94,6 +94,16 @@ export default function tours() {
         `tour/list?columns=city_id&page=1&per_page=4&search=${tours?.data?.city_id}`
       ),
     enabled: !!inclusions,
+  });
+
+  const { data: Itinerary } = useQuery({
+    queryKey: ["itinerary", params.get("tourDetail")],
+    queryFn: () =>
+      getRequest(
+        `itinerary/list?page=1&per_page=100&columns=tour_id&search=${params.get(
+          "tourDetail"
+        )}&order=created_at&sort=ASC`
+      ),
   });
 
   let titleRendered = false; // Variable to track if title has been rendered
@@ -155,7 +165,7 @@ export default function tours() {
                 <div className="mb-3 col-start-1 col-span-8 md:col-span-4 flex flex-row lg:flex-col lg:justify-center items-center align-middle gap-3">
                   <AiOutlineClockCircle
                     size={45}
-                    color={"#828282"}
+                    color={"#"}
                     className="w-[30px] h-[30px] shrink-0"
                   />
                   <div className=" flex-col align-middle items-center justify-center">
@@ -209,7 +219,7 @@ export default function tours() {
                   }}
                   // as={`https://goldenyellowtravel.com/book-form?tourCode=${tours?.data?.id}`}
                 >
-                  <button className=" w-full py-3 text-center bg-[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
+                  <button className=" w-full py-3 text-center bg--[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
                     Book Now
                   </button>
                 </Link>
@@ -269,7 +279,7 @@ export default function tours() {
             <div className=" grid grid-cols-2 gap-3 ">
               <div className=" col-start-1 col-span-2 md:col-span-1">
                 <div className=" flex items-start gap-5">
-                  <BiCategory className={"text-orange-500"} size={30} />
+                  <BiCategory className={"text-[#1c94ad]"} size={30} />
                   <p className=" text-sm">
                     <span>Type :</span>{" "}
                     <span className=" text-gray-600">{tours?.data?.type}</span>
@@ -279,7 +289,7 @@ export default function tours() {
 
               <div className=" col-start-1 md:col-start-2 col-span-2 md:col-span-1">
                 <div className=" flex items-start gap-5">
-                  <HiUserGroup className={"text-orange-500"} size={30} />
+                  <HiUserGroup className={"text-[#1c94ad]"} size={30} />
                   <p className=" text-sm">
                     <span>Category :</span>{" "}
                     <span className=" text-gray-600">{tours?.data?.style}</span>
@@ -289,7 +299,7 @@ export default function tours() {
 
               <div className=" col-start-1">
                 <div className=" flex items-start gap-5">
-                  <AiOutlineCheck className={"text-orange-500"} size={30} />
+                  <AiOutlineCheck className={"text-[#1c94ad]"} size={30} />
                   <p className=" text-sm">
                     <span>Suitable :</span>{" "}
                     <span className=" text-gray-600">
@@ -300,7 +310,7 @@ export default function tours() {
               </div>
               <div className=" col-start-1 md:col-start-2 col-span-2 md:col-span-1">
                 <div className=" flex items-start gap-5">
-                  <FaMountain className={"text-orange-500"} size={30} />
+                  <FaMountain className={"text-[#1c94ad]"} size={30} />
                   <p className=" text-sm">
                     <span>Theme :</span>{" "}
                     <span className=" text-gray-600">{tours?.data?.theme}</span>
@@ -310,7 +320,7 @@ export default function tours() {
 
               <div className=" col-start-1 col-span-2 md:col-span-1">
                 <div className=" flex items-start gap-5">
-                  <FaMapMarkedAlt className={"text-orange-500"} size={30} />
+                  <FaMapMarkedAlt className={"text-[#1c94ad]"} size={30} />
                   <p className=" max-w-[200px] text-sm font-semibold">
                     <span>Location :</span>{" "}
                     <span className=" text-gray-600">
@@ -321,7 +331,7 @@ export default function tours() {
               </div>
               <div className=" col-start-1 md:col-start-2 col-span-2 md:col-span-1">
                 <div className=" flex items-start gap-5">
-                  <MdOutlineDateRange className={"text-orange-500"} size={30} />
+                  <MdOutlineDateRange className={"text-[#1c94ad]"} size={30} />
                   <p className=" text-sm">
                     <span>Departure :</span>{" "}
                     <span className=" text-gray-600">
@@ -346,7 +356,14 @@ export default function tours() {
                   </p>
 
                   <div id="itinerary" className="h-fit mt-5 mb-3">
-                    <RedixAccordion id={params.get("tourDetail")} />
+                    {Itinerary?.data?.data.length !== 0 && (
+                      <>
+                        <span className="font-bold text-[#1c94ad] text-xl">
+                          Itinerary
+                        </span>
+                        <RedixAccordion Itinerary={Itinerary} />
+                      </>
+                    )}
                   </div>
 
                   <h1 className="mt-5 font-bold text-xl">Inclusion</h1>
@@ -354,6 +371,7 @@ export default function tours() {
                   <div className=" flex items-center gap-5 mt-3">
                     <GiForkKnifeSpoon
                       size={20}
+                      color="#1c94ad"
                       className="w-[40px] block shrink-0 "
                     />
                     <div>
@@ -365,6 +383,7 @@ export default function tours() {
                   <div className=" flex items-center gap-5 mt-5">
                     <AiOutlineCar
                       size={25}
+                      color="#1c94ad"
                       className="w-[40px] block shrink-0 "
                     />
                     <div>
@@ -374,7 +393,11 @@ export default function tours() {
                   </div>
 
                   <div className=" flex items-center gap-5 mt-5">
-                    <FaBed size={20} className="w-[40px] block shrink-0 " />
+                    <FaBed
+                      color="#1c94ad"
+                      size={20}
+                      className="w-[40px] block shrink-0 "
+                    />
                     <div>
                       <h3 className=" font-bold text-lg">Accommodation</h3>
                       <p>{inclusions?.data?.data[0]?.accommodation}</p>
@@ -384,6 +407,7 @@ export default function tours() {
                   <div className=" flex items-center gap-5 mt-5">
                     <LuActivity
                       size={25}
+                      color="#1c94ad"
                       className="w-[40px] block shrink-0 "
                     />
                     <div>
