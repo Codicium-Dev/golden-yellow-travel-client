@@ -27,6 +27,8 @@ const SideNavComponent = () => {
   const { data: countries } = useQuery({
     queryKey: ["dropCounty"],
     queryFn: () => getRequest("/country/list"),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
   const { data: cities, refetch } = useQuery({
     queryKey: ["cities", selectCountry],
@@ -65,10 +67,10 @@ const SideNavComponent = () => {
               ? " animate-[sideNavIn_.3s_linear]"
               : " animate-[sideNavOut_.3s_linear]"
           } 
-                w-[77%] md:w-1/2 h-screen fixed top-0 left-0 z-50 bg-stone-100 shadow-md px-3 py-5`}
+                w-[77%] md:w-1/2 h-screen fixed top-0 left-0 z-50 bg-[#ffffff] shadow-md px-3 py-5 open-sans`}
         >
-          <div className=" font-bold text-[#010e3b] md:text-lg">
-            Golden Asia Expectations
+          <div className=" font-bold text-[#010E3B] md:text-lg">
+            <Link href="/">Golden Asia Expedition</Link>
           </div>
 
           {/* <form> */}
@@ -76,7 +78,7 @@ const SideNavComponent = () => {
             {/* search input */}
             <label
               htmlFor="default-search"
-              className="mb-2 text-xs font-medium  text-gray-900 sr-only dark:text-white"
+              className="mb-2 text-xs font-medium  text-[#010E3B] sr-only dark:text-white"
             >
               Search
             </label>
@@ -84,7 +86,7 @@ const SideNavComponent = () => {
               <input
                 type="text"
                 id="default-search"
-                className="block w-full h-[40px] pl-5 text-xs border border-gray-200 text-black rounded-sm bg-stone-200 focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 outline-none"
+                className="block w-full h-[40px] pl-5 text-xs border border-[#010E3B] text-white rounded-sm bg-[#010E3B] dark:placeholder-white outline-none"
                 placeholder="Search..."
                 required
                 onKeyPress={(e) => handleSearch(e)}
@@ -108,20 +110,20 @@ const SideNavComponent = () => {
                 </svg>
               </div> */}
 
-            <div className="mt-5 bg-stone-200 rounded-md overflow-hidden">
+            <div className="mt-5 bg-[#010E3B] rounded-sm overflow-hidden">
               <div
                 id="dropdownDelayButton"
                 onClick={() => setDropC(!dropC)}
                 data-dropdown-toggle="dropdown"
                 data-dropdown-delay="500"
                 data-dropdown-trigger="hover"
-                className="text-black w-full focus:ring-4 focus:outline-none focus:ring-[#f97316] shadow font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center align-middle justify-between "
+                className="text-white w-full shadow font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center align-middle justify-between cursor-pointer"
                 // type="button"
               >
                 <div>Destinations</div>
 
                 <svg
-                  className="w-3 h-3 text-stone-700 "
+                  className="w-3 h-3 text-white "
                   aria-hidden="true"
                   xmlns="https://www.w3.org/2000/svg"
                   fill="none"
@@ -164,7 +166,7 @@ const SideNavComponent = () => {
                             setActiveCountry(country?.id);
                         }}
                       >
-                        <div className="block hover:bg-stone-100 dark:hover:text-white">
+                        <div className="block hover:opacity-90 dark:hover:text-white py-2">
                           <Link
                             key={country.id}
                             href={{
@@ -180,7 +182,7 @@ const SideNavComponent = () => {
                               data-dropdown-toggle="dropdown"
                               data-dropdown-delay="500"
                               data-dropdown-trigger="hover"
-                              className="w-full text-black focus:ring-4 focus:outline-none focus:ring-[#f97316] font-medium rounded-md text-sm inline-flex justify-center items-center hover:border-2 border-orange-500 py-2"
+                              className="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-md text-sm inline-flex justify-center items-center hover:border-2"
                               // type="button"
                             >
                               {country?.name}
@@ -193,6 +195,34 @@ const SideNavComponent = () => {
                 </ul>
               </div>
             </div>
+            <ul className="text-sm flex items-start flex-col gap-4 relative px-1 py-10">
+              <li className="text-[#010E3B] font-bold tracking-widest cursor-pointer">
+                <Link
+                  href={"/about-us"}
+                  // as={`https://goldenyellowtravel.com/about-us.html`}
+                >
+                  About Us
+                </Link>
+              </li>
+
+              <li className="text-[#010E3B] font-bold tracking-widest cursor-pointer">
+                <Link
+                  href={"/news"}
+                  // as={`https://goldenyellowtravel.com/news.html`}
+                >
+                  News
+                </Link>
+              </li>
+
+              <li className="text-[#010E3B] font-bold tracking-widest cursor-pointer">
+                <Link
+                  href={"/inquery-form"}
+                  // as={`https://goldenyellowtravel.com/inquery-form`}
+                >
+                  Inquery Now
+                </Link>
+              </li>
+            </ul>
           </div>
           {/* </form> */}
         </div>
