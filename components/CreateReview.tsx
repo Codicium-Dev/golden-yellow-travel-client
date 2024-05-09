@@ -128,9 +128,11 @@ const CreateReview = ({
   };
 
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="w-full lg:w-1/2 flex flex-col gap-y-3">
       <h1 className="text-xl font-bold">Create Review</h1>
-      <p>Fill out the form below to create a review.</p>
+      <span className="text-gray-600">
+        Fill out the form below to create a review.
+      </span>
       <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-y-4">
         <div className="flex flex-col gap-y-2">
           <label htmlFor="name" className="font-semibold">
