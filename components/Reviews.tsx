@@ -20,7 +20,7 @@ const Reviews = () => {
       getRequest(
         `review/list?columns=tour_id&search=${params.get("tourDetail")}`
       ),
-    refetchOnMount: false,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

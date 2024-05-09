@@ -9,12 +9,7 @@ import { postRequest } from "@/services/api/apiService";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 
-const CreateReview = ({
-  refetchReviews,
-}: {
-  refetchReviews?: () => void;
-  userId: string | null;
-}) => {
+const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
   const { userId } = useAuth();
   const session = useSession();
 
