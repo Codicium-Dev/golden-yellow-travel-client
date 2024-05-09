@@ -134,20 +134,20 @@ const Footer = () => {
           </h1>
 
           <div className=" flex items-center gap-5 mt-3">
-            <HiOutlineMailOpen size={30} className=" text-orange-600" />
+            <HiOutlineMailOpen size={28} className=" text-orange-600" />
             <a href="mailto:info@goldenyellowtravel.com">
               info@goldenyellowtravel.com
             </a>
           </div>
 
           <div className=" flex items-center gap-5 mt-3">
-            <AiOutlinePhone size={30} className=" text-orange-600" />
+            <AiOutlinePhone size={28} className=" text-orange-600" />
             <a href="tel:+959883353253">+959 883 353 253</a>
           </div>
 
           <div className=" flex items-center gap-5 mt-3">
             <MdOutlineNotificationsActive
-              size={30}
+              size={28}
               className=" text-orange-600"
             />
             <form
@@ -159,7 +159,7 @@ const Footer = () => {
                 value={subscribeMail}
                 onChange={(e) => setSubscribeMail(e.target.value)}
                 placeholder="Enter your email for subscription"
-                className=" w-full px-3 py-2 bg-slate-50 outline-none"
+                className=" w-full px-3 py-2 bg-slate-50 outline-none placeholder:text-sm"
               />
               <button
                 disabled={subscribeMutation.isLoading}

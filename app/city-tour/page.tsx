@@ -34,7 +34,7 @@ const page = () => {
     );
   }
 
-  if (data?.data?.data?.length === 0) {
+  if (data?.data?.length === 0) {
     setTimeout(() => {
       router.push("/");
     }, 2000);
