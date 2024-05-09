@@ -9,25 +9,7 @@ import classNames from "classnames";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
 
-const RedixAccordion = (props: any) => {
-  const id = props.id;
-
-  console.log(id);
-
-  const { data: Itinerary, refetch } = useQuery({
-    queryKey: ["itinerary"],
-    queryFn: () =>
-      getRequest(
-        `itinerary/list?page=1&per_page=100&columns=tour_id&search=${id}&order=created_at&sort=ASC`
-      ),
-  });
-
-  useEffect(() => {
-    refetch();
-  }, [id]);
-
-  console.log(Itinerary);
-
+const RedixAccordion = ({ Itinerary }: { Itinerary: any }) => {
   return (
     <Accordion.Root
       className="AccordionRoot w-full h-full mt-3"
