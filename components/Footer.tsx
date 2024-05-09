@@ -86,11 +86,11 @@ const Footer = () => {
               height={40}
               id="GY_icon"
               className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] "
-              alt="Picture of Golden Asia Expectations"
+              alt="Picture of Golden Asia Expedition"
             />
 
             {/* <img src="/logo.png" className=' w-[50px] h-[50px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px]' alt="" /> */}
-            {/* <h1 className=' text-orange-500 font-bold text-2xl'>Golden Asia Expectations</h1> */}
+            {/* <h1 className=' text-orange-500 font-bold text-2xl'>Golden Asia Expedition</h1> */}
           </div>
           <div className="w-full mt-5 icon">
             <h1 className="w-full font-semibold md:text-lg mb-3 follow">

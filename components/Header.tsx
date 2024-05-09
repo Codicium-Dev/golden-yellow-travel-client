@@ -128,10 +128,10 @@ const Header = () => {
                 height={60}
                 id="GY_icon"
                 className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] "
-                alt="Picture of Golden Asia Expectations"
+                alt="Picture of Golden Asia Expedition"
               />
               <span className="hidden xl:block text-white text-base md:text-2xl lg:text-2xl font-bold tracking-widest monda">
-                Golden Asia Expectations
+                Golden Asia Expedition
               </span>
             </div>
           </Link>
@@ -190,33 +190,6 @@ const Header = () => {
                       })}
                     </ul>
                   </div>
-
-                  {/* <div className=" min-w-[400px] min-h-[240px]">
-                      <h1 className=" text-gray-800 text-lg xl:px-[100px] xl:py-0  font-semibold my-3">
-                        {activeCountry} City Tour
-                      </h1>
-                      <div className=" text-[#f97316] xl:px-10 xl:font-bold grid grid-cols-3 gap-3">
-                        {Cities?.data?.data?.map((city: any) => {
-                          return (
-                            <div key={city?.id} className=" text-sm rounded-full px-3 py-2 shadow flex items-center justify-center">
-                              <Link
-                                href={{
-                                  pathname: "/tour",
-                                  query: {
-                                    navTag: city?.name,
-                                  },
-                                }}
-                                onClick={() => {
-                                  handleNavLink(city?.id), handleDes();
-                                }}
-                              >
-                                {city?.name?.length > 5 ? `${city?.name?.substring(0,8)}...` : city?.name}
-                              </Link>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div> */}
                 </div>
 
                 <li className="text-white font-bold tracking-widest cursor-pointer open-sans">
@@ -293,7 +266,7 @@ const Header = () => {
           <div className="lg:hidden border border-white rounded-sm">
             <button
               onClick={() => dispatch(mobileToggle())}
-              className=" lg:hidden p-2 bg-[#010e3b] shadow-sm rounded-sm"
+              className=" lg:hidden p-2 bg-[#010e3b] shadow-sm rounded-sm cursor-pointer"
             >
               {mobile ? (
                 <RxCross1 size={20} color="white" />
