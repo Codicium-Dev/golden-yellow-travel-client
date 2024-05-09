@@ -26,6 +26,12 @@ body {
 .green {
   border: 2px dotted green;
 }
+.cyan {
+  border: 2px dotted cyan;
+}
+.purple {
+  border: 2px dotted purple;
+}
 /* utility end */
 
 /* hero */

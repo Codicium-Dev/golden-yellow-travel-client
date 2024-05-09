@@ -191,19 +191,16 @@ const page = () => {
           TOUR INFORMATION
         </h1>
 
-        <div className=" grid grid-rows-4 w-4/5 mx-auto gap-5 mb-12">
-          {/* <h1 className=" row-start-1 row-span-1 text-2xl font-semibold tracking-widest text-[#464646] text-center">
-            TOUR INFORMATION
-          </h1> */}
-          <div className=" row-start-1 row-span-1 grid grid-cols-4 gap-3 ">
-            <div className=" col-start-1 col-span-12 md:col-span-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">
+        <div className="w-full px-5 md:px-10 lg:px-[70px] mx-auto mb-10">
+          <div className=" grid grid-cols-4 gap-3">
+            <div className=" col-start-1 col-span-4 md:col-span-1">
+              <h1 className=" mb-1 font-semibold text-orange-600">
                 Travel Month *
               </h1>
               <select
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setTravelMonth(e.target.value)}
               >
                 {months.map((month) => {
@@ -212,14 +209,14 @@ const page = () => {
               </select>
             </div>
 
-            <div className=" col-start-1 md:col-start-2 col-span-12 md:col-span-1 px-4">
-              <h1 className=" mb-2 font-semibold text-orange-600">
+            <div className=" col-start-1 md:col-start-2 col-span-4 md:col-span-1">
+              <h1 className=" mb-1 font-semibold text-orange-600">
                 Travel Year *
               </h1>
               <select
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setTravelYear(e.target.value)}
               >
                 {years.map((year) => {
@@ -228,70 +225,70 @@ const page = () => {
               </select>
             </div>
 
-            <div className=" col-start-1 md:col-start-3 col-span-12 md:col-span-2 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">
+            <div className=" col-start-1 md:col-start-3 col-span-4 md:col-span-2">
+              <h1 className=" mb-1 font-semibold text-orange-600">
                 Duration of Stay (No. of Days) *
               </h1>
               <input
                 type="number"
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setStayDays(e.target.value)}
               />
             </div>
           </div>
 
-          <div className=" row-start-2 row-span-1 grid grid-cols-2 gap-3">
-            <div className=" col-start-1 col-span-12 md:col-span-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">
-                Estimate Budget ( in USD ) *
+          <div className="grid grid-cols-4 gap-3 mt-5">
+            <div className=" col-start-1 col-span-4 md:col-span-2">
+              <h1 className=" mb-1 font-semibold text-orange-600">
+                Estimate Budget (USD) *
               </h1>
               <input
                 type="number"
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setBudget(e.target.value)}
               />
             </div>
 
-            <div className=" md:col-start-2 col-start-1 col-span-12 md:col-span-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">
+            <div className=" col-start-1 col-span-4 md:col-start-3 md:col-span-2">
+              <h1 className=" mb-1 font-semibold text-orange-600">
                 No. of Adults (12+) *
               </h1>
               <input
                 type="number"
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setAdult(e.target.value)}
               />
             </div>
           </div>
 
-          <div className="row-start-3 md:grid-cols-2 row-span-1 grid grid-cols-12 gap-3">
-            <div className=" col-start-1 col-span-12 md:col-span-1 md:col-start-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">
+          <div className="grid grid-cols-4 gap-3 mt-5">
+            <div className=" col-start-1 col-span-4 md:col-span-2 md:col-start-1">
+              <h1 className=" mb-1 font-semibold text-orange-600">
                 No of Children (2~12 years old)
               </h1>
               <input
                 type="number"
                 placeholder="How may children joining the tour?"
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setChild(e.target.value)}
               />
             </div>
 
-            <div className=" col-start-1  col-span-12 md:col-span-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">
+            <div className=" col-start-1 col-span-4 md:col-span-2">
+              <h1 className=" mb-1 font-semibold text-orange-600">
                 Travel Interest
               </h1>
               <select
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setInterest(e.target.value)}
               >
                 {interests.map((interests) => {
@@ -302,15 +299,15 @@ const page = () => {
             </div>
           </div>
 
-          <div className="row-start-4 row-span-1 grid grid-cols-1">
-            <div className=" col-start-1 col-span-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">
+          <div className="grid grid-cols-4 gap-3 mt-5">
+            <div className="col-start-1 col-span-4">
+              <h1 className=" mb-1 font-semibold text-orange-600">
                 Select Which Destinations Do You Want To Enjoy
               </h1>
               <select
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setDestinations(e.target.value)}
               >
                 {destination.map((destination) => {
@@ -321,144 +318,137 @@ const page = () => {
           </div>
         </div>
 
-        <div className=" grid grid-rows-4 w-4/5 mx-auto gap-1 mb-14">
-          <h1 className=" row-start-1 row-span-1 text-2xl font-semibold tracking-widest text-[#464646] text-center">
+        <div className="w-full px-5 md:px-10 lg:px-[70px] mx-auto mb-10">
+          <h1 className="my-5 text-2xl font-semibold tracking-widest text-[#464646] text-center">
             PERSONAL INFORMATION
           </h1>
-          <div className=" row-start-2 row-span-1 grid grid-cols-2 gap-3">
-            <div className=" col-start-1 col-span-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">
+          <div className="grid grid-cols-2 gap-3 ">
+            <div className=" col-start-1 col-span-2 md:col-span-1">
+              <h1 className=" mb-1 font-semibold text-orange-600">
                 First Name
               </h1>
               <input
                 type="text"
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setFname(e.target.value)}
               />
             </div>
 
-            <div className=" col-start-2 col-span-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">Last Name</h1>
+            <div className=" col-start-1 col-span-2 md:col-start-2 md:col-span-1">
+              <h1 className=" mb-1 font-semibold text-orange-600">Last Name</h1>
               <input
                 type="text"
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setLname(e.target.value)}
               />
             </div>
           </div>
 
-          <div className=" row-start-3 row-span-1 grid grid-cols-2">
-            <div className=" col-start-1 col-span-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">Email</h1>
+          <div className="grid grid-cols-2 gap-3 mt-5">
+            <div className=" col-start-1 col-span-2 md:col-span-1">
+              <h1 className=" mb-1 font-semibold text-orange-600">Country</h1>
               <input
                 type="text"
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
-                onChange={(e) => setEmail(e.target.value)}
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg"
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
 
-            <div className=" col-start-2 col-span-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">
+            <div className=" col-start-1 col-span-2 md:col-start-2 md:col-span-1">
+              <h1 className=" mb-1 font-semibold text-orange-600">
                 Phone Number
               </h1>
               <input
                 type="text"
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
                 onChange={(e) => setPhone(e.target.value)}
               />
             </div>
           </div>
 
-          <div className=" row-start-4 row-span-1 grid grid-cols-1">
-            <div className=" col-start-1 col-span-1 px-3">
-              <h1 className=" mb-2 font-semibold text-orange-600">Country</h1>
-              <input
-                type="text"
-                name=""
-                id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
+          <div className="mt-5">
+            <h1 className=" mb-1 font-semibold text-orange-600">Email</h1>
+            <input
+              type="text"
+              name=""
+              id=""
+              className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
         </div>
 
         <h1 className=" my-5 text-2xl font-semibold tracking-widest text-[#464646] text-center">
           OTHER INFORMATION
         </h1>
-        <div className=" grid grid-rows-3 w-4/5 mx-auto gap-5 mb-14">
-          <div className=" row-start-1 row-span-3  grid md:grid-cols-2 grid-cols-12 gap-3">
-            <div className=" col-start-1 col-span-12 md:col-span-1 px-3 grid grid-rows-3 gap-3">
-              <div className=" md:row-start-1 md:row-span-1  row-start-1 ">
-                <h1 className=" mb-2 font-semibold text-orange-600">
-                  Please select your accommodation style below and we'll pick a
-                  hotel that best suits your needs.
-                </h1>
-
-                <select
-                  name=""
-                  id=""
-                  className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
-                  onChange={(e) => setAccommo(e.target.value)}
-                >
-                  {accommodation.map((accommodation) => {
-                    return (
-                      <option value={accommodation}>{accommodation}</option>
-                    );
-                  })}
-                </select>
-              </div>
-
-              <div className=" row-start-2 row-span-1">
-                <h1 className=" mb-2 font-semibold text-orange-600">
-                  How do you know about Pro Niti Travel?
-                </h1>
-
-                <select
-                  name=""
-                  id=""
-                  className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
-                  onChange={(e) => setHow(e.target.value)}
-                >
-                  {howUknow.map((how) => {
-                    return <option value={how}>{how}</option>;
-                  })}
-                </select>
-              </div>
-
-              <div className=" row-start-3 row-span-1">
-                <h1 className=" mb-2 font-semibold text-orange-600">
-                  If you choose other in above, please write here
-                </h1>
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
-                  onChange={(e) => setOtherInfo(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className=" md:col-start-2 md:col-span-1  col-start-1 col-span-12 px-3 grid grid-rows-6">
-              <h1 className=" mb-2 font-semibold text-orange-600 row-start-1 row-span-1">
-                Special requests?
+        <div className="w-full px-5 md:px-10 lg:px-[70px] mx-auto mb-10">
+          <div className="grid grid-cols-2 gap-3">
+            <div className=" col-start-1 col-span-2 md:col-span-1 gap-3">
+              <h1 className=" mb-1 font-semibold text-orange-600">
+                Please select your accommodation style
+                {/* below and we'll pick a hotel that best suits your needs.*/}
               </h1>
-              <textarea
-                placeholder="If you've got special needs such as non-smoking rooms, dietary plans or have additional places to visit, please let us know."
+
+              <select
                 name=""
                 id=""
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg row-start-2 row-span-5 h-5/6"
-                onChange={(e) => setSpecial(e.target.value)}
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                onChange={(e) => setAccommo(e.target.value)}
+              >
+                {accommodation.map((accommodation) => {
+                  return <option value={accommodation}>{accommodation}</option>;
+                })}
+              </select>
+            </div>
+
+            <div className=" col-start-1 col-span-2 md:col-start-2 md:col-span-1">
+              <h1 className=" mb-1 font-semibold text-orange-600">
+                How do you know us?
+              </h1>
+
+              <select
+                name=""
+                id=""
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                onChange={(e) => setHow(e.target.value)}
+              >
+                {howUknow.map((how) => {
+                  return <option value={how}>{how}</option>;
+                })}
+              </select>
+            </div>
+
+            <div className="col-start-1 col-span-2 mt-3">
+              <h1 className=" mb-1 font-semibold text-orange-600">
+                If you choose other in above, please write here
+              </h1>
+              <input
+                type="text"
+                name=""
+                id=""
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                onChange={(e) => setOtherInfo(e.target.value)}
               />
             </div>
+          </div>
+          <div className="mt-3">
+            <h1 className=" mb-1 font-semibold text-orange-600 row-start-1 row-span-1">
+              Special requests?
+            </h1>
+            <textarea
+              placeholder="If you've got special needs such as non-smoking rooms, dietary plans or have additional places to visit, please let us know."
+              name=""
+              id=""
+              className="h-[100px] text-sm w-full border border-orange-600 rounded-lg p-2"
+              onChange={(e) => setSpecial(e.target.value)}
+            />
           </div>
         </div>
 
@@ -468,10 +458,10 @@ const page = () => {
             onClick={() => {
               mutation.mutate(mainPayload);
             }}
-            className=" md:w-1/6 w-2/5 rounded-lg bg-[#f69320] py-2"
+            className=" md:w-1/6 w-2/5 rounded-lg bg-[#f69320]"
           >
-            <div className=" flex justify-center align-middle items-center gap-1">
-              <p>Send</p>
+            <div className=" flex justify-center align-middle items-center ">
+              <p className="p-3">Send</p>
               {mutation?.isLoading && (
                 <img src={"/loading.svg"} className=" w-5 h-5" />
               )}
