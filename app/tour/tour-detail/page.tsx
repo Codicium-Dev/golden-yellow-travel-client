@@ -17,6 +17,7 @@ import { HiUserGroup } from "react-icons/hi";
 import Image from "next/image";
 import ItineraryNavLink from "@/components/ItineraryNavLink";
 import Link from "next/link";
+import { LuActivity } from "react-icons/lu";
 import { MdOutlineDateRange } from "react-icons/md";
 import { PuffLoader } from "react-spinners";
 import RedixAccordion from "@/components/RedixAccordion";
@@ -119,12 +120,20 @@ export default function tours() {
     <>
       <HeroSection photo="/summer1.png" />
       {/* content over hero section */}
-      <div className="absolute top-[150px] md:top-[200px] lg:top-[250px] h-fit md:h-[420px] lg:h-[450px] w-full max-w-[1200px] left-1/2 -translate-x-1/2 pb-5 lg:px-0 blue">
-        <div className="relative w-full h-full flex flex-col lg:flex-row gap-5 red">
+      <div className="absolute top-[150px] md:top-[200px] lg:top-[250px] h-fit md:h-[445px] w-full max-w-[1200px] left-1/2 -translate-x-1/2 lg:px-10 ">
+        <div className="w-full h-full p-5 lg:p-0 flex flex-col lg:flex-row gap-5 ">
           {/* country name & cross */}
-          <div className="w-full lg:w-[10%] lg:pb-0 flex flex-row-reverse lg:flex-col justify-between ">
-            {/* <div className="w-[30px] lg:w-[40px] h-[30px] lg:h-[40px] cursor-pointer"></div> */}
-            <Link href={"/"} className="absolute left-0 top-0 ">
+          <div className="relative w-full lg:w-[10%] lg:h-full lg:pb-0 flex justify-between lg:flex-col-reverse">
+            <div className=" lg:-rotate-90 origin-center lg:-translate-x-[30px] lg:-translate-y-12">
+              <span className=" uppercase leading-[30px] tracking-widest text-[#224466] text-[1.5rem] md:text-[32px] font-bold open-sans ">
+                {tours?.data?.country_name}
+              </span>
+            </div>
+
+            <Link
+              href={"/"}
+              className="w-[1.5rem] h-[1.5rem] md:w-[2rem] md:h-[2rem] "
+            >
               <Image
                 src="/cross-icon.png"
                 width={40}
@@ -135,42 +144,39 @@ export default function tours() {
             </Link>
           </div>
 
-          <div className="lg:absolute block lg:left-[20px] lg:-bottom-[10px] lg:w-[400px] lg:-rotate-90 origin-left">
-            <span className=" uppercase leading-[30px] tracking-widest text-[#e1f9ff] lg:text-[#224466] text-[32px] font-bold open-sans ">
-              {tours?.data?.country_name}
-            </span>
-          </div>
-
           {/* tour specifications */}
           <div className="w-full lg:w-[30%] h-fit lg:h-full">
             <div className="flex flex-col h-full justify-between bg-[#e1f9ff] rounded-md overflow-hidden p-5">
-              <h1 className=" text-[#444444] text-lg md:text-3xl font-bold mb-8">
+              <h1 className=" text-[#444444] text-lg md:text-3xl font-bold mb-8 lg:mb-4">
                 {tours?.data?.name}
               </h1>
 
-              <div className=" grid grid-cols-7 mb-5">
-                <div className="mb-3 col-start-1 col-span-7 md:col-span-3 flex flex-row items-center align-middle gap-3">
+              <div className=" grid grid-cols-8 mb-5">
+                <div className="mb-3 col-start-1 col-span-8 md:col-span-4 flex flex-row lg:flex-col lg:justify-center items-center align-middle gap-3">
                   <AiOutlineClockCircle
                     size={45}
                     color={"#828282"}
-                    className="w-[30px] h-[30px]"
+                    className="w-[30px] h-[30px] shrink-0"
                   />
                   <div className=" flex-col align-middle items-center justify-center">
                     <h1 className=" text-[#828282] mb-1 font-sans">DURATION</h1>
-                    <p className=" font-semibold">{tours?.data?.duration}</p>
+                    <p className=" font-semibold text-center">
+                      {tours?.data?.duration}
+                    </p>
                   </div>
                 </div>
-                <div className=" col-start-1 md:col-start-4 col-span-7 md:col-span-4 lg:border lg:border-l-[#828282] border-b-0 border-t-0 border-r-0">
-                  <div className=" flex gap-3 align-middle items-center lg:px-5">
-                    <span className="px-2 py-1 w-[30px] h-[32px] bg-green-500 text-white text-center border-green-500 rounded-md ">
+
+                <div className=" col-start-1 md:col-start-5 col-span-8 md:col-span-4 lg:border lg:border-l-[#828282] border-b-0 border-t-0 border-r-0">
+                  <div className=" flex lg:flex-col lg:justify-center gap-3 align-middle items-center">
+                    <span className="px-2 py-1 w-[30px] h-[30px] bg-green-500 text-white text-center border-green-500 rounded-md ">
                       {tours?.data?.rating}
                     </span>
                     <div className=" flex gap-2">
                       <div className=" flex flex-col">
-                        <h1 className=" text-[#828282] mb-1 font-sans">
+                        <h1 className=" text-[#828282] mb-1 text-center font-sans">
                           TRIP RATING
                         </h1>
-                        <p className=" text-green-500 font-semibold">
+                        <p className=" text-green-500 font-semibold text-center">
                           Excellent
                         </p>
                       </div>
@@ -179,7 +185,7 @@ export default function tours() {
                 </div>
               </div>
 
-              <div className=" border border-r-0 border-l-0 border-t-[#828282]  border-b-[#828282] py-3 gap-2 flex justify-between align-bottom items-baseline ">
+              <div className=" border border-r-0 border-l-0 border-t-[#828282]  border-b-[#828282] py-3 gap-2 flex justify-between align-bottom items-baseline lg:mb-2 ">
                 <p className=" text-[#828282] ">FROM</p>
 
                 {tours?.data?.price && (
@@ -212,8 +218,7 @@ export default function tours() {
           </div>
 
           {/* tour photo */}
-          {/* h-fit */}
-          <div className="w-full h-[190px] lg:w-[30%] lg:h-full">
+          <div className="w-full h-[190px] md:h-[300px] lg:w-[30%] lg:h-full">
             <Image
               src={tours?.data?.tour_photo ? tours?.data?.tour_photo : ""}
               width={600}
@@ -224,20 +229,30 @@ export default function tours() {
           </div>
 
           {/* similar tours */}
-          <div className="w-full p-5 lg:w-[30%] h-[100px] lg:min-h-[50%] lg:h-fit bg-[#ffefe5]">
-            <span className="block">See next place &gt;</span>
+          <div className="p-5 w-full lg:w-[30%] lg:min-h-[50%] lg:h-fit bg-[#ffefe5] rounded-md ">
+            <span className="block text-sm md:text-base text-gray-600">
+              See next place &gt;
+            </span>
 
             {similarTours?.data?.map((tour: any, index: number) => {
               if (!titleRendered && tour.id !== tours?.data?.id) {
                 // Check if title hasn't been rendered and ID is not the same as current tour's ID
                 titleRendered = true; // Set titleRendered to true to prevent rendering additional titles
                 return (
-                  <p
+                  <Link
                     key={index}
                     className="text-[#444444] text-lg md:text-2xl font-bold pt-7"
+                    href={{
+                      pathname: "/tour/tour-detail",
+                      query: {
+                        tourDetail: tour?.id,
+                      },
+                    }}
+                    // as={`localhost:3000/tour/tour-detail?tourDetail=${tour?.id}`}
+                    // as={`https://goldenyellowtravel.com/tour/tour-detail?tourDetail=${tour?.id}`}
                   >
                     {tour?.name}
-                  </p>
+                  </Link>
                 );
               }
               return null;
@@ -247,39 +262,23 @@ export default function tours() {
       </div>
 
       {/* body */}
-      <div className=" min-h-screen mt-[600px] md:mt-20">
-        <div className=" px-[20px] md:px-[70px] lg:px-[130px] mb-10">
-          {/* <div className="  grid grid-cols-1 lg:grid-cols-5 gap-10 red"> */}
-          {/* <div className=""> */}
-          <div className=" col-span-3 mt-5">
+      <div className=" min-h-screen mt-[570px] md:mt-[340px] lg:mt-[30px]">
+        <div className=" px-[20px] md:px-[40px] lg:px-[70px] mb-10">
+          <div className=" col-span-3">
             {/* specifications */}
             <div className=" grid grid-cols-2 gap-3 ">
               <div className=" col-start-1 col-span-2 md:col-span-1">
-                <div className=" flex items-center gap-5">
-                  <FaMapMarkedAlt className={"text-orange-500"} size={30} />
-                  <p className=" max-w-[200px] text-sm font-semibold">
-                    <span>Location :</span>{" "}
-                    <span className=" text-gray-600">
-                      {tours?.data?.location}
-                    </span>
+                <div className=" flex items-start gap-5">
+                  <BiCategory className={"text-orange-500"} size={30} />
+                  <p className=" text-sm">
+                    <span>Type :</span>{" "}
+                    <span className=" text-gray-600">{tours?.data?.type}</span>
                   </p>
                 </div>
               </div>
 
               <div className=" col-start-1 md:col-start-2 col-span-2 md:col-span-1">
-                <div className=" flex items-center gap-5">
-                  <MdOutlineDateRange className={"text-orange-500"} size={30} />
-                  <p className=" text-sm">
-                    <span>Departure :</span>{" "}
-                    <span className=" text-gray-600">
-                      {tours?.data?.departure}
-                    </span>
-                  </p>
-                </div>
-              </div>
-
-              <div className=" col-start-1">
-                <div className=" flex items-center gap-5">
+                <div className=" flex items-start gap-5">
                   <HiUserGroup className={"text-orange-500"} size={30} />
                   <p className=" text-sm">
                     <span>Category :</span>{" "}
@@ -287,18 +286,9 @@ export default function tours() {
                   </p>
                 </div>
               </div>
-              <div className=" col-start-1 md:col-start-2 col-span-2 md:col-span-1">
-                <div className=" flex items-center gap-5">
-                  <FaMountain className={"text-orange-500"} size={30} />
-                  <p className=" text-sm">
-                    <span>Theme :</span>{" "}
-                    <span className=" text-gray-600">{tours?.data?.theme}</span>
-                  </p>
-                </div>
-              </div>
 
-              <div className=" col-start-1 col-span-2 md:col-span-1">
-                <div className=" flex items-center gap-5">
+              <div className=" col-start-1">
+                <div className=" flex items-start gap-5">
                   <AiOutlineCheck className={"text-orange-500"} size={30} />
                   <p className=" text-sm">
                     <span>Suitable :</span>{" "}
@@ -309,11 +299,34 @@ export default function tours() {
                 </div>
               </div>
               <div className=" col-start-1 md:col-start-2 col-span-2 md:col-span-1">
-                <div className=" flex items-center gap-5">
-                  <BiCategory className={"text-orange-500"} size={30} />
+                <div className=" flex items-start gap-5">
+                  <FaMountain className={"text-orange-500"} size={30} />
                   <p className=" text-sm">
-                    <span>Type :</span>{" "}
-                    <span className=" text-gray-600">{tours?.data?.type}</span>
+                    <span>Theme :</span>{" "}
+                    <span className=" text-gray-600">{tours?.data?.theme}</span>
+                  </p>
+                </div>
+              </div>
+
+              <div className=" col-start-1 col-span-2 md:col-span-1">
+                <div className=" flex items-start gap-5">
+                  <FaMapMarkedAlt className={"text-orange-500"} size={30} />
+                  <p className=" max-w-[200px] text-sm font-semibold">
+                    <span>Location :</span>{" "}
+                    <span className=" text-gray-600">
+                      {tours?.data?.location}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div className=" col-start-1 md:col-start-2 col-span-2 md:col-span-1">
+                <div className=" flex items-start gap-5">
+                  <MdOutlineDateRange className={"text-orange-500"} size={30} />
+                  <p className=" text-sm">
+                    <span>Departure :</span>{" "}
+                    <span className=" text-gray-600">
+                      {tours?.data?.departure}
+                    </span>
                   </p>
                 </div>
               </div>
@@ -328,38 +341,36 @@ export default function tours() {
               {/* Conditionally render Overview or Reviews based on activeNav */}
               {activeNav === "Overview" && (
                 <>
-                  <div className=" mt-5">
-                    <p className=" text-gray-700 text-lg break-words">
-                      {tours?.data?.overview}
-                    </p>
+                  <p className=" text-gray-700 text-base md:text-lg break-words mt-3">
+                    {tours?.data?.overview}
+                  </p>
+
+                  <div id="itinerary" className="h-fit mt-5 mb-3">
+                    <span className=" font-bold text-orange-500 text-xl">
+                      Itinerary
+                    </span>
+
+                    <RedixAccordion id={params.get("tourDetail")} />
                   </div>
 
-                  <div className="">
-                    <div className="col-span-5 md:col-span-3 mt-5">
-                      <div id="itinerary" className="h-fit mb-5">
-                        <h1 className=" font-bold text-orange-500 text-xl">
-                          Itinerary
-                        </h1>
+                  <h1 className="mt-5 font-bold text-xl">Inclusion</h1>
 
-                        <RedixAccordion id={params.get("tourDetail")} />
-                      </div>
-                    </div>
-
-                    <div className=" col-start-4 col-span-2"></div>
-                  </div>
-
-                  <h1 className=" font-bold text-xl">Inclusion</h1>
-
-                  <div className=" flex items-start gap-5 mt-5">
-                    <GiForkKnifeSpoon size={20} />
+                  <div className=" flex items-center gap-5 mt-3">
+                    <GiForkKnifeSpoon
+                      size={20}
+                      className="w-[40px] block shrink-0 "
+                    />
                     <div>
                       <h3 className=" font-bold text-lg">Meals</h3>
                       <div>{inclusions?.data?.data[0]?.meals}</div>
                     </div>
                   </div>
 
-                  <div className=" flex items-start gap-5 mt-5">
-                    <AiOutlineCar size={20} />
+                  <div className=" flex items-center gap-5 mt-5">
+                    <AiOutlineCar
+                      size={25}
+                      className="w-[40px] block shrink-0 "
+                    />
                     <div>
                       <h3 className=" font-bold text-lg">Transport</h3>
                       <p>{inclusions?.data?.data[0]?.transport}</p>
@@ -367,7 +378,7 @@ export default function tours() {
                   </div>
 
                   <div className=" flex items-center gap-5 mt-5">
-                    <FaBed size={20} />
+                    <FaBed size={20} className="w-[40px] block shrink-0 " />
                     <div>
                       <h3 className=" font-bold text-lg">Accommodation</h3>
                       <p>{inclusions?.data?.data[0]?.accommodation}</p>
@@ -375,11 +386,12 @@ export default function tours() {
                   </div>
 
                   <div className=" flex items-center gap-5 mt-5">
-                    <SiYourtraveldottv size={20} />
+                    <LuActivity
+                      size={25}
+                      className="w-[40px] block shrink-0 "
+                    />
                     <div>
-                      <h3 className=" font-bold text-lg">
-                        Included activities
-                      </h3>
+                      Included activities
                       <p>{inclusions?.data?.data[0]?.included_activities}</p>
                     </div>
                   </div>
@@ -396,23 +408,23 @@ export default function tours() {
               )}
             </div>
           </div>
-          {/* </div> */}
         </div>
 
+        {/* similar tours */}
         <div className=" min-h-[400px] bg-gray-200">
-          <div className=" px-[20px] md:px-[130px]">
-            <h1 className=" text-2xl font-bold py-10">
+          <div className=" px-[20px] lg:px-[70px]">
+            <h1 className=" text-2xl md:text-center lg:text-start font-bold pt-10 pb-5">
               Similar {tours?.data?.country_name} Tours{" "}
             </h1>
           </div>
-          {/* similar tours */}
-          <div className=" px-[20px] md:px-[130px] flex flex-wrap gap-10 pb-5">
+
+          <div className=" px-[20px] md:px-[100px] lg:px-[70px] flex flex-col md:flex-row flex-wrap lg:justify-center gap-5 md:gap-7 lg:gap-3 xl:gap-5 pb-5">
             {similarTours?.data?.map((tour: any, index: number) => {
               if (tour.id !== tours?.data?.id) {
                 return (
                   <div
                     key={index}
-                    className=" shadow bg-white rounded w-full md:w-full lg:w-[300px]"
+                    className=" shadow bg-white rounded w-full md:w-full lg:w-[32%]"
                   >
                     <Link
                       href={{
@@ -427,7 +439,7 @@ export default function tours() {
                       <div className=" overflow-hidden">
                         <Image
                           src={`${tour?.tour_photo}`}
-                          className=" w-full md:w-full lg:min-w-full max-h-[150px] md:max-h-[250px] hover:scale-[1.3] duration-75"
+                          className=" w-full md:w-full lg:min-w-full max-h-[150px] md:max-h-[250px] transition-all hover:scale-[1.1] duration-500"
                           width={400}
                           height={200}
                           loading="lazy"
@@ -458,7 +470,6 @@ export default function tours() {
                         <div className=" flex items-center justify-start pb-5">
                           {tour?.sale_price && (
                             <p className=" text-sm text-slate-500 font-semibold">
-                              ${" "}
                               {tour?.sale_price?.length > 5
                                 ? tour?.sale_price?.substring(0, 5) + "..."
                                 : tour?.sale_price}
@@ -466,7 +477,6 @@ export default function tours() {
                           )}
                           {tour?.price && (
                             <p className=" text-red-600 text-xl font-bold px-2">
-                              ${" "}
                               {tour?.price?.length > 4
                                 ? tour?.price?.substring(0, 4) + "..."
                                 : tour?.price}

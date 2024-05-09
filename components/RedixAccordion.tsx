@@ -30,7 +30,7 @@ const RedixAccordion = (props: any) => {
 
   return (
     <Accordion.Root
-      className="AccordionRoot w-full h-full mt-10"
+      className="AccordionRoot w-full h-full mt-3"
       type="single"
       collapsible
     >
