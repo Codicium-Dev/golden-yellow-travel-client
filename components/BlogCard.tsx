@@ -5,7 +5,7 @@ import React from "react";
 
 const BlogCard = ({ news }: { news: any }) => {
   return (
-    <div className="open-sans w-[442px] h-[575px] shadow-lg border rounded-ss-[30px] rounded-ee-[30px] overflow-hidden">
+    <div className="open-sans w-full lg:w-[48.0%] h-[575px] shadow-lg border rounded-ss-[30px] rounded-ee-[30px] overflow-hidden">
       <div className="w-full h-1/2">
         <Image
           width={1200}
