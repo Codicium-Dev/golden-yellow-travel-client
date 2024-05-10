@@ -15,8 +15,6 @@ const Page = () => {
     hasNextPage,
     isFetching,
     isLoading,
-    isError,
-    error,
   } = useInfiniteQuery({
     queryKey: ["news"],
     queryFn: ({ pageParam = 1 }) =>
@@ -41,12 +39,12 @@ const Page = () => {
         overlayTitle=""
         title={"News & Article"}
       />
-      <div className="px-[20px] md:px-[130px] my-16">
-        <div className="flex flex-wrap justify-center gap-x-24 gap-y-6">
+      <div className="px-[20px] md:px-[40px] lg:px-[70px] my-10">
+        <div className="flex flex-col gap-5 lg:flex-row lg:flex-wrap lg:justify-center lg:gap-7 ">
           {allNews?.map((news, index) => (
             <React.Fragment key={news?.id}>
               <BlogCard news={news} />
-              {(index + 1) % 2 === 0 && <div className="w-full mt-6" />}
+              {/* {(index + 1) % 2 === 0 && <div className="w-full" />} */}
             </React.Fragment>
           ))}
         </div>
