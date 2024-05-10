@@ -126,6 +126,8 @@ export default function tours() {
     );
   }
 
+  console.log("similarTours", similarTours);
+
   return (
     <>
       <HeroSection photo="/summer1.png" />
@@ -162,15 +164,15 @@ export default function tours() {
               </h1>
 
               <div className=" grid grid-cols-8 mb-5">
-                <div className="mb-3 col-start-1 col-span-8 md:col-span-4 flex flex-row lg:flex-col lg:justify-center items-center align-middle gap-3">
+                <div className="mb-3 col-start-1 col-span-8 md:col-span-4 flex flex-row lg:flex-col lg:justify-center items-center align-middle gap-3 ">
                   <AiOutlineClockCircle
                     size={45}
                     color={"#"}
                     className="w-[30px] h-[30px] shrink-0"
                   />
-                  <div className=" flex-col align-middle items-center justify-center">
+                  <div className=" flex-col align-middle items-center justify-center ">
                     <h1 className=" text-[#828282] mb-1 font-sans">DURATION</h1>
-                    <p className=" font-semibold text-center">
+                    <p className=" font-semibold lg:text-center">
                       {tours?.data?.duration}
                     </p>
                   </div>
@@ -186,7 +188,7 @@ export default function tours() {
                         <h1 className=" text-[#828282] mb-1 text-center font-sans">
                           TRIP RATING
                         </h1>
-                        <p className=" text-green-500 font-semibold text-center">
+                        <p className=" text-green-500 font-semibold lg:text-center">
                           Excellent
                         </p>
                       </div>
@@ -431,10 +433,14 @@ export default function tours() {
         </div>
 
         {/* similar tours */}
-        <div className=" min-h-[400px] bg-gray-200">
+        <div
+          className={`min-h-[400px] bg-gray-200 ${
+            similarTours?.data?.length > 1 ? "block" : "hidden"
+          }`}
+        >
           <div className=" px-[20px] lg:px-[70px]">
             <h1 className=" text-2xl md:text-center lg:text-start font-bold pt-10 pb-5">
-              Similar {tours?.data?.country_name} Tours{" "}
+              Similar {tours?.data?.country_name} Tours
             </h1>
           </div>
 
