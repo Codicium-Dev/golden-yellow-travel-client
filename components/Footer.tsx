@@ -36,10 +36,6 @@ const FooterLinks = [
     url: "news",
     label: "News",
   },
-  {
-    url: "payment-method",
-    label: "Payment Method",
-  },
 ];
 
 const Footer = () => {
@@ -80,17 +76,16 @@ const Footer = () => {
       <div className="sticky bottom-0 px-[20px] lg:px-[70px] py-5 bg-[#f1f2f3] grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-0">
         <div>
           <div className=" flex items-center gap-5">
-            <Image
-              src={"/logo.png"}
-              width={40}
-              height={40}
-              id="GY_icon"
-              className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] "
-              alt="Picture of Golden Asia Expedition"
-            />
-
-            {/* <img src="/logo.png" className=' w-[50px] h-[50px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px]' alt="" /> */}
-            {/* <h1 className=' text-orange-500 font-bold text-2xl'>Golden Asia Expedition</h1> */}
+            <Link href={"/"}>
+              <Image
+                src={"/logo.png"}
+                width={70}
+                height={70}
+                id="GY_icon"
+                className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] "
+                alt="Picture of Golden Asia Expedition"
+              />
+            </Link>
           </div>
           <div className="w-full mt-5 icon">
             <h1 className="w-full font-semibold md:text-lg mb-3 follow">
@@ -103,13 +98,13 @@ const Footer = () => {
                 </a>
               </div>
 
-              <div className=" bg-sky-500 text-white iconus mr-4 rounded-lg p-[2px] flex items-center justify-center">
+              <div className=" bg-[#C13584] text-white iconus mr-4 rounded-lg p-[2px] flex items-center justify-center">
                 <a href="">
                   <BiLogoInstagram size={30} />
                 </a>
               </div>
 
-              <div className=" bg-red-700 text-white iconus mr-4 rounded-lg p-[2px] flex items-center justify-center">
+              <div className=" bg-[#ff0000] text-white iconus mr-4 rounded-lg p-[2px] flex items-center justify-center">
                 <a href="">
                   <BiLogoYoutube size={30} />
                 </a>
@@ -134,21 +129,21 @@ const Footer = () => {
           </h1>
 
           <div className=" flex items-center gap-5 mt-3">
-            <HiOutlineMailOpen size={28} className=" text-orange-600" />
+            <HiOutlineMailOpen size={28} className=" text-[#1c94ad]" />
             <a href="mailto:info@goldenyellowtravel.com">
               info@goldenyellowtravel.com
             </a>
           </div>
 
           <div className=" flex items-center gap-5 mt-3">
-            <AiOutlinePhone size={28} className=" text-orange-600" />
+            <AiOutlinePhone size={28} className=" text-[#1c94ad]" />
             <a href="tel:+959883353253">+959 883 353 253</a>
           </div>
 
           <div className=" flex items-center gap-5 mt-3">
             <MdOutlineNotificationsActive
               size={28}
-              className=" text-orange-600"
+              className=" text-[#1c94ad]"
             />
             <form
               onSubmit={(e) => handleSubscribe(e)}
