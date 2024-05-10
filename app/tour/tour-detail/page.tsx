@@ -253,7 +253,7 @@ export default function tours() {
                 return (
                   <Link
                     key={index}
-                    className="text-[#444444] text-lg md:text-2xl font-bold pt-7"
+                    className="text-[#444444] text-lg md:text-xl font-bold pt-7"
                     href={{
                       pathname: "/tour/tour-detail",
                       query: {
@@ -263,7 +263,9 @@ export default function tours() {
                     // as={`localhost:3000/tour/tour-detail?tourDetail=${tour?.id}`}
                     // as={`https://goldenyellowtravel.com/tour/tour-detail?tourDetail=${tour?.id}`}
                   >
-                    {tour?.name}
+                    {tour?.name.length > 41
+                      ? tour?.name.substring(0, 40) + "..."
+                      : tour?.name}
                   </Link>
                 );
               }
@@ -293,7 +295,7 @@ export default function tours() {
                 <div className=" flex items-start gap-5">
                   <HiUserGroup className={"text-[#1c94ad]"} size={30} />
                   <p className=" text-sm">
-                    <span>Category :</span>{" "}
+                    <span>Category :</span>
                     <span className=" text-gray-600">{tours?.data?.style}</span>
                   </p>
                 </div>
@@ -350,7 +352,6 @@ export default function tours() {
                 activeNav={activeNav}
                 setActiveNav={setActiveNav}
               />
-              {/* Conditionally render Overview or Reviews based on activeNav */}
               {activeNav === "Overview" && (
                 <>
                   <p className=" text-gray-700 text-base md:text-lg break-words mt-3">

@@ -16,7 +16,7 @@ const ItineraryNavLink = ({ NavLinks, activeNav, setActiveNav }: any) => {
             onClick={() => handleNavLinkClick(link.title)}
             className={`${
               activeNav === link.title
-                ? "py-[5px] text-orange-500 border-b-2 border-orange-500 font-bold"
+                ? "py-[5px] text-[#1c94ad] border-b-2 border-[#1c94ad] text-xl font-bold"
                 : ""
             }`}
           >
