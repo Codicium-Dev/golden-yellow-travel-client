@@ -1,29 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
+import { PuffLoader } from "react-spinners";
 import { postRequest } from "@/services/api/apiService";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
-
-type payload = {
-  travel_month: string;
-  travel_year: string;
-  stay_days: string;
-  budget: string;
-  adult_count: string;
-  child_count: string;
-  interest: string;
-  destinations: string;
-  f_name: string;
-  l_name: string;
-  email: string;
-  phone: string;
-  accommodation: string;
-  how_u_know: string;
-  other_information: string;
-  special_note: string;
-};
 
 const page = () => {
   const months = [
@@ -51,19 +33,9 @@ const page = () => {
     "Luxury (5 Stars Hotel)",
   ];
 
-  const years = [
-    "Choose years",
-    "2023",
-    "2024",
-    "2025",
-    "2026",
-    "2027",
-    "2028",
-    "2029",
-    "2030",
-    "2031",
-    "2032",
-  ];
+  const years = new Array(3)
+    .fill(0)
+    .map((_, index) => index + new Date().getFullYear());
 
   const accommodation = [
     "Not Required",
@@ -101,27 +73,42 @@ const page = () => {
   const [otherInfo, setOtherInfo] = useState("");
   const [special, setSpecial] = useState("");
 
-  const [mainPayload, setMainPayload] = useState<payload | any>({
-    travel_month: "",
-    travel_year: "",
-    stay_days: "",
-    budget: "",
-    adult_count: "",
-    child_count: "",
-    interest: "",
-    destinations: "",
-    f_name: "",
-    l_name: "",
-    email: "",
-    phone: "",
-    accommodation: "",
-    how_u_know: "",
-    other_information: "",
-    special_note: "",
+  const queryFormMutation = useMutation({
+    mutationFn: (data: any) => postRequest("form/create", data),
+    onSuccess: () => {
+      setTravelMonth("");
+      setTravelYear("");
+      setStayDays("");
+      setBudget("");
+      setAdult("");
+      setChild("");
+      setInterest("");
+      setDestinations("");
+      setFname("");
+      setLname("");
+      setEmail("");
+      setPhone("");
+      setAccommo("");
+      setCountry("");
+      setHow("");
+      setOtherInfo("");
+      setSpecial("");
+      toast.success("Inquiry Successful");
+    },
+    onError: () => {
+      toast.error("Inquiry Fail! Please try again");
+    },
   });
 
-  useEffect(() => {
-    setMainPayload({
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (travelMonth === "Choose Months") {
+      toast.warning("Please select all required fields");
+      return;
+    }
+
+    queryFormMutation.mutateAsync({
       travel_month: travelMonth,
       travel_year: travelYear,
       stay_days: stayDays,
@@ -140,40 +127,14 @@ const page = () => {
       other_information: otherInfo,
       special_note: special,
     });
-  }, [
-    travelMonth,
-    travelYear,
-    stayDays,
-    budget,
-    adult,
-    child,
-    interest,
-    destinations,
-    fName,
-    lName,
-    email,
-    phone,
-    accommo,
-    how,
-    otherInfo,
-    special,
-  ]);
-
-  const mutation = useMutation((newTodo) => {
-    return postRequest("/form/create", newTodo);
-  });
-
-  useEffect(() => {
-    if (mutation.isSuccess) {
-      toast.success("Success inquery", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
-  }, [mutation]);
+  };
 
   return (
     <>
-      <div className="pt-[110px] md:pt-[140px] pb-[40px] bg-[#E2F3FF] open-sans">
+      <form
+        onSubmit={(e) => submitHandler(e)}
+        className="pt-[110px] md:pt-[140px] pb-[40px] bg-[#E2F3FF] open-sans"
+      >
         <h1 className=" font-serif text-[#f69320] lg:text-6xl text-4xl text-center mb-8">
           Customized Tour
         </h1>
@@ -200,7 +161,8 @@ const page = () => {
               <select
                 name=""
                 id=""
-                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2 cursor-pointer"
+                value={travelMonth}
                 onChange={(e) => setTravelMonth(e.target.value)}
               >
                 {months.map((month) => {
@@ -217,6 +179,7 @@ const page = () => {
                 name=""
                 id=""
                 className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                value={travelYear}
                 onChange={(e) => setTravelYear(e.target.value)}
               >
                 {years.map((year) => {
@@ -234,6 +197,8 @@ const page = () => {
                 name=""
                 id=""
                 className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                required
+                value={stayDays}
                 onChange={(e) => setStayDays(e.target.value)}
               />
             </div>
@@ -249,6 +214,8 @@ const page = () => {
                 name=""
                 id=""
                 className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                required
+                value={budget}
                 onChange={(e) => setBudget(e.target.value)}
               />
             </div>
@@ -262,6 +229,8 @@ const page = () => {
                 name=""
                 id=""
                 className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                required
+                value={adult}
                 onChange={(e) => setAdult(e.target.value)}
               />
             </div>
@@ -277,6 +246,8 @@ const page = () => {
                 placeholder="How may children joining the tour?"
                 id=""
                 className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                required
+                value={child}
                 onChange={(e) => setChild(e.target.value)}
               />
             </div>
@@ -288,7 +259,8 @@ const page = () => {
               <select
                 name=""
                 id=""
-                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2 cursor-pointer"
+                value={interest}
                 onChange={(e) => setInterest(e.target.value)}
               >
                 {interests.map((interests) => {
@@ -307,7 +279,8 @@ const page = () => {
               <select
                 name=""
                 id=""
-                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2 cursor-pointer"
+                value={destinations}
                 onChange={(e) => setDestinations(e.target.value)}
               >
                 {destination.map((destination) => {
@@ -331,6 +304,8 @@ const page = () => {
                 type="text"
                 id=""
                 className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                required
+                value={fName}
                 onChange={(e) => setFname(e.target.value)}
               />
             </div>
@@ -342,6 +317,8 @@ const page = () => {
                 name=""
                 id=""
                 className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                required
+                value={lName}
                 onChange={(e) => setLname(e.target.value)}
               />
             </div>
@@ -354,8 +331,10 @@ const page = () => {
                 type="text"
                 name=""
                 id=""
-                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg"
-                onChange={(e) => setPhone(e.target.value)}
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                required
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
               />
             </div>
 
@@ -368,6 +347,8 @@ const page = () => {
                 name=""
                 id=""
                 className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                required
+                value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
             </div>
@@ -379,7 +360,9 @@ const page = () => {
               type="text"
               name=""
               id=""
-              className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg"
+              className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+              required
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -399,7 +382,8 @@ const page = () => {
               <select
                 name=""
                 id=""
-                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2 cursor-pointer"
+                value={accommo}
                 onChange={(e) => setAccommo(e.target.value)}
               >
                 {accommodation.map((accommodation) => {
@@ -416,7 +400,8 @@ const page = () => {
               <select
                 name=""
                 id=""
-                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2 cursor-pointer"
+                value={how}
                 onChange={(e) => setHow(e.target.value)}
               >
                 {howUknow.map((how) => {
@@ -434,6 +419,8 @@ const page = () => {
                 name=""
                 id=""
                 className=" w-full h-[38px] text-sm border border-orange-600 rounded-lg p-2"
+                required
+                value={otherInfo}
                 onChange={(e) => setOtherInfo(e.target.value)}
               />
             </div>
@@ -447,6 +434,7 @@ const page = () => {
               name=""
               id=""
               className="h-[100px] text-sm w-full border border-orange-600 rounded-lg p-2"
+              value={special}
               onChange={(e) => setSpecial(e.target.value)}
             />
           </div>
@@ -454,21 +442,22 @@ const page = () => {
 
         <div className=" flex justify-center">
           <button
-            disabled={mutation?.isLoading}
-            onClick={() => {
-              mutation.mutate(mainPayload);
-            }}
-            className=" md:w-1/6 w-2/5 rounded-lg bg-[#f69320]"
+            disabled={queryFormMutation.isLoading}
+            type="submit"
+            className=" md:w-1/6 w-2/5 rounded-lg bg-[#f69320] flex justify-center align-middle items-center p-3 cursor-pointer hover:opacity-90 transition-all"
           >
-            <div className=" flex justify-center align-middle items-center ">
-              <p className="p-3">Send</p>
-              {mutation?.isLoading && (
-                <img src={"/loading.svg"} className=" w-5 h-5" />
-              )}
-            </div>
+            {queryFormMutation.isLoading ? (
+              <PuffLoader
+                color={"#010E3B"}
+                size={25}
+                aria-label="Loading Spinner"
+              />
+            ) : (
+              "Send"
+            )}
           </button>
         </div>
-      </div>
+      </form>
     </>
   );
 };

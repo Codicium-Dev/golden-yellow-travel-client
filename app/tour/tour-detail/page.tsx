@@ -219,7 +219,7 @@ export default function tours() {
                   }}
                   // as={`https://goldenyellowtravel.com/book-form?tourCode=${tours?.data?.id}`}
                 >
-                  <button className=" w-full py-3 text-center bg--[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
+                  <button className=" w-full py-3 text-center bg-[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
                     Book Now
                   </button>
                 </Link>
