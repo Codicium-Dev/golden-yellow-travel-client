@@ -114,16 +114,16 @@ const TourCard = ({ tour, reverse }: any) => {
             </Link>
           </div>
 
-          <div className="pt-4 lg:pt-5 lg:pb-10 hidden lg:block">
+          {/* <div className="pt-4 lg:pt-5 lg:pb-10 hidden lg:block">
             {tour?.price && (
               <p className="text-[32px] text-red-600 text-xl font-bold px-2 line-through">
                 ${tour?.price}
               </p>
             )}
-            {/* <p className="text-[#010E3B] text-lg line-clamp-1">
+            <p className="text-[#010E3B] text-lg line-clamp-1">
               Lorem ipsum dolor sit amet consectetur. Amet velit urna turpisrs
-            </p> */}
-          </div>
+            </p>
+          </div> */}
         </div>
       </div>
 
