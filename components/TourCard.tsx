@@ -97,9 +97,9 @@ const TourCard = ({ tour, reverse }: any) => {
                   per person
                 </span>
               </p>
-              {/* <p className="text-[32px] text-red-600 text-xl font-bold px-2 line-through">
-              ${tour?.price}
-            </p> */}
+              <p className="text-[32px] text-red-600 text-xl font-bold px-2 line-through">
+                ${tour?.price}
+              </p>
             </div>
 
             <Link
