@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { BiSolidBook } from "react-icons/bi";
 import Image from "next/image";
 import { PuffLoader } from "react-spinners";
+import { sendMail } from "@/actions/emailAction";
 import { toast } from "react-toastify";
 
 type payload = {
@@ -67,7 +68,7 @@ const page = () => {
     },
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
       tour_id === "" ||
@@ -104,6 +105,7 @@ const page = () => {
         city,
         social_media: socialMedia,
       });
+      sendMail();
     }
   };
 
