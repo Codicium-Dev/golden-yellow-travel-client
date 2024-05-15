@@ -241,7 +241,7 @@ export default function tours() {
           </div>
 
           {/* similar tours */}
-          <div className="p-5 w-full lg:w-[30%] lg:min-h-[50%] lg:h-fit bg-[#ffefe5] rounded-md ">
+          <div className="p-5 pb-8 w-full flex flex-col justify-between lg:w-[30%] lg:min-h-[50%] lg:h-fit bg-[#ffefe5] rounded-md ">
             <span className="block text-sm md:text-base text-gray-600">
               See next place &gt;
             </span>

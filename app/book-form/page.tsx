@@ -41,6 +41,19 @@ const page = () => {
     queryFn: () => getRequest(`tour/show/${params.get("tourCode")}`),
   });
 
+  const tourData = {
+    tourName: data?.data?.name,
+    countryName: data?.data?.country_name,
+    cityName: data?.data?.city_name,
+    duration: data?.data?.duration,
+    departure: data?.data?.departure,
+    location: data?.data?.location,
+    startDate: data?.data?.start_date,
+    endDate: data?.data?.end_date,
+    price: data?.data?.price,
+    salePrice: data?.data?.sale_price,
+  };
+
   const bookFormMutation = useMutation({
     mutationFn: (data: {
       tour_id: string | null;
@@ -105,7 +118,18 @@ const page = () => {
         city,
         social_media: socialMedia,
       });
-      sendMail();
+      const customerData = {
+        tour_id,
+        gender,
+        fullName,
+        email,
+        phone,
+        country,
+        city,
+        socialMedia,
+      };
+
+      sendMail(customerData, tourData);
     }
   };
 
@@ -120,7 +144,7 @@ const page = () => {
   return (
     <div className="min-h-screen pt-[90px] md:pt-[120px] bg-[#E2F3FF] open-sans">
       <div className="px-6 pb-8 lg:px-20 lg:pb-12">
-        <h1 className=" text-center font-bold lg:text-4xl text-2xl text-orange-600 tracking-wider mt-6">
+        <h1 className=" text-center font-bold lg:text-4xl text-2xl text-[#17254e] tracking-wider mt-6">
           Your Booking Tour
         </h1>
 
@@ -128,7 +152,7 @@ const page = () => {
           onSubmit={(e) => handleSubmit(e)}
           className=" bg-slate-50 pb-5 shadow rounded mt-20 mb-20 overflow-hidden relative"
         >
-          <div className=" w-20 h-20 rounded-full bg-orange-500 absolute -top-10 -right-10"></div>
+          <div className=" w-20 h-20 rounded-full bg-[#17254e] absolute -top-10 -right-10"></div>
 
           <div className=" grid grid-cols-2 gap-2">
             <div className=" col-start-1 col-span-2 lg:col-span-1">
@@ -137,94 +161,93 @@ const page = () => {
                 height={700}
                 src={data?.data?.tour_photo}
                 className="w-full h-[400px] rounded-tl-md object-cover"
-                alt={data?.data?.name}
+                alt={tourData?.tourName}
               />
             </div>
             <div className=" col-start-1 lg:col-start-2 col-span-2 lg:col-span-1">
               <div className=" p-5">
-                <h1 className=" text-orange-500 font-semibold text-2xl mb-8">
-                  {data?.data?.name}
+                <h1 className=" text-[#17254e] font-semibold text-2xl mb-8">
+                  {tourData?.tourName}
                 </h1>
 
-                {data?.data?.country_name && (
+                {tourData?.countryName && (
                   <div className=" block md:flex items-center gap-5">
                     <p className=" text-slate-500 min-w-[150px]">
-                      Country Name :{" "}
+                      Country Name :
                     </p>
-                    <p className="">{data?.data?.country_name}</p>
+                    <p className="">{tourData?.countryName}</p>
                   </div>
                 )}
-
-                {data?.data?.city_name && (
+                {tourData?.cityName && (
                   <div className=" block md:flex items-center gap-5 my-2">
-                    <p className=" text-slate-500 min-w-[150px]">
-                      City Name :{" "}
-                    </p>
-                    <p className="">{data?.data?.city_name}</p>
+                    <p className=" text-slate-500 min-w-[150px]">City Name :</p>
+                    <p className="">{tourData?.cityName}</p>
                   </div>
                 )}
 
-                {data?.data?.duration && (
+                {tourData?.duration && (
                   <div className=" block md:flex items-center gap-5">
                     <p className=" text-slate-500 min-w-[150px]">Duration : </p>
-                    <p className="">{data?.data?.duration}</p>
+                    <p className="">{tourData?.duration}</p>
                   </div>
                 )}
 
-                {data?.data?.departure && (
+                {tourData?.departure && (
                   <div className=" block md:flex gap-5 my-2">
-                    <p className=" text-slate-500 min-w-[150px]">
-                      Departure :{" "}
-                    </p>
-                    <p className="">{data?.data?.departure}</p>
+                    <p className=" text-slate-500 min-w-[150px]">Departure :</p>
+                    <p className="">{tourData?.departure}</p>
                   </div>
                 )}
 
-                {data?.data?.location && (
+                {tourData?.location && (
                   <div className=" block md:flex items-start gap-5 my-2">
                     <p className=" text-slate-500 min-w-[150px]">Location : </p>
-                    <p className="">{data?.data?.location}</p>
+                    <p className="">{tourData?.location}</p>
                   </div>
                 )}
 
                 <div className=" grid grid-cols-2 gap-2 mt-6">
                   <div className=" col-start-1 col-span-1">
-                    {data?.data?.start_date && (
+                    {tourData?.startDate && (
                       <div className=" block lg:flex items-center gap-5">
                         <p className=" text-slate-500">Start Date : </p>
-                        <p className="">{data?.data?.start_date}</p>
+                        <p className="">{tourData?.startDate}</p>
                       </div>
                     )}
                   </div>
                   <div className=" col-start-1 lg:col-start-2 col-span-1">
-                    {data?.data?.end_date && (
+                    {tourData?.endDate && (
                       <div className=" block lg:flex items-center gap-5">
                         <p className=" text-slate-500">End Date : </p>
-                        <p className="">{data?.data?.end_date}</p>
+                        <p className="">{tourData?.endDate}</p>
                       </div>
                     )}
                   </div>
                 </div>
 
-                <div className=" grid grid-rows-1 lg:grid-cols-2 gap-2 lg:my-2">
-                  {data?.data?.price && (
+                <div className="grid grid-rows-1 lg:grid-cols-2 gap-2 lg:my-2">
+                  {tourData?.price && (
                     <div className=" col-start-1 col-span-1">
                       <div className=" block lg:flex items-center gap-5">
                         <p className=" text-slate-500">Price : </p>
                         <p className="">
                           <span className=" text-[#010E3B]">$</span>
-                          {data?.data?.price}{" "}
+                          {tourData?.price}
                         </p>
                       </div>
                     </div>
                   )}
-                  {data?.data?.sale_price && (
-                    <div className=" col-start-1 lg:col-start-2 col-span-1">
+                  {tourData?.salePrice && (
+                    <div
+                      className={`col-span-1 col-start-1 ${
+                        tourData?.price ? "lg:col-start-2" : "lg:col-start-1"
+                      }`}
+                    >
                       <div className=" block lg:flex items-center gap-5">
                         <p className=" text-slate-500">Sale Price : </p>
                         <p className="">
                           <span className=" text-[#010E3B]">$</span>
-                          {data?.data?.sale_price}{" "}
+                          {tourData?.salePrice}
                         </p>
                       </div>
                     </div>
@@ -238,14 +261,14 @@ const page = () => {
             <div className=" col-start-1 col-span-12 lg:col-span-1">
               <label
                 htmlFor="gender"
-                className="mb-2 font-semibold text-orange-600"
+                className="mb-2 font-semibold text-[#17254e]"
               >
                 Gender
               </label>
               <select
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
-                className="w-full border border-orange-600 px-3 py-2 rounded-lg "
+                className="w-full border border-[#17254e] px-3 py-2 rounded-lg "
                 name="gender"
               >
                 <option value="male">Mr.</option>
@@ -254,7 +277,7 @@ const page = () => {
               </select>
             </div>
             <div className=" col-start-1 lg:col-start-2 col-span-12 lg:col-span-1">
-              <label className=" mb-2 font-semibold text-orange-600">
+              <label className=" mb-2 font-semibold text-[#17254e]">
                 Full Name
               </label>
               <input
@@ -263,7 +286,7 @@ const page = () => {
                 onChange={(e) => setFullName(e.target.value)}
                 name=""
                 placeholder="Enter your full name"
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full border border-[#17254e] px-3 py-2 rounded-lg"
                 required
               />
             </div>
@@ -271,7 +294,7 @@ const page = () => {
 
           <div className=" grid grid-cols-2 gap-5 px-3 py-2">
             <div className=" col-start-1 col-span-12 lg:col-span-1">
-              <label className=" mb-2 font-semibold text-orange-600">
+              <label className=" mb-2 font-semibold text-[#17254e]">
                 Email
               </label>
               <input
@@ -281,11 +304,11 @@ const page = () => {
                 placeholder="Enter your email address"
                 name=""
                 required
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full border border-[#17254e] px-3 py-2 rounded-lg"
               />
             </div>
             <div className=" col-start-1 lg:col-start-2 col-span-12 lg:col-span-1">
-              <label className=" mb-2 font-semibold text-orange-600">
+              <label className=" mb-2 font-semibold text-[#17254e]">
                 Phone
               </label>
               <input
@@ -295,14 +318,14 @@ const page = () => {
                 placeholder="Enter your phone number"
                 name=""
                 required
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full border border-[#17254e] px-3 py-2 rounded-lg"
               />
             </div>
           </div>
 
           <div className=" grid grid-cols-2 gap-5 px-3 py-2">
             <div className=" col-start-1 col-span-12 md:col-span-1">
-              <label className=" mb-2 font-semibold text-orange-600">
+              <label className=" mb-2 font-semibold text-[#17254e]">
                 Country
               </label>
               <input
@@ -312,13 +335,11 @@ const page = () => {
                 placeholder="Enter your country name"
                 name=""
                 required
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full border border-[#17254e] px-3 py-2 rounded-lg"
               />
             </div>
             <div className=" col-start-1 md:col-start-2 col-span-12 md:col-span-1">
-              <label className=" mb-2 font-semibold text-orange-600">
-                City
-              </label>
+              <label className=" mb-2 font-semibold text-[#17254e]">City</label>
               <input
                 value={city}
                 type="text"
@@ -326,7 +347,7 @@ const page = () => {
                 placeholder="Enter your city name"
                 name=""
                 required
-                className=" w-full border border-orange-600 px-3 py-2 rounded-lg"
+                className=" w-full border border-[#17254e] px-3 py-2 rounded-lg"
                 // onChange={(e) => setBudget(e.target.value)}
               />
             </div>
@@ -334,13 +355,13 @@ const page = () => {
 
           <div className=" grid grid-cols-2 gap-5 px-3 py-2">
             <div className=" col-start-1 col-span-12 md:col-span-1">
-              <label className=" mb-2 font-semibold text-orange-600">
+              <label className=" mb-2 font-semibold text-[#17254e]">
                 Where do you know us?
               </label>
               <select
                 value={socialMedia}
                 onChange={(e) => setSocialMedia(e.target.value)}
-                className="w-full border border-orange-600 px-3 py-2 rounded-lg "
+                className="w-full border border-[#17254e] px-3 py-2 rounded-lg "
                 name="social_media"
               >
                 <option value="" selected>
@@ -358,7 +379,7 @@ const page = () => {
                 <button
                   type="submit"
                   disabled={bookFormMutation?.isLoading}
-                  className=" px-3 py-2 bg-orange-500 text-white rounded-lg flex items-center gap-2 cursor-pointer hover:opacity-90 transition-all"
+                  className=" px-3 py-2 bg-[#17254e] text-white rounded-lg flex items-center gap-2 cursor-pointer hover:opacity-90 transition-all"
                 >
                   {bookFormMutation?.isLoading ? (
                     <PuffLoader
@@ -367,10 +388,7 @@ const page = () => {
                       aria-label="Loading Spinner"
                     />
                   ) : (
-                    <>
-                      Submit
-                      <BiSolidBook />
-                    </>
+                    <>Submit</>
                   )}
                 </button>
               </div>
