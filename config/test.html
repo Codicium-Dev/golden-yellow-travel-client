@@ -1,17 +1,10 @@
-import { Resend } from "resend";
-
-const resend = new Resend("re_j5A8Aygu_G4oQghBHqKtxJaLdWfPN9GAd");
-
-// Function to send booking email
-export const sendBookingEmail = async (customerData: any, tourData: any) => {
-  try {
-    // Send email using Resend API
-    const response = await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: "yaetactaung@gmail.com",
-      subject: `Booking for "${tourData.tourName}"`,
-      html: `
-      <!DOCTYPE html>
+import { Resend } from "resend"; const resend = new
+Resend("re_j5A8Aygu_G4oQghBHqKtxJaLdWfPN9GAd"); // Function to send booking
+email export const sendBookingEmail = async (customerData: any, tourData: any)
+=> { try { // Send email using Resend API const response = await
+resend.emails.send({ from: "onboarding@resend.dev", to: "yaetactaung@gmail.com",
+subject: `Booking for "${tourData.tourName}"`, html: `
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <style>
@@ -118,7 +111,9 @@ export const sendBookingEmail = async (customerData: any, tourData: any) => {
         </tr>
         <tr>
           <td class="title">Email</td>
-          <td class="content">${customerData.email}</td>
+          <td class="content">
+            <a href="mailto:${customerData.email}">${customerData.email}</a>
+          </td>
         </tr>
         <tr>
           <td class="title">Phone</td>
@@ -141,15 +136,7 @@ export const sendBookingEmail = async (customerData: any, tourData: any) => {
   </body>
 </html>
 
-
-      `,
-    });
-    console.log("Email sent successfully:", response);
-  } catch (error: any) {
-    // Log error details
-    console.error("Failed to send email:", error);
-    if (error.response) {
-      console.error("Error response:", await error.response.text());
-    }
-  }
-};
+`, }); console.log("Email sent successfully:", response); } catch (error: any) {
+// Log error details console.error("Failed to send email:", error); if
+(error.response) { console.error("Error response:", await
+error.response.text()); } } };
