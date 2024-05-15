@@ -51,6 +51,23 @@ export default function RootLayout({
     <ClerkProvider>
       <ReactQueryProvider>
         <html lang="en">
+          <head>
+            {/* Google Tag Manager */}
+            <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-LH3MHM47V6"
+            ></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-LH3MHM47V6');
+            `,
+              }}
+            />
+          </head>
           <body
             className={`${inter.variable} ${openSans.variable} ${monda.variable}`}
           >
