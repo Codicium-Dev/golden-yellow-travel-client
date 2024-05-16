@@ -7,11 +7,13 @@ import {
 } from "react-icons/ai";
 import { FaBed, FaMapMarkedAlt, FaMountain } from "react-icons/fa";
 import {
+  addTour,
   removeTour,
   selectTours,
 } from "@/services/redux/reducer/tourSlugSlice";
+import { createTourObject, slugify } from "@/helper/slugify";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { BiCategory } from "react-icons/bi";
@@ -80,8 +82,21 @@ export default function tours({ params }: { params: { slug: string } }) {
   const [activeNav, setActiveNav] = useState("Overview");
 
   const tourSlug = useSelector(selectTours);
-  const tourId = tourSlug[params.slug];
+  console.log(tourSlug);
   const dispatch = useDispatch();
+
+  const tourId = tourSlug[params.slug.toString()];
+  console.log(tourId);
+
+  // const updateTourId = useCallback(() => {
+  //   const updatedTourSlug = tourSlug;
+  //   tourId = updatedTourSlug[params.slug];
+  //   console.log("from callback", tourId);
+  // }, [tourId, tourSlug, params.slug, router]);
+
+  // useEffect(() => {
+  //   updateTourId();
+  // }, [updateTourId]);
 
   // useEffect(() => {
   //   const cleanup = () => {
@@ -94,10 +109,18 @@ export default function tours({ params }: { params: { slug: string } }) {
   //   // Cleanup function will execute when the component unmounts or when the slug changes
   //   return cleanup;
   // }, []);
+  // useEffect(() => {
+  //   if (tourId === "" || tourId === undefined) {
+  //     tourSlug = useSelector(selectTours);
+  //     tourId = tourSlug[params.slug];
+  //   }
+  // });
 
   const { data: tours, isLoading: tourLoading } = useQuery({
     queryKey: ["tour-detail", tourId],
     queryFn: () => getRequest(`tour/show/${tourId}`),
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
   });
 
   const { data: inclusions, isLoading: inclusionLoading } = useQuery({
@@ -262,17 +285,18 @@ export default function tours({ params }: { params: { slug: string } }) {
 
             {similarTours?.data?.map((tour: any, index: number) => {
               if (!titleRendered && tour.id !== tours?.data?.id) {
-                // Check if title hasn't been rendered and ID is not the same as current tour's ID
+                const slug = slugify(tour?.name);
+                const tourObject = createTourObject(slug, tour?.id);
+                const dispatch = useDispatch();
+
+                dispatch(addTour(tourObject));
                 titleRendered = true; // Set titleRendered to true to prevent rendering additional titles
                 return (
                   <Link
                     key={index}
                     className="text-[#444444] text-lg md:text-xl font-bold pt-7"
                     href={{
-                      pathname: "/tour/tour-detail",
-                      query: {
-                        tourDetail: tour?.id,
-                      },
+                      pathname: `/tour/tour-detail/${slug.toString()}`,
                     }}
                     // as={`localhost:3000/tour/tour-detail?tourDetail=${tour?.id}`}
                     // as={`https://goldenyellowtravel.com/tour/tour-detail?tourDetail=${tour?.id}`}
@@ -461,6 +485,11 @@ export default function tours({ params }: { params: { slug: string } }) {
 
           <div className=" px-[20px] md:px-[100px] lg:px-[70px] flex flex-col md:flex-row flex-wrap lg:justify-center gap-5 md:gap-7 lg:gap-3 xl:gap-5 pb-5">
             {similarTours?.data?.map((tour: any, index: number) => {
+              const slug = slugify(tour?.name);
+              const tourObject = createTourObject(slug, tour?.id);
+              const dispatch = useDispatch();
+
+              dispatch(addTour(tourObject));
               if (tour.id !== tours?.data?.id) {
                 return (
                   <div
@@ -469,10 +498,7 @@ export default function tours({ params }: { params: { slug: string } }) {
                   >
                     <Link
                       href={{
-                        pathname: "/tour/tour-detail",
-                        query: {
-                          tourDetail: tour?.id,
-                        },
+                        pathname: `/tour/tour-detail/${slug.toString()}`,
                       }}
                       // as={`https://localhost:3000/tour/tour-detail?tourDetail=${tour?.id}`}
                       // as={`https://goldenyellowtravel.com/tour/tour-detail?tourDetail=${tour?.id}`}

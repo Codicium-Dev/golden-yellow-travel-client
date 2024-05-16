@@ -1,5 +1,5 @@
 export function slugify(name: string) {
-  const normalized = name.replace(/[-\s]+/g, "-");
+  const normalized = name.replace(/:/g, "-").replace(/[-\s]+/g, "-");
 
   const slug = normalized.replace(/^-+/, "").replace(/-+$/, "");
 
