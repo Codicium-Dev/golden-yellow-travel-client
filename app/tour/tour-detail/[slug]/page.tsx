@@ -6,8 +6,13 @@ import {
   AiOutlineClockCircle,
 } from "react-icons/ai";
 import { FaBed, FaMapMarkedAlt, FaMountain } from "react-icons/fa";
+import {
+  removeTour,
+  selectTours,
+} from "@/services/redux/reducer/tourSlugSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { BiCategory } from "react-icons/bi";
 import CreateReview from "@/components/CreateReview";
@@ -68,22 +73,37 @@ type Tour = {
 
 interface inclusion {}
 
-export default function tours() {
+export default function tours({ params }: { params: { slug: string } }) {
   const router = useRouter();
-  const params = useSearchParams();
+  const pathname = usePathname();
+  // const params = useSearchParams();
   const [activeNav, setActiveNav] = useState("Overview");
 
+  const tourSlug = useSelector(selectTours);
+  const tourId = tourSlug[params.slug];
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   const cleanup = () => {
+  //     // Remove the tour object only if the user navigates away from the current page
+  //     if (pathname !== `/tour/${params.slug}`) {
+  //       dispatch(removeTour({ slug: params.slug }));
+  //     }
+  //   };
+
+  //   // Cleanup function will execute when the component unmounts or when the slug changes
+  //   return cleanup;
+  // }, []);
+
   const { data: tours, isLoading: tourLoading } = useQuery({
-    queryKey: ["tour-detail", params.get("tourDetail")],
-    queryFn: () => getRequest(`tour/show/${params.get("tourDetail")}`),
+    queryKey: ["tour-detail", tourId],
+    queryFn: () => getRequest(`tour/show/${tourId}`),
   });
 
   const { data: inclusions, isLoading: inclusionLoading } = useQuery({
-    queryKey: ["inclusions", params.get("tourDetail")],
+    queryKey: ["inclusions", tourId],
     queryFn: () =>
-      getRequest(
-        `inclusion/list?columns=tour_id&search=${params.get("tourDetail")}`
-      ),
+      getRequest(`inclusion/list?columns=tour_id&search=${tourId}`),
     enabled: !!tours,
   });
 
@@ -97,26 +117,20 @@ export default function tours() {
   });
 
   const { data: Itinerary } = useQuery({
-    queryKey: ["itinerary", params.get("tourDetail")],
+    queryKey: ["itinerary", tourId],
     queryFn: () =>
       getRequest(
-        `itinerary/list?page=1&per_page=100&columns=tour_id&search=${params.get(
-          "tourDetail"
-        )}&order=created_at&sort=ASC`
+        `itinerary/list?page=1&per_page=100&columns=tour_id&search=${tourId}&order=created_at&sort=ASC`
       ),
   });
 
   let titleRendered = false; // Variable to track if title has been rendered
 
-  useEffect(() => {
-    if (
-      !params.get("tourDetail") ||
-      params.get("tourDetail") === "" ||
-      params.get("tourDetail") === undefined
-    ) {
-      router.push("/");
-    }
-  }, [params.get("tourDetail")]);
+  // useEffect(() => {
+  //   if (!tourId || tourId === undefined) {
+  //     router.push("/");
+  //   }
+  // }, [tourId]);
 
   if (tourLoading) {
     return (
@@ -126,7 +140,7 @@ export default function tours() {
     );
   }
 
-  console.log("similarTours", similarTours);
+  // console.log("similarTours", similarTours);
 
   return (
     <>
