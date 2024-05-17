@@ -57,7 +57,7 @@ const page = ({ params }: { params: { slug: string } }) => {
       >
         <div className=" hero-section h-[400px]"></div>
         <h1 className="md:text-3xl text-2xl font-bold text-white absolute top-[50%] left-[50%] -translate-x-[50%] z-50">
-          Discover {searchParams.get("cityName")} by your own way!
+          Discover {params.slug.toUpperCase()} by your own way!
         </h1>
       </div>
 
