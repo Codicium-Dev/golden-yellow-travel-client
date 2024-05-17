@@ -1,3 +1,4 @@
+import cityTourSlugReducer from "../redux/reducer/cityTourSlugSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "../redux/reducer/counterSlice";
 import mainSearchReducer from "../redux/reducer/mainSearchSlice";
@@ -16,6 +17,7 @@ export const rootStore = configureStore({
     packNav: packNavReducer,
     mainSearch: mainSearchReducer,
     tourSlug: tourSlugReducer,
+    cityTourSlug: cityTourSlugReducer,
   },
 });
 

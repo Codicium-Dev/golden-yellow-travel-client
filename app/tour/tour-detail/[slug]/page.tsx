@@ -11,7 +11,7 @@ import {
   removeTour,
   selectTours,
 } from "@/services/redux/reducer/tourSlugSlice";
-import { createSlug, createTourObject } from "@/helper/slugify";
+import { createSlug, createSlugObject } from "@/helper/slugify";
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -282,7 +282,7 @@ export default function tours({ params }: { params: { slug: string } }) {
             {similarTours?.data?.map((tour: any, index: number) => {
               if (!titleRendered && tour.id !== tours?.data?.id) {
                 const slug = createSlug(tour?.name);
-                const tourObject = createTourObject(slug, tour?.id);
+                const tourObject = createSlugObject(slug, tour?.id);
                 const dispatch = useDispatch();
 
                 dispatch(addTour(tourObject));
@@ -482,7 +482,7 @@ export default function tours({ params }: { params: { slug: string } }) {
           <div className=" px-[20px] md:px-[100px] lg:px-[70px] flex flex-col md:flex-row flex-wrap lg:justify-center gap-5 md:gap-7 lg:gap-3 xl:gap-5 pb-5">
             {similarTours?.data?.map((tour: any, index: number) => {
               const slug = createSlug(tour?.name);
-              const tourObject = createTourObject(slug, tour?.id);
+              const tourObject = createSlugObject(slug, tour?.id);
               const dispatch = useDispatch();
 
               dispatch(addTour(tourObject));

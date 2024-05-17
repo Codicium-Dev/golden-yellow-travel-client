@@ -36,7 +36,7 @@ export default function HeroSection({
             {overlayTitle}
           </span>
           <span
-            className={`w-full absolute left-1/2 -translate-x-1/2 text-[32px] xl:text-[60px] tracking-widest text-center font-extrabold ${
+            className={`w-full capitalize absolute left-1/2 -translate-x-1/2 text-[32px] xl:text-[60px] tracking-widest text-center font-extrabold ${
               subTitle ? "-top-[20px]" : "top-0"
             }`}
           >
