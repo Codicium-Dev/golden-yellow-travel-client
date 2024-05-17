@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
+import { createTourObject, slugify } from "@/helper/slugify";
 
 import Image from "next/image";
 import Link from "next/link";
 import { PuffLoader } from "react-spinners";
+import { addTour } from "@/services/redux/reducer/tourSlugSlice";
 import { getRequest } from "@/services/api/apiService";
+import { useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Recommendations() {
@@ -119,15 +122,18 @@ export default function Recommendations() {
         {/* main picture */}
         <div className="w-full md:w-[90%] h-full ">
           {tours?.map((tour: any, index: number) => {
+            const slug = slugify(tour?.name);
+            const tourObject = createTourObject(slug, tour?.id);
+            const dispatch = useDispatch();
+
+            dispatch(addTour(tourObject));
+
             if (index === 0) {
               return (
                 <Link
                   key={tour?.id}
                   href={{
-                    pathname: "/tour/tour-detail",
-                    query: {
-                      tourDetail: tour?.id,
-                    },
+                    pathname: `/tour/tour-detail/${slug.toString()}`,
                   }}
                   // as={`https://localhost:3000/tour/tour-detail?tourDetail=${tour?.id}`}
                   // as={`https://goldenyellowtravel.com/tour/tour-detail?tourDetail=${tour?.id}`}
