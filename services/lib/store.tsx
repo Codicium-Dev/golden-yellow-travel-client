@@ -5,6 +5,7 @@ import mainSearchReducer from "../redux/reducer/mainSearchSlice";
 import mobileReducer from "../redux/reducer/mobileSlice";
 import modalReducer from "../redux/reducer/modalSlice";
 import navigateReducer from "../redux/reducer/navigateSlice";
+import newsSlugReducer from "../redux/reducer/newsSlugSlice";
 import packNavReducer from "../redux/reducer/packageSlice";
 import tourSlugReducer from "../redux/reducer/tourSlugSlice";
 
@@ -18,6 +19,7 @@ export const rootStore = configureStore({
     mainSearch: mainSearchReducer,
     tourSlug: tourSlugReducer,
     cityTourSlug: cityTourSlugReducer,
+    newsSlug: newsSlugReducer,
   },
 });
 
