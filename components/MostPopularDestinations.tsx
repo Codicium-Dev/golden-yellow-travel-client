@@ -1,6 +1,10 @@
+import { createSlug, createSlugObject } from "@/helper/slugify";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { addCityTour } from "@/services/redux/reducer/cityTourSlugSlice";
+import { useDispatch } from "react-redux";
 
 const MostPopularDestinations = ({ cityTour }: { cityTour: any }) => {
   return (
@@ -11,15 +15,17 @@ const MostPopularDestinations = ({ cityTour }: { cityTour: any }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
         {cityTour?.data?.data?.map((city: any, index: number) => {
+          const slug = createSlug(city?.name);
+          const tourObject = createSlugObject(slug, city?.id);
+          const dispatch = useDispatch();
+
+          dispatch(addCityTour(tourObject));
+
           return (
             <div key={city?.name} className="relative overflow-hidden">
               <Link
                 href={{
-                  pathname: "/city-tour",
-                  query: {
-                    city: city?.id,
-                    cityName: city?.name,
-                  },
+                  pathname: `/city-tour/${slug.toString()}`,
                 }}
                 // as={`https://goldenyellowtravel.com/city-tour?city=${city?.id}&cityName=${city?.name}`}
               >

@@ -11,34 +11,27 @@ import TourCard from "@/components/TourCard";
 import { getRequest } from "@/services/api/apiService";
 import { useSearchParams } from "next/navigation";
 
-const CountryPage = () => {
-  const searchParams = useSearchParams();
-  const country = searchParams.get("countryName");
-
-  let prefetchCountry =
-    searchParams.get("countryName") === "Vietnam" ? "Thailand" : "Vietnam";
+const CountryPage = ({ countryName }: { countryName: string }) => {
+  let prefetchCountry = countryName === "vietnam" ? "thailand" : "vietnam";
 
   const { data, isLoading } = useQuery({
-    queryKey: ["countryName", searchParams.get("countryName")],
-    queryFn: () =>
-      getRequest(
-        `/tour/list?columns=name&search=${searchParams.get("countryName")}`
-      ),
-    refetchOnMount: false,
+    queryKey: ["countryName", countryName],
+    queryFn: () => getRequest(`/tour/list?columns=name&search=${countryName}`),
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (searchParams.get("countryName")) {
+    if (countryName) {
       queryClient.prefetchQuery({
         queryKey: ["countryName", prefetchCountry],
         queryFn: () =>
           getRequest(`/tour/list?columns=name&search=${prefetchCountry}`),
       });
     }
-  }, [searchParams.get("countryName")]);
+  }, [countryName]);
 
   if (isLoading) {
     return (
@@ -51,8 +44,8 @@ const CountryPage = () => {
   return (
     <>
       <HeroSection
-        photo={country == "Thailand" ? "/thailand.webp" : "/vietnam.jpg"}
-        title={country}
+        photo={countryName == "thailand" ? "/thailand.webp" : "/vietnam.jpg"}
+        title={countryName}
       />
       <div className="px-6 md:px-16 my-20 gap-5 lg:gap-14 flex flex-col justify-center items-center">
         {isLoading && (

@@ -16,13 +16,13 @@ export function createSlug(name: string) {
   });
 }
 
-export function createTourObject(
-  tourName: string,
-  tourId: number
+export function createSlugObject(
+  name: string,
+  id: number
 ): { slug: string; id: number } {
-  const slug = createSlug(tourName);
+  const slug = createSlug(name);
   return {
     slug,
-    id: tourId,
+    id,
   };
 }

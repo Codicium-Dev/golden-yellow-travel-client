@@ -164,10 +164,7 @@ const Header = () => {
                           <Link
                             key={country.id}
                             href={{
-                              pathname: "/country",
-                              query: {
-                                countryName: country?.name,
-                              },
+                              pathname: `/country/${country?.name.toLowerCase()}`,
                             }}
                             // as={`https://goldenyellowtravel.com/country?countryName=${country?.name}`}
                           >

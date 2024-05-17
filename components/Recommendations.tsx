@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { createSlug, createTourObject } from "@/helper/slugify";
+import { createSlug, createSlugObject } from "@/helper/slugify";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -123,7 +123,7 @@ export default function Recommendations() {
         <div className="w-full md:w-[90%] h-full ">
           {tours?.map((tour: any, index: number) => {
             const slug = createSlug(tour?.name);
-            const tourObject = createTourObject(slug, tour?.id);
+            const tourObject = createSlugObject(slug, tour?.id);
             const dispatch = useDispatch();
 
             dispatch(addTour(tourObject));

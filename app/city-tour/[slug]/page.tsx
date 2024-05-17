@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { BsCheck2All } from "react-icons/bs";
@@ -10,18 +11,22 @@ import { MdLocationOn } from "react-icons/md";
 import { PuffLoader } from "react-spinners";
 import TourCard from "@/components/TourCard";
 import { getRequest } from "@/services/api/apiService";
+import { selectCityTour } from "@/services/redux/reducer/cityTourSlugSlice";
 import { useQuery } from "@tanstack/react-query";
 
-const page = () => {
+const page = ({ params }: { params: { slug: string } }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  const cityTourSlug = useSelector(selectCityTour);
+  const dispatch = useDispatch();
+
+  const cityTourId = cityTourSlug[params.slug.toString()];
+
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["cityId", searchParams.get("city")],
+    queryKey: ["cityId", cityTourId],
     queryFn: () =>
-      getRequest(
-        `/tour/list?columns=city_id&search=${searchParams.get("city")}`
-      ),
+      getRequest(`/tour/list?columns=city_id&search=${cityTourId}`),
   });
 
   console.log(data);
@@ -45,7 +50,7 @@ const page = () => {
       <div
         className="h-[400px] relative"
         style={{
-          backgroundImage: `url(${"travel.jpeg"})`,
+          backgroundImage: `url(${"/travel.jpeg"})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
