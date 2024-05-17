@@ -1,16 +1,26 @@
-export function slugify(name: string) {
-  const normalized = name.replace(/:/g, "-").replace(/[-\s]+/g, "-");
+import slugify from "slugify";
 
-  const slug = normalized.replace(/^-+/, "").replace(/-+$/, "");
+// export function slugify(name: string) {
+//   const normalized = name.replace(/:/g, "-").replace(/[-\s]+/g, "-");
 
-  return slug.toLowerCase();
+//   const slug = normalized.replace(/^-+/, "").replace(/-+$/, "");
+
+//   return slug.toLowerCase();
+// }
+
+export function createSlug(name: string) {
+  return slugify(name, {
+    lower: true, // Convert to lower case
+    strict: true, // Remove special characters
+    replacement: "-", // Replace spaces with hyphens
+  });
 }
 
 export function createTourObject(
   tourName: string,
   tourId: number
 ): { slug: string; id: number } {
-  const slug = slugify(tourName);
+  const slug = createSlug(tourName);
   return {
     slug,
     id: tourId,

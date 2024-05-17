@@ -11,7 +11,7 @@ import {
   removeTour,
   selectTours,
 } from "@/services/redux/reducer/tourSlugSlice";
-import { createTourObject, slugify } from "@/helper/slugify";
+import { createSlug, createTourObject } from "@/helper/slugify";
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -82,11 +82,9 @@ export default function tours({ params }: { params: { slug: string } }) {
   const [activeNav, setActiveNav] = useState("Overview");
 
   const tourSlug = useSelector(selectTours);
-  console.log(tourSlug);
   const dispatch = useDispatch();
 
   const tourId = tourSlug[params.slug.toString()];
-  console.log(tourId);
 
   // const updateTourId = useCallback(() => {
   //   const updatedTourSlug = tourSlug;
@@ -119,8 +117,6 @@ export default function tours({ params }: { params: { slug: string } }) {
   const { data: tours, isLoading: tourLoading } = useQuery({
     queryKey: ["tour-detail", tourId],
     queryFn: () => getRequest(`tour/show/${tourId}`),
-    refetchOnMount: true,
-    refetchOnWindowFocus: false,
   });
 
   const { data: inclusions, isLoading: inclusionLoading } = useQuery({
@@ -285,7 +281,7 @@ export default function tours({ params }: { params: { slug: string } }) {
 
             {similarTours?.data?.map((tour: any, index: number) => {
               if (!titleRendered && tour.id !== tours?.data?.id) {
-                const slug = slugify(tour?.name);
+                const slug = createSlug(tour?.name);
                 const tourObject = createTourObject(slug, tour?.id);
                 const dispatch = useDispatch();
 
@@ -485,7 +481,7 @@ export default function tours({ params }: { params: { slug: string } }) {
 
           <div className=" px-[20px] md:px-[100px] lg:px-[70px] flex flex-col md:flex-row flex-wrap lg:justify-center gap-5 md:gap-7 lg:gap-3 xl:gap-5 pb-5">
             {similarTours?.data?.map((tour: any, index: number) => {
-              const slug = slugify(tour?.name);
+              const slug = createSlug(tour?.name);
               const tourObject = createTourObject(slug, tour?.id);
               const dispatch = useDispatch();
 

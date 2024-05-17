@@ -4,7 +4,7 @@ import {
   removeTour,
   selectTours,
 } from "@/services/redux/reducer/tourSlugSlice";
-import { createTourObject, slugify } from "@/helper/slugify";
+import { createSlug, createTourObject } from "@/helper/slugify";
 import { useDispatch, useSelector } from "react-redux";
 
 import Image from "next/image";
@@ -15,7 +15,7 @@ const TourCard = ({ tour, reverse }: any) => {
   const [reviewIn, setReviewIn] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const slug = slugify(tour?.name);
+  const slug = createSlug(tour?.name);
   const tourObject = createTourObject(slug, tour?.id);
   const dispatch = useDispatch();
 
