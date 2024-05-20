@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Golden Asia Expedition - News",
+  title: "News",
   description: "This is the news page of Golden Asia Expedition.",
   keywords: "Golden Asia Expedition, News",
 };

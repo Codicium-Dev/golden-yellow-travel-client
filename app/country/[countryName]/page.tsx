@@ -8,8 +8,13 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   return {
-    title: params?.countryName || "Golden Asia Expedition",
-    description: "This website is provided from YoLo Digital Marketing.",
+    title:
+      params?.countryName.charAt(0).toUpperCase() +
+      params?.countryName.slice(1),
+    description: `Make your memorable trip at the best prices! Plan your dream to ${
+      params?.countryName.charAt(0).toUpperCase() +
+        params?.countryName.slice(1) || "South East Asia"
+    } with us.`,
     keywords:
       params?.countryName === "thailand"
         ? "thailand holiday packages, thailand holiday, thailand holidays 2024, best time to visit thailand, best time to go to thailand, cheap tour packages, best month to visit thailand, travelling package, affordable trip packages, tajlandia holiday, holiday packages for japan, good time to visit thailand, good time to go to thailand"
