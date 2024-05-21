@@ -27,17 +27,19 @@ export default function HeroSection({
       <div className="absolute top-[40%] left-1/2 -translate-x-[50%] w-full open-sans text-white text-center font-bold">
         <div className="relative w-full">
           <span
-            className={`w-full absolute -top-[90px] xl:-top-[80px] left-1/2 -translate-x-1/2 tracking-widest text-center opacity-30 leading-tight xl:leading-normal ${
-              overlayTitle
-                ? "text-[80px] xl:text-[150px]"
-                : "text-[80px] xl:text-[170px]"
+            className={`w-full absolute left-1/2 -translate-x-1/2 tracking-widest text-center opacity-40 leading-tight xl:leading-normal text-[80px] md:text-9xl xl:text-[170px] ${
+              subTitle
+                ? "-top-[90px] xl:-top-[80px] "
+                : "-top-[11rem] md:top-[6.5rem] xl:-top-[80px]"
             }`}
           >
             {overlayTitle}
           </span>
           <span
-            className={`w-full capitalize absolute left-1/2 -translate-x-1/2 text-[32px] xl:text-[60px] tracking-widest text-center font-extrabold ${
-              subTitle ? "-top-[20px]" : "top-0"
+            className={`w-full capitalize absolute  left-1/2 -translate-x-1/2 text-[32px] xl:text-[60px] tracking-widest text-center font-extrabold ${
+              subTitle
+                ? "-top-[20px]"
+                : "-top-[5.5rem] md:top-[10rem] xl:top-[1.6rem]"
             }`}
           >
             {title}
