@@ -1,23 +1,31 @@
 "use client";
 
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import Image from "next/image";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import { PuffLoader } from "react-spinners";
-import React from "react";
 import RecentNews from "@/components/RecentNews";
 import { getRequest } from "@/services/api/apiService";
 import { selectNews } from "@/services/redux/reducer/newsSlugSlice";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 
 const Page = ({ params }: { params: { slug: string } }) => {
   const newsSlug = useSelector(selectNews);
   const dispatch = useDispatch();
 
+  const router = useRouter();
+
   const newsId = newsSlug[params.slug.toString()];
+
+  useEffect(() => {
+    if (newsId === null || newsId === undefined) {
+      router.push("/news");
+    }
+  }, [newsId]);
 
   const { data: NewDetail, isLoading: detailLoading } = useQuery({
     queryKey: ["news", newsId],
@@ -50,14 +58,14 @@ const Page = ({ params }: { params: { slug: string } }) => {
         <div className=" grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-5">
           <div className="bg-white rounded-md col-span-2 mt-5 px-6 py-8">
             <Image
-              width={300}
-              height={400}
+              width={1200}
+              height={1200}
               src={
                 NewDetail?.data?.title_photo ? NewDetail?.data?.title_photo : ""
               }
               // layout="responsive"
               className=" rounded shadow-xl"
-              style={{ width: "100%", height: "5 00px" }}
+              style={{ width: "100%" }}
               alt="New Detail photo"
               priority
             />

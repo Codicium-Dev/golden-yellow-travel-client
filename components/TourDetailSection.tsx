@@ -86,6 +86,12 @@ export default function TourDetailSection({ params }: any) {
 
   const tourId = tourSlug[params.slug.toString()];
 
+  useEffect(() => {
+    if (tourId === null || tourId === undefined) {
+      router.push("/");
+    }
+  }, [tourId]);
+
   // const updateTourId = useCallback(() => {
   //   const updatedTourSlug = tourSlug;
   //   tourId = updatedTourSlug[params.slug];
@@ -247,12 +253,8 @@ export default function TourDetailSection({ params }: any) {
               <div className=" ">
                 <Link
                   href={{
-                    pathname: "/book-form",
-                    query: {
-                      tourCode: tours?.data?.id,
-                    },
+                    pathname: `/book-form/${params.slug.toString()}`,
                   }}
-                  // as={`https://goldenyellowtravel.com/book-form?tourCode=${tours?.data?.id}`}
                 >
                   <button className=" w-full py-3 text-center bg-[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
                     Book Now
