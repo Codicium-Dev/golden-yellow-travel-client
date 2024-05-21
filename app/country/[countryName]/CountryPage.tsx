@@ -47,7 +47,7 @@ const CountryPage = ({ countryName }: { countryName: string }) => {
         photo={countryName == "thailand" ? "/thailand.webp" : "/vietnam.jpg"}
         title={countryName}
       />
-      <div className="px-6 md:px-16 my-20 gap-5 lg:gap-14 flex flex-col justify-center items-center">
+      <div className="px-6 md:px-16 mt-10 mb-20 gap-5 lg:gap-14 flex flex-col justify-center items-center">
         {isLoading && (
           <div className="flex min-h-screen items-center justify-center">
             <PuffLoader color={"#010E3B"} aria-label="Loading Spinner" />

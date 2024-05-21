@@ -312,7 +312,7 @@ export default function TourDetailSection({ params }: any) {
       </div>
 
       {/* body */}
-      <div className=" min-h-screen mt-[570px] md:mt-[340px] lg:mt-[30px]">
+      <div className=" min-h-screen max-[430px]:mt-[620px] mt-[570px] md:mt-[360px] lg:mt-[30px]">
         <div className=" px-[20px] md:px-[40px] lg:px-[70px] mb-10">
           <div className=" col-span-3">
             {/* specifications */}
@@ -455,6 +455,15 @@ export default function TourDetailSection({ params }: any) {
                     </div>
                   </div>
 
+                  <div className="flex justify-center w-full my-3">
+                    <Image
+                      src={tours?.data?.map}
+                      alt="tour image"
+                      width={500}
+                      height={300}
+                      className="w-full md:w-[60%] lg:w-[40%]"
+                    />
+                  </div>
                   <div className=" flex items-center gap-5 mt-5">
                     <CreateReview />
                   </div>
