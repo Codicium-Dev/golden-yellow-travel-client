@@ -23,6 +23,10 @@ const CityTourSection = ({ params }: any) => {
 
   const cityTourId = cityTourSlug[params.slug.toString()];
 
+  useEffect(() => {
+    router.push("/");
+  }, [cityTourId]);
+
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["cityId", cityTourId],
     queryFn: () =>
