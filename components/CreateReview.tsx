@@ -9,7 +9,13 @@ import { postRequest } from "@/services/api/apiService";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 
-const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
+const CreateReview = ({
+  refetchReviews,
+  tourId,
+}: {
+  refetchReviews?: () => void;
+  tourId: string;
+}) => {
   const { userId } = useAuth();
   const session = useSession();
 
@@ -40,7 +46,6 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
     "သောက်"
   );
 
-  const tour_id = params.get("tourDetail");
   const [rating, setRating] = useState(0);
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
@@ -81,7 +86,7 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
     if (!userId || !session || !session.session) {
       router.push(
         "/sign-in?redirect_url=http://localhost:3000/tour/tour-detail?tourDetail=" +
-          tour_id
+          tourId
       );
       return;
     }
@@ -90,7 +95,7 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
       toast.error("Your session has expired. Please sign in again.");
       router.push(
         "/sign-in?redirect_url=http://localhost:3000/tour/tour-detail?tourDetail=" +
-          tour_id
+          tourId
       );
       return;
     }
@@ -111,9 +116,9 @@ const CreateReview = ({ refetchReviews }: { refetchReviews?: () => void }) => {
       return;
     }
 
-    if (rating > 0 && tour_id !== null && userId !== null) {
+    if (rating > 0 && tourId !== null && userId !== null) {
       createReviewMutation.mutateAsync({
-        tour_id,
+        tour_id: tourId,
         user_id: userId,
         name,
         review,

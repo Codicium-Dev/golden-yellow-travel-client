@@ -5,21 +5,16 @@ import React from "react";
 import UserReviewCard from "./UserReviewCard";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 
-const Reviews = () => {
-  const params = useSearchParams();
+const Reviews = ({ tourId }: { tourId: string }) => {
   const {
     data: reviews,
     isLoading,
     refetch: refetchReviews,
     isFetching: isRefetching,
   } = useQuery({
-    queryKey: ["reviews", params.get("tourDetail")],
-    queryFn: () =>
-      getRequest(
-        `review/list?columns=tour_id&search=${params.get("tourDetail")}`
-      ),
+    queryKey: ["reviews", tourId],
+    queryFn: () => getRequest(`review/list?columns=tour_id&search=${tourId}`),
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
@@ -53,7 +48,7 @@ const Reviews = () => {
           ))}
       </div>
       <div className="mt-4">
-        <CreateReview refetchReviews={refetchReviews} />
+        <CreateReview tourId={tourId} refetchReviews={refetchReviews} />
       </div>
     </div>
   );
