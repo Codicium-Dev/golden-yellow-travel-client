@@ -465,13 +465,19 @@ export default function TourDetailSection({ params }: any) {
                     />
                   </div>
                   <div className=" flex items-center gap-5 mt-5">
-                    <CreateReview />
+                    <CreateReview
+                      tourId={tourId.toString()}
+                      tourSlug={params.slug.toString()}
+                    />
                   </div>
                 </>
               )}
               {activeNav === "Reviews" && (
                 <div className=" mt-5">
-                  <Reviews />
+                  <Reviews
+                    tourId={tourId.toString()}
+                    tourSlug={params.slug.toString()}
+                  />
                 </div>
               )}
             </div>

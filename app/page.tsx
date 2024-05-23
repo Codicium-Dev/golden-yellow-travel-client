@@ -56,7 +56,7 @@ const Index = () => {
   } = useQuery({
     queryKey: ["tours"],
     queryFn: () => getRequest(`tour/list?page=1&per_page=6`),
-    refetchOnMount: true,
+    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
