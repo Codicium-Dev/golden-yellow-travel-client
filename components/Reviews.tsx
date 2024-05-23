@@ -6,7 +6,13 @@ import UserReviewCard from "./UserReviewCard";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
 
-const Reviews = ({ tourId }: { tourId: string }) => {
+const Reviews = ({
+  tourId,
+  tourSlug,
+}: {
+  tourId: string;
+  tourSlug: string;
+}) => {
   const {
     data: reviews,
     isLoading,
@@ -48,7 +54,11 @@ const Reviews = ({ tourId }: { tourId: string }) => {
           ))}
       </div>
       <div className="mt-4">
-        <CreateReview tourId={tourId} refetchReviews={refetchReviews} />
+        <CreateReview
+          tourId={tourId}
+          tourSlug={tourSlug}
+          refetchReviews={refetchReviews}
+        />
       </div>
     </div>
   );

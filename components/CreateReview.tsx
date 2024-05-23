@@ -12,9 +12,11 @@ import { useMutation } from "@tanstack/react-query";
 const CreateReview = ({
   refetchReviews,
   tourId,
+  tourSlug,
 }: {
   refetchReviews?: () => void;
   tourId: string;
+  tourSlug: string;
 }) => {
   const { userId } = useAuth();
   const session = useSession();
@@ -85,8 +87,7 @@ const CreateReview = ({
     e.preventDefault();
     if (!userId || !session || !session.session) {
       router.push(
-        "/sign-in?redirect_url=http://localhost:3000/tour/tour-detail?tourDetail=" +
-          tourId
+        `/sign-in?redirect_url=/tour/tour-detail/${tourSlug.toString()}`
       );
       return;
     }
@@ -94,8 +95,7 @@ const CreateReview = ({
     if (session?.session?.expireAt < new Date()) {
       toast.error("Your session has expired. Please sign in again.");
       router.push(
-        "/sign-in?redirect_url=http://localhost:3000/tour/tour-detail?tourDetail=" +
-          tourId
+        `/sign-in?redirect_url=/tour/tour-detail/${tourSlug.toString()}`
       );
       return;
     }
