@@ -8,8 +8,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { BiSolidBook } from "react-icons/bi";
 import Image from "next/image";
 import { PuffLoader } from "react-spinners";
+import { selectTours } from "@/services/redux/reducer/tourSlugSlice";
 import { sendMail } from "@/actions/emailAction";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 type payload = {
   gender: string;
@@ -22,9 +24,8 @@ type payload = {
   tour_id: string;
 };
 
-const page = () => {
+const page = ({ params }: { params: { slug: string } }) => {
   const router = useRouter();
-  const params = useSearchParams();
 
   const [gender, setGender] = useState("");
   const [fullName, setFullName] = useState("");
@@ -34,11 +35,19 @@ const page = () => {
   const [city, setCity] = useState("");
   const [socialMedia, setSocialMedia] = useState("");
 
-  const tour_id = params.get("tourCode");
+  const tourSlug = useSelector(selectTours);
+
+  const tour_id = tourSlug[params.slug.toString()];
+
+  useEffect(() => {
+    if (tour_id === null || tour_id === undefined) {
+      router.push("/");
+    }
+  }, [tour_id]);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["bookTour", params.get("tourCode")],
-    queryFn: () => getRequest(`tour/show/${params.get("tourCode")}`),
+    queryKey: ["bookTour", tour_id],
+    queryFn: () => getRequest(`tour/show/${tour_id}`),
   });
 
   const tourData = {
@@ -74,7 +83,7 @@ const page = () => {
       setCity("");
       setSocialMedia("");
       toast.success("Booking Successful");
-      router.push(`tour/tour-detail?tourDetail=${tour_id}`);
+      router.push(`/tour/tour-detail/${params.slug.toString()}`);
     },
     onError: () => {
       toast.error("Booking Failed. Please try again later");
@@ -84,7 +93,7 @@ const page = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
-      tour_id === "" ||
+      tour_id.toString() === "" ||
       tour_id === null ||
       gender === "" ||
       fullName === "" ||
@@ -98,7 +107,7 @@ const page = () => {
     }
 
     if (
-      tour_id !== "" &&
+      tour_id.toString() !== "" &&
       tour_id !== null &&
       gender !== "" &&
       fullName !== "" &&
@@ -109,7 +118,7 @@ const page = () => {
       socialMedia !== ""
     ) {
       bookFormMutation.mutateAsync({
-        tour_id,
+        tour_id: tour_id.toString(),
         gender,
         full_name: fullName,
         email,

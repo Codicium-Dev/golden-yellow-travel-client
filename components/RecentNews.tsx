@@ -1,7 +1,11 @@
+import React, { useEffect } from "react";
+import { addNews, selectNews } from "@/services/redux/reducer/newsSlugSlice";
+import { createSlug, createSlugObject } from "@/helper/slugify";
+import { useDispatch, useSelector } from "react-redux";
+
 import Image from "next/image";
 import Link from "next/link";
 import { PuffLoader } from "react-spinners";
-import React from "react";
 import { getRequest } from "@/services/api/apiService";
 import { useQuery } from "@tanstack/react-query";
 
@@ -23,16 +27,15 @@ const RecentNews = ({ readingNewsId }: { readingNewsId: number }) => {
   return (
     <div className="">
       {recentNewLists?.data?.data?.map((list: any, index: number) => {
+        const slug = createSlug(list?.title);
+
         if (list.id === readingNewsId) {
           return;
         }
         return (
           <Link
             href={{
-              pathname: "/news/news-detail",
-              query: {
-                newsDetail: list?.id,
-              },
+              pathname: `/news/news-detail/${slug.toString()}`,
             }}
             // as={`https://goldenyellowtravel.com/news/news-detail?newsDetail=${list?.id}`}
             className="pb-4"

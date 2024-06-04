@@ -21,19 +21,19 @@ import { toast } from "react-toastify";
 
 const FooterLinks = [
   {
-    url: "about-us",
+    url: "/about-us",
     label: "About us",
   },
   {
-    url: "privacy-statement",
+    url: "/privacy-statement",
     label: "Privacy Statement",
   },
   {
-    url: "term-conditions",
+    url: "/term-conditions",
     label: "Terms & Conditions",
   },
   {
-    url: "news",
+    url: "/news",
     label: "News",
   },
 ];
@@ -79,10 +79,10 @@ const Footer = () => {
             <Link href={"/"}>
               <Image
                 src={"/logo.png"}
-                width={70}
-                height={70}
+                width={100}
+                height={100}
                 id="GY_icon"
-                className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] "
+                className="w-[70px] h-[70px] md:w-[80px] md:h-[80px] xl:w-[90px] xl:h-[90px] "
                 alt="Picture of Golden Asia Expedition"
               />
             </Link>

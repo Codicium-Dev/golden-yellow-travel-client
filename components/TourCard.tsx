@@ -1,4 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import {
+  addTour,
+  removeTour,
+  selectTours,
+} from "@/services/redux/reducer/tourSlugSlice";
+import { createSlug, createSlugObject } from "@/helper/slugify";
+import { useDispatch, useSelector } from "react-redux";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +14,16 @@ import TourCardReviews from "./TourCardReviews";
 const TourCard = ({ tour, reverse }: any) => {
   const [reviewIn, setReviewIn] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  const slug = createSlug(tour?.name);
+  const tourObject = createSlugObject(slug, tour?.id);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (tour?.name && tour?.id) {
+      dispatch(addTour(tourObject));
+    }
+  }, [tour?.name, tour?.id, dispatch]);
 
   const handleButtonClick = () => {
     if (!isAnimating) {
@@ -101,10 +118,7 @@ const TourCard = ({ tour, reverse }: any) => {
 
             <Link
               href={{
-                pathname: "/tour/tour-detail",
-                query: {
-                  tourDetail: tour?.id,
-                },
+                pathname: `/tour/tour-detail/${slug.toString()}`,
               }}
               // as={`https://localhost:3000/tour/tour-detail?tourDetail=${tour?.id}`}
               // as={`https://goldenyellowtravel.com/tour/tour-detail?tourDetail=${tour?.id}`}

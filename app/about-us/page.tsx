@@ -1,5 +1,12 @@
 import HeroSection from "@/components/HeroSection";
+import type { Metadata } from "next";
 import React from "react";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "About Us",
+  };
+}
 
 const page = () => {
   return (

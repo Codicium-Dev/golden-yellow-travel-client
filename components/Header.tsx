@@ -114,7 +114,7 @@ const Header = () => {
             "/sign-in",
             "/sign-up",
             "/book-form",
-          ].includes(pathname)
+          ].some((route) => pathname.startsWith(route))
             ? "bg-[#010e3b]"
             : bgColor
         } `}
@@ -124,10 +124,10 @@ const Header = () => {
             <div className="flex justify-start align-middle items-center gap-3 md:gap-4 lg:gap-5">
               <Image
                 src={Logo}
-                width={60}
-                height={60}
+                width={100}
+                height={100}
                 id="GY_icon"
-                className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] "
+                className="w-[70px] h-[70px] md:w-[80px] md:h-[80px] xl:w-[90px] xl:h-[90px] "
                 alt="Picture of Golden Asia Expedition"
               />
               <span className="hidden xl:block text-white text-base md:text-2xl lg:text-2xl font-bold tracking-widest monda">
@@ -164,10 +164,7 @@ const Header = () => {
                           <Link
                             key={country.id}
                             href={{
-                              pathname: "/country",
-                              query: {
-                                countryName: country?.name,
-                              },
+                              pathname: `/country/${country?.name.toLowerCase()}`,
                             }}
                             // as={`https://goldenyellowtravel.com/country?countryName=${country?.name}`}
                           >

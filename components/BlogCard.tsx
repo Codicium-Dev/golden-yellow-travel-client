@@ -1,9 +1,23 @@
+import React, { useEffect } from "react";
+import { createSlug, createSlugObject } from "@/helper/slugify";
+
 import Image from "next/image";
 import Link from "next/link";
 import { MdArrowForwardIos } from "react-icons/md";
-import React from "react";
+import { addNews } from "@/services/redux/reducer/newsSlugSlice";
+import { useDispatch } from "react-redux";
 
 const BlogCard = ({ news }: { news: any }) => {
+  const slug = createSlug(news?.title);
+  const newsObject = createSlugObject(slug, news?.id);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (news?.title && news?.id) {
+      dispatch(addNews(newsObject));
+    }
+  }, [news?.title, news?.id, dispatch]);
+
   return (
     <div className="open-sans w-full lg:w-[48.0%] h-[575px] shadow-lg border rounded-ss-[30px] rounded-ee-[30px] overflow-hidden">
       <div className="w-full h-1/2">
@@ -36,12 +50,8 @@ const BlogCard = ({ news }: { news: any }) => {
 
         <Link
           href={{
-            pathname: "news/news-detail",
-            query: {
-              newsDetail: news?.id,
-            },
+            pathname: `news/news-detail/${slug.toString()}`,
           }}
-          // as={`https://goldenyellowtravel.com/news/news-detail?newsDetail=${news?.id}`}
           className="w-full h-auto md:w-[265px] md:h-[47px] text-sm md:text-base font-bold tracking-wider flex justify-center items-center mt-5 uppercase bg-transparent border-2 border-[#010E3B]  hover:bg-[#010E3B] hover:text-white transition-all"
         >
           <span className="py-3 md:py-4">Continue Reading</span>
