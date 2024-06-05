@@ -131,13 +131,13 @@ const Footer = () => {
           <div className=" flex items-center gap-5 mt-3">
             <HiOutlineMailOpen size={28} className=" text-[#1c94ad]" />
             <a href="mailto:info@goldenyellowtravel.com">
-              info@goldenyellowtravel.com
+              goldenasiaexpedition@gmail.com
             </a>
           </div>
 
           <div className=" flex items-center gap-5 mt-3">
             <AiOutlinePhone size={28} className=" text-[#1c94ad]" />
-            <a href="tel:+959883353253">+959 883 353 253</a>
+            <a href="tel:(+66) 081 839 2938">(+66) 081 839 2938</a>
           </div>
 
           <div className=" flex items-center gap-5 mt-3">
