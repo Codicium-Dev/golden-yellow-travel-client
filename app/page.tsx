@@ -156,11 +156,7 @@ const Index = () => {
     <div className=" min-h-screen overflow-x-hidden">
       <div className="relative">
         <div>
-          <HeroSection
-            photo="/hero.png"
-            title="Explore Asia"
-            subTitle="Discover South-East Asia by Your Own Way"
-          />
+          <HeroSection photo="/landingpage.png" />
         </div>
 
         {/* search form container */}
