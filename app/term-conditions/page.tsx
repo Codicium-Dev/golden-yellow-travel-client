@@ -75,10 +75,10 @@ const page = () => {
 
         <p>
           Unless otherwise stated, Golden Asia Expedition and/or its licensors
-          own the intellectual property rights for all material on Golden Yellow
-          Travel. All intellectual property rights are reserved. You may access
-          this from Golden Asia Expedition for your own personal use subjected
-          to restrictions set in these terms and conditions.
+          own the intellectual property rights for all material on Golden Asia
+          Expedition Travel. All intellectual property rights are reserved. You
+          may access this from Golden Asia Expedition for your own personal use
+          subjected to restrictions set in these terms and conditions.
         </p>
 
         <p>You must not:</p>

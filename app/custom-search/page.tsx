@@ -20,13 +20,16 @@ const page = () => {
   const { data, isLoading } = useQuery({
     queryKey: [
       "customTour",
+      params.get("countryName"),
       params.get("cityId"),
       params.get("duration"),
       params.get("startDate"),
     ],
     queryFn: () =>
       getRequest(
-        `tour/filter?city_id=${params.get("cityId")}&duration=${params.get(
+        `tour/filter?country_name=${params.get(
+          "countryName"
+        )}&city_id=${params.get("cityId")}&duration=${params.get(
           "duration"
         )}$start_date=${params.get("startDate")}`
       ),

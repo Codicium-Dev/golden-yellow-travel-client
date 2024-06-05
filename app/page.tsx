@@ -349,6 +349,7 @@ const Index = () => {
               href={{
                 pathname: "/custom-search",
                 query: {
+                  countryName: countryName,
                   cityId: cityId,
                   duration: duration,
                   startDate: datetime(startDate),
