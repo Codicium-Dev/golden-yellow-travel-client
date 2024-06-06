@@ -249,7 +249,7 @@ const Header = () => {
             </form>
 
             <Link
-              href={"/inquery-form"}
+              href={"/inquiry"}
               // as={`https://goldenyellowtravel.com/inquery-form`}
               className="border border-white rounded-sm overflow-hidden"
             >
