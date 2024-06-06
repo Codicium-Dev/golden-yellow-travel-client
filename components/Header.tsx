@@ -114,6 +114,7 @@ const Header = () => {
             "/sign-in",
             "/sign-up",
             "/book-form",
+            "/inquiry",
           ].some((route) => pathname.startsWith(route))
             ? "bg-[#010e3b]"
             : bgColor
@@ -250,11 +251,10 @@ const Header = () => {
 
             <Link
               href={"/inquiry"}
-              // as={`https://goldenyellowtravel.com/inquery-form`}
               className="border border-white rounded-sm overflow-hidden"
             >
               <button className="py-[2px] bg-[#010e3b] text-stone-100 shadow px-3 h-[30px] w-fit text-base font-bold text-center open-sans">
-                Inquery Now
+                Inquiry Now
               </button>
             </Link>
           </div>
