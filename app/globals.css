@@ -363,3 +363,58 @@ body {
 .cl-internal-109vell {
   width: auto !important;
 }
+
+/* select box for inquiry */
+/* Wrapper for the custom select */
+.custom-select-wrapper {
+  position: relative;
+  margin-right: 10px;
+}
+.wrapper-default-width {
+  width: 32%;
+}
+.wrapper-half-width {
+  width: 50%;
+}
+
+/* General styling for the select box */
+.custom-select {
+  width: 100%;
+  height: 34px;
+  font-size: 0.875rem; /* Equivalent to text-sm */
+  border: 1px solid #010e3b;
+  border-radius: 0.5rem; /* Equivalent to rounded-lg */
+  padding: 0 0.5rem;
+  background-color: #f0f4f8; /* Change background color */
+  color: #010e3b; /* Change text color */
+  -webkit-appearance: none; /* Remove default styling for Webkit browsers */
+  -moz-appearance: none; /* Remove default styling for Firefox */
+  appearance: none; /* Remove default styling */
+  cursor: pointer;
+}
+
+/* Add a custom arrow icon */
+.custom-select-arrow {
+  content: "\25BC";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 0.875rem;
+  color: #010e3b;
+}
+
+/* Style for optgroup labels */
+.custom-select optgroup {
+  color: #464646;
+  font-weight: 600;
+  font-size: 1rem; /* Customize font size for optgroup labels */
+}
+
+/* Style for options */
+.custom-select option {
+  padding: 1rem;
+  background-color: #ffffff; /* Background color for options */
+  color: #010e3b;
+}
