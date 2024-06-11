@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const page = () => {
   return (
     <>
-      <HeroSection photo="/aboutus.jpg" />
+      <HeroSection photo="/aboutus.png" />
       <div className="min-h-screen px-[20px] md:px-[70px] my-10 md:my-20 md:text-2xl text-lg open-sans">
         <div className="mb-5">
           <div>
