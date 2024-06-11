@@ -34,11 +34,7 @@ const Page = () => {
 
   return (
     <div className="min-h-screen">
-      <HeroSection
-        photo={"/newsbg.jpg"}
-        overlayTitle=""
-        title={"News & Article"}
-      />
+      <HeroSection photo={"/news.png"} />
       <div className="px-[20px] md:px-[40px] lg:px-[70px] my-10">
         <div className="flex flex-col gap-5 lg:flex-row lg:flex-wrap lg:justify-center lg:gap-7 ">
           {allNews?.map((news, index) => (
