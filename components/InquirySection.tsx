@@ -150,26 +150,31 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     //   return;
     // }
 
-    if (
-      // tour info
-      tourType === "" ||
-      arrivalDate === "" ||
-      travelDate === "" ||
-      arrivalAirport === "Please select an airport" ||
-      accommo === "Please select accomodation" ||
-      fullName === "" ||
-      email === "" ||
-      phone === "" ||
-      country === "" ||
-      how === "Search engine results"
-    ) {
-      toast.error("Please fill all the fields.");
+    // if (tourType === "") {
+    //   toast.warning("Please fill tour type.");
+    // } else if (arrivalDate === "") {
+    //   toast.warning("Please fill your arrival date.");
+    // } else if (travelDate === "") {
+    //   toast.warning("Please fill travel date you would like to travel.");
+    // } else if (arrivalAirport === "Please select an airport") {
+    //   toast.warning("Please fill your arrival airport.");
+    // } else if (accommo === "Please select accomodation") {
+    //   toast.warning("Please fill where you want to stay.");
+    // } else if (fullName === "") {
+    //   toast.warning("Please fill your full name.");
+    // } else if (email === "") {
+    //   toast.warning("Please fill your email.");
+    // } else if (phone === "") {
+    //   toast.warning("Please fill your phone number.");
+    // } else if (country === "") {
+    //   toast.warning("Please fill your country.");
+    // }
+    if (arrivalAirport === "Please select an airport") {
+      toast.error("Please fill your arrival airport.");
     } else if (how === "Others") {
-      if (special === "") {
-        toast.error("Please fill how you found us.");
+      if (otherInfo === "") {
+        toast.warning("Please fill how you found us.");
       }
-    } else if (tours && countryToTravel === "") {
-      toast.error("Please fill all the fields.");
     }
 
     if (
@@ -184,14 +189,14 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
       phone !== "" &&
       country !== "" &&
       how !== "" &&
-      special !== "" &&
-      countryToTravel !== ""
+      special !== ""
+      // countryToTravel !== ""
     ) {
       queryFormMutation.mutateAsync({
         adults: adults,
         children: childrens,
         infants: infants,
-        destinations: destinations,
+        destinations: tours?.data?.location,
         tour_type: tourType,
         arrival_date: arrivalDate,
         travel_date: travelDate,
@@ -201,14 +206,14 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         email: email,
         phone: phone,
         own_country: country,
-        country_to_travel: destinations,
         how_u_know: how,
         other_information: otherInfo,
         special_note: special,
-        // stay_days: stayDays,
-        // budget: budget,
-        // interest: interest,
       });
+      // stay_days: stayDays,
+      // budget: budget,
+      // interest: interest,
+      // country_to_travel: destinations,
 
       const customerData = {
         adults,
@@ -243,38 +248,35 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         </h1>
 
         {/* Tour Information */}
-        {tours?.data?.name ? (
-          <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10  mx-auto mb-10">
-            <div className="pb-5 md:flex items-center gap-5">
-              <p className=" text-slate-500 text-lg min-w-[150px] w-[20%]">
-                Tour Name:
-              </p>
-              <p className="w-[80%] text-lg text-gray-700 ">
-                {tours?.data?.name}
-              </p>
-            </div>
-
-            <div className="pb-5 md:flex items-center gap-5">
-              <p className=" text-slate-500 text-lg min-w-[150px] w-[20%]">
-                Duration:
-              </p>
-              <p className="w-[80%] text-lg text-gray-700 ">
-                {tours?.data?.duration}
-              </p>
-            </div>
-
-            <div className=" md:flex items-center gap-5">
-              <p className=" text-slate-500 text-lg min-w-[150px] w-[20%]">
-                Destinations:
-              </p>
-              <p className="w-[80%] text-lg text-gray-700 ">
-                {tours?.data?.location}
-              </p>
-            </div>
+        {/* {tours?.data?.name ? <></> : ""} */}
+        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10  mx-auto mb-10">
+          <div className="pb-5 md:flex items-center gap-5">
+            <p className=" text-slate-500 text-lg min-w-[150px] w-[20%]">
+              Tour Name:
+            </p>
+            <p className="w-[80%] text-lg text-gray-700 ">
+              {tours?.data?.name}
+            </p>
           </div>
-        ) : (
-          ""
-        )}
+
+          <div className="pb-5 md:flex items-center gap-5">
+            <p className=" text-slate-500 text-lg min-w-[150px] w-[20%]">
+              Duration:
+            </p>
+            <p className="w-[80%] text-lg text-gray-700 ">
+              {tours?.data?.duration}
+            </p>
+          </div>
+
+          <div className=" md:flex items-center gap-5">
+            <p className=" text-slate-500 text-lg min-w-[150px] w-[20%]">
+              Destinations:
+            </p>
+            <p className="w-[80%] text-lg text-gray-700 ">
+              {tours?.data?.location}
+            </p>
+          </div>
+        </div>
 
         {/* Travel Information */}
         <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10 mx-auto mb-10">
@@ -382,7 +384,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
 
           {/* Country */}
-          <div className="pb-5 md:flex items-center gap-5 ">
+          {/* <div className="pb-5 md:flex items-center gap-5 ">
             <div className="w-[20%] text-slate-500 text-lg  ">
               Country to travel:
             </div>
@@ -402,7 +404,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                 <span className="custom-select-arrow">&#9662;</span>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* Travel Date*/}
           <div className="pb-5 md:flex items-center gap-5 ">
             <div className="w-[20%] text-slate-500 text-lg  ">
@@ -429,6 +431,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             <div className="w-[80%] text-slate-500 text-lg ">
               <div className="custom-select-wrapper wrapper-default-width">
                 <select
+                  required
                   name="arrivalAirport"
                   id="arrival-airport"
                   className="w-[32%] h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select"
@@ -467,6 +470,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             <div className="w-[80%] text-slate-500 text-lg ">
               <div className="custom-select-wrapper wrapper-default-width ">
                 <select
+                  required
                   name="arrivalAirport"
                   id="arrival-airport"
                   className="w-[32%] h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select"
@@ -556,6 +560,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             <div className="w-[80%] text-slate-500 text-lg ">
               <div className="custom-select-wrapper wrapper-half-width ">
                 <select
+                  required
                   name="how"
                   id="arrival-airport"
                   className="w-[50%] h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select"
