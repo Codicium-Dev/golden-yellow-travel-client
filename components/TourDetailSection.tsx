@@ -257,7 +257,7 @@ export default function TourDetailSection({ params }: any) {
                   }}
                 >
                   <button className=" w-full py-3 text-center bg-[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
-                    Inquiry Now
+                    Inquire Now
                   </button>
                 </Link>
               </div>
