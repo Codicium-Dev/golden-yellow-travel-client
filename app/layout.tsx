@@ -84,6 +84,14 @@ export default function RootLayout({
           <body
             className={`${inter.variable} ${openSans.variable} ${monda.variable}`}
           >
+            <noscript>
+              <img
+                height="1"
+                width="1"
+                style={{ display: "none" }}
+                src="https://www.facebook.com/tr?id=1493664084895063&ev=PageView&noscript=1"
+              />
+            </noscript>
             <ReduxProvider>
               <Header />
               <ToastContainer />
