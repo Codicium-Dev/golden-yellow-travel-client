@@ -43,27 +43,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     price: tours?.data?.price,
     salePrice: tours?.data?.sale_price,
   };
-  console.log("test 2 >> ", tours);
-  console.log("test 3 >> ", tours?.data);
-  console.log("test 4 >> ", tourData);
-  console.log("test 2 >> ", tours?.data?.duration);
-  console.log("test 2 >> ", tours?.data?.location);
-
-  // const months = [
-  //   "Choose Months",
-  //   "January",
-  //   "February",
-  //   "March",
-  //   "April",
-  //   "May",
-  //   "June",
-  //   "July",
-  //   "August",
-  //   "September",
-  //   "October",
-  //   "November",
-  //   "December",
-  // ];
 
   const destination = ["Please choose country", "Vietnam", "Thailand"];
 
@@ -80,6 +59,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   ];
 
   const howUknow = [
+    "Please select how you found us",
     "Search engine results",
     "Friends / Family",
     "Social Media",
@@ -94,10 +74,10 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   const [childrens, setChildrens] = useState(0);
   const [infants, setInfants] = useState(0);
   const [arrivalDate, setArrivalDate] = useState("");
-  const [arrivalAirport, setArrivalAirport] = useState("");
+  const [arrivalAirport, setArrivalAirport] = useState("default");
   const [tourType, setTourType] = useState("Private Tour");
   const [travelDate, setTravelDate] = useState("");
-  const [accommo, setAccommo] = useState("");
+  const [accommo, setAccommo] = useState("Please select accomodation");
   const [destinations, setDestinations] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -121,7 +101,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
       // setTravelYear("");
       // setBudget("");
       // setInterest("");
-      // setLname("");
       setAdults(1);
       setChildrens(0);
       setInfants(0);
@@ -169,9 +148,13 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     // } else if (country === "") {
     //   toast.warning("Please fill your country.");
     // }
-    if (arrivalAirport === "Please select an airport") {
+    if (arrivalAirport === "default") {
       toast.error("Please fill your arrival airport.");
-    } else if (how === "Others") {
+    }
+    if (accommo === "Please select accomodation") {
+      toast.error("Please fill accomodation field.");
+    }
+    if (how === "Others") {
       if (otherInfo === "") {
         toast.warning("Please fill how you found us.");
       }
@@ -189,7 +172,10 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
       phone !== "" &&
       country !== "" &&
       how !== "" &&
-      special !== ""
+      special !== "" &&
+      accommo !== "Please select accomodation" &&
+      arrivalAirport !== "default" &&
+      how !== "Please select how you found us"
       // countryToTravel !== ""
     ) {
       queryFormMutation.mutateAsync({
@@ -383,28 +369,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
 
-          {/* Country */}
-          {/* <div className="pb-5 md:flex items-center gap-5 ">
-            <div className="w-[20%] text-slate-500 text-lg  ">
-              Country to travel:
-            </div>
-            <div className="w-[80%] text-slate-500 text-lg ">
-              <div className="custom-select-wrapper wrapper-default-width ">
-                <select
-                  name="destination"
-                  id="arrival-airport"
-                  className="w-[32%] h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select"
-                  value={countryToTravel}
-                  onChange={(e) => setCountryToTravel(e.target.value)}
-                >
-                  {destination.map((country) => {
-                    return <option value={country}>{country}</option>;
-                  })}
-                </select>
-                <span className="custom-select-arrow">&#9662;</span>
-              </div>
-            </div>
-          </div> */}
           {/* Travel Date*/}
           <div className="pb-5 md:flex items-center gap-5 ">
             <div className="w-[20%] text-slate-500 text-lg  ">
@@ -412,7 +376,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             </div>
             <div className="w-[80%] text-slate-500 text-lg ">
               <input
-                type="datetime-local"
+                type="date"
                 name="arrivalDate"
                 id="arrivalDate"
                 className="w-[32%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
@@ -439,9 +403,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                   onChange={(e) => setArrivalAirport(e.target.value)}
                 >
                   <optgroup label="Thailand">
-                    <option value="" selected>
-                      Please select an airport
-                    </option>
+                    <option value="default">Please select an airport</option>
                     <option value="Bangkok">Bangkok airport</option>
                     <option value="Chiang Mai">Chiang Mai airport</option>
                   </optgroup>

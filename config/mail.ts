@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { dateTimeFormat } from "@/helper/DateTimeFormat";
 
 const resend = new Resend("re_j5A8Aygu_G4oQghBHqKtxJaLdWfPN9GAd");
 
@@ -8,8 +9,8 @@ export const sendBookingEmail = async (customerData: any, tourData: any) => {
     // Send email using Resend API
     const response = await resend.emails.send({
       from: "mail@goldenasiaexpedition.com",
-      // to: "goldenyellowtravel@gmail.com",
-      to: "yaetactaung@gmail.com",
+      to: "goldenyellowtravel@gmail.com",
+      // to: "yaetactaung@gmail.com",
       subject: `Booking for "${tourData.tourName}"`,
       html: `
   <!DOCTYPE html>
@@ -97,10 +98,6 @@ export const sendBookingEmail = async (customerData: any, tourData: any) => {
           <td class="content" colspan="3">${tourData.endDate}</td>
         </tr>
         <tr>
-          <td class="title">Price</td>
-          <td class="content" colspan="3">${tourData.price}</td>
-        </tr>
-        <tr>
           <td class="title">Sale Price</td>
           <td class="content" colspan="3">${tourData.salePrice}</td>
         </tr>
@@ -119,17 +116,13 @@ export const sendBookingEmail = async (customerData: any, tourData: any) => {
           <td class="content content-title">Infants</td>
         </tr>
         <tr>
-          <td class="title">Full Name</td>
-          <td class="content" colspan="3">${customerData.fullName}</td>
-        </tr>
-        <tr>
           <td class="content">${customerData.adults}</td>
           <td class="content">${customerData.childrens}</td>
           <td class="content">${customerData.infants}</td>
         </tr>
         <tr>
-          <td class="title">Destinations</td>
-          <td class="content" colspan="3">${customerData.destinations}</td>
+          <td class="title">Full Name</td>
+          <td class="content" colspan="3">${customerData.fullName}</td>
         </tr>
         <tr>
           <td class="title">Tour Type</td>
@@ -137,7 +130,9 @@ export const sendBookingEmail = async (customerData: any, tourData: any) => {
         </tr>
         <tr>
           <td class="title">Arrival Date</td>
-          <td class="content" colspan="3">${customerData.arrivalDate}</td>
+          <td class="content" colspan="3">${dateTimeFormat(
+            customerData.arrivalDate
+          )}</td>
         </tr>
         <tr>
           <td class="title">Arrival Airport</td>
