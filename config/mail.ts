@@ -4,13 +4,18 @@ import { dateTimeFormat } from "@/helper/DateTimeFormat";
 const resend = new Resend("re_j5A8Aygu_G4oQghBHqKtxJaLdWfPN9GAd");
 
 // Function to send booking email
-export const sendBookingEmail = async (customerData: any, tourData: any) => {
+export const sendBookingEmail = async (
+  customerData: any,
+  tourData: any,
+  toMail: string
+) => {
   try {
     // Send email using Resend API
     const response = await resend.emails.send({
       from: "mail@goldenasiaexpedition.com",
-      to: "goldenyellowtravel@gmail.com",
+      // to: "goldenyellowtravel@gmail.com",
       // to: "yaetactaung@gmail.com",
+      to: `${toMail}`,
       subject: `Booking for "${tourData.tourName}"`,
       html: `
   <!DOCTYPE html>
@@ -103,7 +108,7 @@ export const sendBookingEmail = async (customerData: any, tourData: any) => {
         </tr>
         <tr>
           <td class="title">Tour ID</td>
-          <td class="content" colspan="3">${customerData.tour_id}</td>
+          <td class="content" colspan="3">${tourData.id}</td>
         </tr>
 
         <tr>

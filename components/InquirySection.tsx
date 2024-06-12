@@ -32,6 +32,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     queryFn: () => getRequest(`tour/show/${tourId}`),
   });
   const tourData = {
+    id: tourId,
     tourName: tours?.data?.name,
     countryName: tours?.data?.country_name,
     cityName: tours?.data?.city_name,
@@ -219,9 +220,17 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         otherInfo,
         special,
       };
-      sendMail(customerData, tourData);
+      sendMail(customerData, tourData, "yaetactaung@gmail.com");
+      sendMail(customerData, tourData, "phyothantzin.w@gmail.com");
+      // to: "goldenyellowtravel@gmail.com",
+      // to: "yaetactaung@gmail.com",
     }
   };
+
+  function toSentenceCase(str: string) {
+    if (!str) return str; // Return if the string is empty
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
+  }
 
   return (
     <div>
@@ -355,6 +364,10 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           <div className="pb-5 md:flex items-center gap-5 ">
             <div className="w-[20%] text-slate-500 text-lg  ">
               Date of Arrival:
+              <span className="text-sm text-gray-500">
+                &#x28;Customer's arrival date and local time in
+                {toSentenceCase(tours?.data?.country_name)}&#x29;
+              </span>
             </div>
             <div className="w-[80%] text-slate-500 text-lg ">
               <input
