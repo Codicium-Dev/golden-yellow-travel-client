@@ -18,13 +18,13 @@ export default function Recommendations() {
   const [tourChange, setTourChange] = React.useState(false);
 
   const handleForwardArrowClick = () => {
-    setSeasonIndex((prevIndex) => (prevIndex + 1) % seasons.length);
+    setSeasonIndex((prevIndex) => (prevIndex + 1) % seasons?.length);
     setSeasonChange(true);
   };
 
   const handleReverseArrowClick = () => {
     setSeasonIndex((prevIndex) =>
-      prevIndex === 0 ? seasons.length - 1 : prevIndex - 1
+      prevIndex === 0 ? seasons?.length - 1 : prevIndex - 1
     );
     setSeasonChange(true);
   };

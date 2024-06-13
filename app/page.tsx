@@ -50,8 +50,8 @@ const Index = () => {
   const {
     data: Tours,
     isLoading,
-    isError,
-    error,
+    isError: toursIsError,
+    error: toursError,
     refetch,
   } = useQuery({
     queryKey: ["tours"],
@@ -63,7 +63,9 @@ const Index = () => {
   const {
     data: cities,
     isLoading: isCityLoading,
+    isError: citiesIsError,
     refetch: cityRefetch,
+    error: citiesError,
   } = useQuery({
     queryKey: ["cities"],
     queryFn: () =>
@@ -77,8 +79,8 @@ const Index = () => {
   const {
     data: countries,
     isLoading: countryLoading,
-    isError: countryIsError,
-    error: countryError,
+    isError: countriesIsError,
+    error: countriesError,
   } = useQuery({
     queryKey: ["countries"],
     queryFn: () => getRequest("/country/list"),
@@ -86,7 +88,12 @@ const Index = () => {
     refetchOnWindowFocus: false,
   });
 
-  const { data: cityTour, isLoading: cityTourLoading } = useQuery({
+  const {
+    data: cityTour,
+    isLoading: cityTourLoading,
+    isError: cityTourIsError,
+    error: cityTourError,
+  } = useQuery({
     queryKey: ["cityTour"],
     queryFn: () => getRequest("/city/list?page=1&per_page=6"),
     refetchOnMount: true,
@@ -138,8 +145,6 @@ const Index = () => {
   const handleSearchForm = (e: any) => {
     e.preventDefault();
   };
-
-  if (isError) return "An error has occurred: " + error;
 
   if (isLoading) return <Loading />;
 
