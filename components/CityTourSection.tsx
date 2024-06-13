@@ -24,7 +24,7 @@ const CityTourSection = ({ params }: any) => {
   const cityTourId = cityTourSlug[params.slug.toString()];
 
   useEffect(() => {
-    router.push("/");
+    if (!cityTourId) router.push("/");
   }, [cityTourId]);
 
   const { data, isLoading, refetch } = useQuery({
@@ -43,10 +43,10 @@ const CityTourSection = ({ params }: any) => {
     );
   }
 
-  if (data.data.length === 0) {
+  if (data?.data?.length === 0) {
     setTimeout(() => {
       router.push("/");
-    }, 2000);
+    }, 5000);
   }
 
   return (
