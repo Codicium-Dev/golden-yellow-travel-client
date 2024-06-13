@@ -19,7 +19,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   const router = useRouter();
 
   const tourId = tourSlug[params.slug.toString()];
-  // console.log("tourId >> ", tourId);
 
   useEffect(() => {
     if (tourId === null || tourId === undefined) {
@@ -97,11 +96,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
   const queryFormMutation = useMutation({
     mutationFn: (data: any) => postRequest("form/create", data),
+    // form cleaning
     onSuccess: () => {
-      // setTravelMonth("");
-      // setTravelYear("");
-      // setBudget("");
-      // setInterest("");
       setAdults(1);
       setChildrens(0);
       setInfants(0);
@@ -124,45 +120,22 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // if (travelMonth === "Choose Months") {
-    //   toast.warning("Please select all required fields");
-    //   return;
-    // }
-
-    // if (tourType === "") {
-    //   toast.warning("Please fill tour type.");
-    // } else if (arrivalDate === "") {
-    //   toast.warning("Please fill your arrival date.");
-    // } else if (travelDate === "") {
-    //   toast.warning("Please fill travel date you would like to travel.");
-    // } else if (arrivalAirport === "Please select an airport") {
-    //   toast.warning("Please fill your arrival airport.");
-    // } else if (accommo === "Please select accomodation") {
-    //   toast.warning("Please fill where you want to stay.");
-    // } else if (fullName === "") {
-    //   toast.warning("Please fill your full name.");
-    // } else if (email === "") {
-    //   toast.warning("Please fill your email.");
-    // } else if (phone === "") {
-    //   toast.warning("Please fill your phone number.");
-    // } else if (country === "") {
-    //   toast.warning("Please fill your country.");
-    // }
+    // validation
     if (arrivalAirport === "default") {
       toast.error("Please fill your arrival airport.");
     }
     if (accommo === "Please select accomodation") {
       toast.error("Please fill accomodation field.");
     }
+    if (how === "Please select how you found us") {
+      toast.error("Please fill how you found us.");
+    }
     if (how === "Others") {
       if (otherInfo === "") {
         toast.warning("Please fill how you found us.");
       }
     }
-
     if (
-      // tourId.toString() !== "" &&
       tourType !== "" &&
       arrivalDate !== "" &&
       travelDate !== "" &&
@@ -177,7 +150,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
       accommo !== "Please select accomodation" &&
       arrivalAirport !== "default" &&
       how !== "Please select how you found us"
-      // countryToTravel !== ""
     ) {
       queryFormMutation.mutateAsync({
         adults: adults,
@@ -197,10 +169,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         other_information: otherInfo,
         special_note: special,
       });
-      // stay_days: stayDays,
-      // budget: budget,
-      // interest: interest,
-      // country_to_travel: destinations,
 
       const customerData = {
         adults,
@@ -220,10 +188,9 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         otherInfo,
         special,
       };
-      sendMail(customerData, tourData, "yaetactaung@gmail.com");
-      sendMail(customerData, tourData, "phyothantzin.w@gmail.com");
-      // to: "goldenyellowtravel@gmail.com",
-      // to: "yaetactaung@gmail.com",
+      const customerEmail = email;
+      sendMail(customerData, tourData, customerEmail);
+      router.push("/");
     }
   };
 
@@ -243,10 +210,9 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         </h1>
 
         {/* Tour Information */}
-        {/* {tours?.data?.name ? <></> : ""} */}
         <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10  mx-auto mb-10">
           <div className="pb-5 md:flex items-center gap-5">
-            <p className=" text-slate-500 text-lg min-w-[150px] w-[20%]">
+            <p className=" text-slate-700 text-lg min-w-[150px] w-[20%]">
               Tour Name:
             </p>
             <p className="w-[80%] text-lg text-gray-700 ">
@@ -255,7 +221,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
 
           <div className="pb-5 md:flex items-center gap-5">
-            <p className=" text-slate-500 text-lg min-w-[150px] w-[20%]">
+            <p className=" text-slate-800 text-lg min-w-[150px] w-[20%]">
               Duration:
             </p>
             <p className="w-[80%] text-lg text-gray-700 ">
@@ -264,7 +230,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
 
           <div className=" md:flex items-center gap-5">
-            <p className=" text-slate-500 text-lg min-w-[150px] w-[20%]">
+            <p className=" text-slate-700 text-lg min-w-[150px] w-[20%]">
               Destinations:
             </p>
             <p className="w-[80%] text-lg text-gray-700 ">
@@ -280,7 +246,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </h1>
           <div className="pb-5 md:flex items-center gap-5">
             <div className="w-[20%] ">
-              <p className=" text-slate-500 text-lg min-w-[150px]">
+              <p className=" text-slate-700 text-lg min-w-[150px]">
                 No. of travellers:
               </p>
             </div>
@@ -345,14 +311,14 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
           {/* Tour type */}
           <div className="pb-5 md:flex items-center gap-5 ">
-            <div className="w-[20%] text-slate-500 text-lg  ">Tour type:</div>
-            <div className="w-[80%] text-slate-500 text-lg ">
+            <div className="w-[20%] text-slate-700 text-lg  ">Tour type:</div>
+            <div className="w-[80%] text-slate-800 text-lg ">
               <input
                 disabled
                 type="text"
                 name="tourType"
                 id="tourType"
-                className="w-[32%] h-[34px] mr-10 text-sm bg-[#828282] text-white text-center border-[#010e3b] p-2 rounded-3xl"
+                className="w-[32%] h-[34px] mr-10 text-sm bg-[#828282] font-semibold text-white text-center border-[#010e3b] p-2 rounded-3xl"
                 required
                 value={tourType}
                 onChange={(e) => setTourType(e.target.value)}
@@ -362,14 +328,14 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
           {/* Date of Arrival */}
           <div className="pb-5 md:flex items-center gap-5 ">
-            <div className="w-[20%] text-slate-500 text-lg  ">
+            <div className="w-[20%] text-slate-700 text-lg  ">
               Date of Arrival:
               <span className="text-sm text-gray-500">
                 &#x28;Customer's arrival date and local time in
                 {toSentenceCase(tours?.data?.country_name)}&#x29;
               </span>
             </div>
-            <div className="w-[80%] text-slate-500 text-lg ">
+            <div className="w-[80%] text-slate-800 text-lg ">
               <input
                 type="datetime-local"
                 name="arrivalDate"
@@ -384,10 +350,10 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
           {/* Travel Date*/}
           <div className="pb-5 md:flex items-center gap-5 ">
-            <div className="w-[20%] text-slate-500 text-lg  ">
+            <div className="w-[20%] text-slate-700 text-lg  ">
               Date to travel:
             </div>
-            <div className="w-[80%] text-slate-500 text-lg ">
+            <div className="w-[80%] text-slate-800 text-lg ">
               <input
                 type="date"
                 name="arrivalDate"
@@ -402,11 +368,11 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
           {/* Arrival airport */}
           <div className="pb-5 md:flex items-center gap-5 ">
-            <div className="w-[20%] text-slate-500 text-lg  ">
+            <div className="w-[20%] text-slate-700 text-lg  ">
               Arrival airport:
             </div>
-            <div className="w-[80%] text-slate-500 text-lg ">
-              <div className="custom-select-wrapper wrapper-default-width">
+            <div className="w-[80%] text-lg ">
+              <div className="custom-select-wrapper wrapper-default-width ">
                 <select
                   required
                   name="arrivalAirport"
@@ -439,10 +405,10 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
           {/* Accomodations */}
           <div className="pb-5 md:flex items-center gap-5 ">
-            <div className="w-[20%] text-slate-500 text-lg  ">
+            <div className="w-[20%] text-slate-700 text-lg  ">
               Accomodations:
             </div>
-            <div className="w-[80%] text-slate-500 text-lg ">
+            <div className="w-[80%] text-slate-800 text-lg ">
               <div className="custom-select-wrapper wrapper-default-width ">
                 <select
                   required
@@ -452,9 +418,11 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                   value={accommo}
                   onChange={(e) => setAccommo(e.target.value)}
                 >
-                  {accommodation.map((accommodation) => {
+                  {accommodation.map((accommodation, index) => {
                     return (
-                      <option value={accommodation}>{accommodation}</option>
+                      <option key={index} value={accommodation}>
+                        {accommodation}
+                      </option>
                     );
                   })}
                 </select>
@@ -471,8 +439,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </h1>
           {/* Full Name */}
           <div className="pb-5 md:flex items-center gap-5">
-            <div className="w-[20%] text-slate-500 text-lg">Full Name:</div>
-            <div className="w-[80%] text-slate-500 text-lg">
+            <div className="w-[20%] text-slate-700 text-lg">Full Name:</div>
+            <div className="w-[80%] text-slate-800 text-lg">
               <input
                 type="text"
                 name="fullName"
@@ -486,8 +454,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
           {/* Email */}
           <div className="pb-5 md:flex items-center gap-5">
-            <div className="w-[20%] text-slate-500 text-lg">Email:</div>
-            <div className="w-[80%] text-slate-500 text-lg">
+            <div className="w-[20%] text-slate-700 text-lg">Email:</div>
+            <div className="w-[80%] text-slate-800 text-lg">
               <input
                 type="text"
                 name="email"
@@ -501,8 +469,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
           {/* Phone*/}
           <div className="pb-5 md:flex items-center gap-5">
-            <div className="w-[20%] text-slate-500 text-lg">Phone:</div>
-            <div className="w-[80%] text-slate-500 text-lg">
+            <div className="w-[20%] text-slate-700 text-lg">Phone:</div>
+            <div className="w-[80%] text-slate-800 text-lg">
               <input
                 type="text"
                 name="phone"
@@ -516,8 +484,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
           {/* Country */}
           <div className="pb-5 md:flex items-center gap-5">
-            <div className="w-[20%] text-slate-500 text-lg">Country:</div>
-            <div className="w-[80%] text-slate-500 text-lg">
+            <div className="w-[20%] text-slate-700 text-lg">Country:</div>
+            <div className="w-[80%] text-slate-800 text-lg">
               <input
                 type="text"
                 name="country"
@@ -531,8 +499,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
           {/* How know us? */}
           <div className="pb-3 md:flex items-center gap-5">
-            <div className="w-[20%] text-slate-500 text-lg">Find Us By:</div>
-            <div className="w-[80%] text-slate-500 text-lg ">
+            <div className="w-[20%] text-slate-700 text-lg">Find Us By:</div>
+            <div className="w-[80%] text-slate-800 text-lg ">
               <div className="custom-select-wrapper wrapper-half-width ">
                 <select
                   required
@@ -542,8 +510,12 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                   value={how}
                   onChange={(e) => setHow(e.target.value)}
                 >
-                  {howUknow.map((how) => {
-                    return <option value={how}>{how}</option>;
+                  {howUknow.map((how, index) => {
+                    return (
+                      <option key={index} value={how}>
+                        {how}
+                      </option>
+                    );
                   })}
                 </select>
                 <span className="custom-select-arrow">&#9662;</span>
@@ -554,8 +526,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           {how === "Others" ? (
             <div className="pb-5 md:flex items-center gap-5">
               <div className="w-[20%] "></div>
-              <div className="w-[80%] text-slate-500 text-lg">
-                <div className="text-slate-500 text-sm">
+              <div className="w-[80%] text-slate-700 text-lg">
+                <div className="text-slate-800 text-sm">
                   Please fill how you found us:
                 </div>
                 <input
@@ -575,13 +547,13 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         </div>
 
         {/* Other special requirement */}
-        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10 mx-auto mb-10">
+        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10 mx-auto mb-5">
           <h1 className="pb-5 text-2xl font-semibold tracking-widest text-[#464646] ">
             Other special requirement
           </h1>
           {/* Special Requirement */}
           <div className="pb-5 md:flex items-center gap-5">
-            <div className="w-full text-slate-500 text-lg">
+            <div className="w-full text-slate-800 text-lg">
               <textarea
                 name="special"
                 id="special"
@@ -595,6 +567,12 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
         </div>
+
+        <p className="mb-5 text-center text-slate-700">
+          <span className="text-red-600">*</span> If you don't receive our
+          confirmation email after 1 working day, please check your spam
+          mailbox.
+        </p>
 
         <div className=" flex justify-center">
           <button
@@ -620,7 +598,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
 export default InquirySection;
 
-/* <p className="lg:text-xl text-base lg:px-24 px-6 text-center mx-auto mb-10">
+{
+  /* <p className="lg:text-xl text-base lg:px-24 px-6 text-center mx-auto mb-10">
 Experience tailor-made trips since 2013 designed to delight our
 esteemed guests. Share your preferences, interests, and trip details
 with us, and in as little as 24 hours, our team of experts will
@@ -629,6 +608,5 @@ perfect travel experience awaits with our exclusive customized tour
 packages in South-East Asia, Thailand and Vietnam. Let us create
 unforgettable memories together!
 </p> */
-{
   /* If you've got special needs such as non-smoking rooms, dietary plans or have additional places to visit, please let us know. */
 }
