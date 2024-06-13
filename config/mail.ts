@@ -7,7 +7,7 @@ const resend = new Resend("re_j5A8Aygu_G4oQghBHqKtxJaLdWfPN9GAd");
 export const sendBookingEmail = async (
   customerData: any,
   tourData: any,
-  toMail: string
+  customerEmail: any
 ) => {
   try {
     // Send email using Resend API
@@ -15,7 +15,7 @@ export const sendBookingEmail = async (
       from: "mail@goldenasiaexpedition.com",
       // to: "goldenyellowtravel@gmail.com",
       // to: "yaetactaung@gmail.com",
-      to: `${toMail}`,
+      to: ["goldenyellowtravel@gmail.com", `${customerEmail}`],
       subject: `Booking for "${tourData.tourName}"`,
       html: `
   <!DOCTYPE html>
@@ -54,10 +54,14 @@ export const sendBookingEmail = async (
       .content {
         color: rgb(97, 97, 97);
       }
+      .content.customers {
+        text-align: center;
+      }
       .content-title {
         font-weight: 600;
         color: rgb(90, 90, 90);
       }
+      
     </style>
   </head>
   <body>
@@ -121,9 +125,9 @@ export const sendBookingEmail = async (
           <td class="content content-title">Infants</td>
         </tr>
         <tr>
-          <td class="content">${customerData.adults}</td>
-          <td class="content">${customerData.childrens}</td>
-          <td class="content">${customerData.infants}</td>
+          <td class="content customers">${customerData.adults}</td>
+          <td class="content customers">${customerData.childrens}</td>
+          <td class="content customers">${customerData.infants}</td>
         </tr>
         <tr>
           <td class="title">Full Name</td>
