@@ -94,6 +94,37 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   // const [budget, setBudget] = useState("");
   // const [interest, setInterest] = useState("");
 
+  // date varification
+  const today = new Date();
+  const sevenDaysFromNow = new Date();
+  const eightDaysFromNow = new Date();
+
+  const getFormattedDateTime = (date: any) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
+  sevenDaysFromNow.setDate(today.getDate() + 7);
+  eightDaysFromNow.setDate(today.getDate() + 8);
+  const minDateTime = getFormattedDateTime(sevenDaysFromNow);
+  // datetime end
+  const getFormattedDate = (date: any) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  };
+  const minDate = getFormattedDate(eightDaysFromNow);
+
+  // const maxDate = getFormattedDateTime();
+  // date varification end
+
   const queryFormMutation = useMutation({
     mutationFn: (data: any) => postRequest("form/create", data),
     // form cleaning
@@ -120,6 +151,26 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // date
+    const selectedDateTime = new Date(arrivalDate);
+    const selectedDate = new Date(travelDate);
+    const dateTimeToDate = new Date(
+      selectedDateTime.toISOString().split("T")[0]
+    );
+    console.log("dateTimeToDate ?>>>> ", dateTimeToDate);
+    console.log("selectedDate ?>>>> ", selectedDate);
+
+    if (selectedDateTime < sevenDaysFromNow) {
+      toast.error(
+        "Selected arrival date must at least the next 7 days from today."
+      );
+    }
+    if (selectedDate < dateTimeToDate) {
+      toast.error(
+        "Selected tour date must at least the next day from arrival day."
+      );
+    }
+    // date
     // validation
     if (arrivalAirport === "default") {
       toast.error("Please fill your arrival airport.");
@@ -138,6 +189,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     if (
       tourType !== "" &&
       arrivalDate !== "" &&
+      selectedDateTime > sevenDaysFromNow &&
+      selectedDate < dateTimeToDate &&
       travelDate !== "" &&
       arrivalAirport !== "" &&
       accommo !== "" &&
@@ -337,10 +390,12 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             </div>
             <div className="w-[80%] text-slate-800 text-lg ">
               <input
+                className="w-[32%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
                 type="datetime-local"
                 name="arrivalDate"
                 id="arrivalDate"
-                className="w-[32%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
+                min={minDateTime}
+                // max={maxDate}
                 required
                 value={arrivalDate}
                 onChange={(e) => setArrivalDate(e.target.value)}
@@ -355,10 +410,11 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             </div>
             <div className="w-[80%] text-slate-800 text-lg ">
               <input
+                className="w-[32%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
                 type="date"
                 name="arrivalDate"
                 id="arrivalDate"
-                className="w-[32%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
+                min={minDate}
                 required
                 value={travelDate}
                 onChange={(e) => setTravelDate(e.target.value)}
