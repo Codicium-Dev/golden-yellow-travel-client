@@ -1,412 +1,668 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getRequest, postRequest } from "@/services/api/apiService";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 
-import { BiSolidBook } from "react-icons/bi";
-import Image from "next/image";
 import { PuffLoader } from "react-spinners";
+import { getRequest } from "@/services/api/apiService";
+import { postRequest } from "@/services/api/apiService";
 import { selectTours } from "@/services/redux/reducer/tourSlugSlice";
 import { sendMail } from "@/actions/emailAction";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
-type payload = {
-  gender: string;
-  full_name: string;
-  email: string;
-  phone: string;
-  country: string;
-  city: string;
-  social_media: string;
-  tour_id: string;
-};
-
-const page = ({ params }: { params: { slug: string } }) => {
+const InquirySection = ({ params }: { params: { slug: string } }) => {
+  const tourSlug = useSelector(selectTours);
+  const dispatch = useDispatch();
   const router = useRouter();
 
-  const [gender, setGender] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
-  const [socialMedia, setSocialMedia] = useState("");
-
-  const tourSlug = useSelector(selectTours);
-
-  const tour_id = tourSlug[params.slug.toString()];
+  const tourId = tourSlug[params.slug.toString()];
 
   useEffect(() => {
-    if (tour_id === null || tour_id === undefined) {
+    if (tourId === null || tourId === undefined) {
       router.push("/");
     }
-  }, [tour_id]);
+  }, [tourId]);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["bookTour", tour_id],
-    queryFn: () => getRequest(`tour/show/${tour_id}`),
+  const { data: tours, isLoading: tourLoading } = useQuery({
+    queryKey: ["tour-detail", tourId],
+    queryFn: () => getRequest(`tour/show/${tourId}`),
   });
-
   const tourData = {
-    tourName: data?.data?.name,
-    countryName: data?.data?.country_name,
-    cityName: data?.data?.city_name,
-    duration: data?.data?.duration,
-    departure: data?.data?.departure,
-    location: data?.data?.location,
-    startDate: data?.data?.start_date,
-    endDate: data?.data?.end_date,
-    price: data?.data?.price,
-    salePrice: data?.data?.sale_price,
+    id: tourId,
+    tourName: tours?.data?.name,
+    countryName: tours?.data?.country_name,
+    cityName: tours?.data?.city_name,
+    duration: tours?.data?.duration,
+    departure: tours?.data?.departure,
+    location: tours?.data?.location,
+    startDate: tours?.data?.start_date,
+    endDate: tours?.data?.end_date,
+    price: tours?.data?.price,
+    salePrice: tours?.data?.sale_price,
   };
 
-  const bookFormMutation = useMutation({
-    mutationFn: (data: {
-      tour_id: string | null;
-      gender: string;
-      full_name: string;
-      email: string;
-      phone: string;
-      country: string;
-      city: string;
-      social_media: string;
-    }) => postRequest("/book-form/create", data),
+  const destination = ["Please choose country", "Vietnam", "Thailand"];
+
+  const years = new Array(3)
+    .fill(0)
+    .map((_, index) => index + new Date().getFullYear());
+
+  const accommodation = [
+    "Please select accomodation",
+    "Not Required",
+    "Economy (3 Stars Hotel)",
+    "Deluxe (4 Stars Hotel)",
+    "Luxury (5 Stars Hotel)",
+  ];
+
+  const howUknow = [
+    "Please select how you found us",
+    "Search engine results",
+    "Friends / Family",
+    "Social Media",
+    "Online Ads",
+    "Trip Advertiser",
+    "Magazines",
+    "Website / Blogs",
+    "Others",
+  ];
+
+  const [adults, setAdults] = useState(1);
+  const [childrens, setChildrens] = useState(0);
+  const [infants, setInfants] = useState(0);
+  const [arrivalDate, setArrivalDate] = useState("");
+  const [arrivalAirport, setArrivalAirport] = useState("default");
+  const [tourType, setTourType] = useState("Private Tour");
+  const [travelDate, setTravelDate] = useState("");
+  const [accommo, setAccommo] = useState("Please select accomodation");
+  const [destinations, setDestinations] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [country, setCountry] = useState("");
+  const [countryToTravel, setCountryToTravel] = useState("");
+  const [how, setHow] = useState("");
+  const [otherInfo, setOtherInfo] = useState("");
+  const [special, setSpecial] = useState("");
+  // const [lName, setLname] = useState("");
+  // const [travelMonth, setTravelMonth] = useState("");
+  // const [travelYear, setTravelYear] = useState("");
+  // const [stayDays, setStayDays] = useState("");
+  // const [budget, setBudget] = useState("");
+  // const [interest, setInterest] = useState("");
+
+  // date varification
+  const today = new Date();
+  const sevenDaysFromNow = new Date();
+  const eightDaysFromNow = new Date();
+
+  const getFormattedDateTime = (date: any) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
+  sevenDaysFromNow.setDate(today.getDate() + 7);
+  eightDaysFromNow.setDate(today.getDate() + 8);
+  const minDateTime = getFormattedDateTime(sevenDaysFromNow);
+  // datetime end
+  const getFormattedDate = (date: any) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  };
+  const minDate = getFormattedDate(eightDaysFromNow);
+
+  // const maxDate = getFormattedDateTime();
+  // date varification end
+
+  const queryFormMutation = useMutation({
+    mutationFn: (data: any) => postRequest("form/create", data),
+    // form cleaning
     onSuccess: () => {
-      setGender("");
+      setAdults(1);
+      setChildrens(0);
+      setInfants(0);
+      setDestinations("");
       setFullName("");
       setEmail("");
       setPhone("");
+      setAccommo("");
       setCountry("");
-      setCity("");
-      setSocialMedia("");
-      toast.success("Booking Successful");
-      router.push(`/tour/tour-detail/${params.slug.toString()}`);
+      setCountryToTravel("");
+      setHow("");
+      setOtherInfo("");
+      setSpecial("");
+      toast.success("Inquiry Success");
     },
     onError: () => {
-      toast.error("Booking Failed. Please try again later");
+      toast.error("Inquiry Fail! Please try again");
     },
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      tour_id.toString() === "" ||
-      tour_id === null ||
-      gender === "" ||
-      fullName === "" ||
-      email === "" ||
-      phone === "" ||
-      country === "" ||
-      city === "" ||
-      socialMedia === ""
-    ) {
-      toast.error("Please fill all the fields for booking");
-    }
+    // date
+    const selectedDateTime = new Date(arrivalDate);
+    const selectedDate = new Date(travelDate);
+    const dateTimeToDate = new Date(
+      selectedDateTime.toISOString().split("T")[0]
+    );
+    console.log("dateTimeToDate ?>>>> ", dateTimeToDate);
+    console.log("selectedDate ?>>>> ", selectedDate);
 
+    if (selectedDateTime < sevenDaysFromNow) {
+      toast.error(
+        "Selected arrival date must at least the next 7 days from today."
+      );
+    }
+    if (selectedDate < dateTimeToDate) {
+      toast.error(
+        "Selected tour date must at least the next day from arrival day."
+      );
+    }
+    // date
+    // validation
+    if (arrivalAirport === "default") {
+      toast.error("Please fill your arrival airport.");
+    }
+    if (accommo === "Please select accomodation") {
+      toast.error("Please fill accomodation field.");
+    }
+    if (how === "Please select how you found us") {
+      toast.error("Please fill how you found us.");
+    }
+    if (how === "Others") {
+      if (otherInfo === "") {
+        toast.warning("Please fill how you found us.");
+      }
+    }
     if (
-      tour_id.toString() !== "" &&
-      tour_id !== null &&
-      gender !== "" &&
+      tourType !== "" &&
+      arrivalDate !== "" &&
+      selectedDateTime > sevenDaysFromNow &&
+      selectedDate < dateTimeToDate &&
+      travelDate !== "" &&
+      arrivalAirport !== "" &&
+      accommo !== "" &&
       fullName !== "" &&
       email !== "" &&
       phone !== "" &&
       country !== "" &&
-      city !== "" &&
-      socialMedia !== ""
+      how !== "" &&
+      special !== "" &&
+      accommo !== "Please select accomodation" &&
+      arrivalAirport !== "default" &&
+      how !== "Please select how you found us"
     ) {
-      bookFormMutation.mutateAsync({
-        tour_id: tour_id.toString(),
-        gender,
+      queryFormMutation.mutateAsync({
+        adults: adults,
+        children: childrens,
+        infants: infants,
+        destinations: tours?.data?.location,
+        tour_type: tourType,
+        arrival_date: arrivalDate,
+        travel_date: travelDate,
+        arrival_airport: arrivalAirport,
+        accommodation: accommo,
         full_name: fullName,
-        email,
-        phone,
-        country,
-        city,
-        social_media: socialMedia,
+        email: email,
+        phone: phone,
+        own_country: country,
+        how_u_know: how,
+        other_information: otherInfo,
+        special_note: special,
       });
+
       const customerData = {
-        tour_id,
-        gender,
+        adults,
+        childrens,
+        infants,
+        destinations,
+        tourType,
+        arrivalDate,
+        travelDate,
+        arrivalAirport,
+        accommo,
         fullName,
         email,
         phone,
         country,
-        city,
-        socialMedia,
+        how,
+        otherInfo,
+        special,
       };
-
-      sendMail(customerData, tourData);
+      const customerEmail = email;
+      sendMail(customerData, tourData, customerEmail);
+      router.push("/");
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center ">
-        <PuffLoader color={"#010E3B"} aria-label="Loading Spinner" />
-      </div>
-    );
+  function toSentenceCase(str: string) {
+    if (!str) return str; // Return if the string is empty
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
   }
 
   return (
-    <div className="min-h-screen pt-[90px] md:pt-[120px] bg-[#E2F3FF] open-sans">
-      <div className="px-6 pb-8 lg:px-20 lg:pb-12">
-        <h1 className=" text-center font-bold lg:text-4xl text-2xl text-[#17254e] tracking-wider mt-6">
-          Your Booking Tour
+    <div>
+      <form
+        onSubmit={(e) => submitHandler(e)}
+        className="pt-[110px] md:pt-[140px] pb-[40px] bg-[#efefef] open-sans"
+      >
+        <h1 className="pb-5 text-3xl font-semibold tracking-widest text-[#464646] text-center">
+          TOUR INQUIRING
         </h1>
 
-        <form
-          onSubmit={(e) => handleSubmit(e)}
-          className=" bg-slate-50 pb-5 shadow rounded mt-20 mb-20 overflow-hidden relative"
-        >
-          <div className=" w-20 h-20 rounded-full bg-[#17254e] absolute -top-10 -right-10"></div>
+        {/* Tour Information */}
+        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10  mx-auto mb-10">
+          <div className="pb-5 md:flex items-center gap-5">
+            <p className=" text-slate-700 text-lg min-w-[150px] w-[20%]">
+              Tour Name:
+            </p>
+            <p className="w-[80%] text-lg text-gray-700 ">
+              {tours?.data?.name}
+            </p>
+          </div>
 
-          <div className=" grid grid-cols-2 gap-2">
-            <div className=" col-start-1 col-span-2 lg:col-span-1">
-              <Image
-                width={1440}
-                height={700}
-                src={data?.data?.tour_photo}
-                className="w-full h-[400px] rounded-tl-md object-cover"
-                alt={tourData?.tourName}
-              />
+          <div className="pb-5 md:flex items-center gap-5">
+            <p className=" text-slate-800 text-lg min-w-[150px] w-[20%]">
+              Duration:
+            </p>
+            <p className="w-[80%] text-lg text-gray-700 ">
+              {tours?.data?.duration}
+            </p>
+          </div>
+
+          <div className=" md:flex items-center gap-5">
+            <p className=" text-slate-700 text-lg min-w-[150px] w-[20%]">
+              Destinations:
+            </p>
+            <p className="w-[80%] text-lg text-gray-700 ">
+              {tours?.data?.location}
+            </p>
+          </div>
+        </div>
+
+        {/* Travel Information */}
+        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10 mx-auto mb-10">
+          <h1 className="pb-5 text-2xl font-semibold tracking-widest text-[#464646]">
+            Your travel information
+          </h1>
+          <div className="pb-5 md:flex items-center gap-5">
+            <div className="w-[20%] ">
+              <p className=" text-slate-700 text-lg min-w-[150px]">
+                No. of travellers:
+              </p>
             </div>
-            <div className=" col-start-1 lg:col-start-2 col-span-2 lg:col-span-1">
-              <div className=" p-5">
-                <h1 className=" text-[#17254e] font-semibold text-2xl mb-8">
-                  {tourData?.tourName}
-                </h1>
-
-                {tourData?.countryName && (
-                  <div className=" block md:flex items-center gap-5">
-                    <p className=" text-slate-500 min-w-[150px]">
-                      Country Name :
-                    </p>
-                    <p className="">{tourData?.countryName}</p>
-                  </div>
-                )}
-                {tourData?.cityName && (
-                  <div className=" block md:flex items-center gap-5 my-2">
-                    <p className=" text-slate-500 min-w-[150px]">City Name :</p>
-                    <p className="">{tourData?.cityName}</p>
-                  </div>
-                )}
-
-                {tourData?.duration && (
-                  <div className=" block md:flex items-center gap-5">
-                    <p className=" text-slate-500 min-w-[150px]">Duration : </p>
-                    <p className="">{tourData?.duration}</p>
-                  </div>
-                )}
-
-                {tourData?.departure && (
-                  <div className=" block md:flex gap-5 my-2">
-                    <p className=" text-slate-500 min-w-[150px]">Departure :</p>
-                    <p className="">{tourData?.departure}</p>
-                  </div>
-                )}
-
-                {tourData?.location && (
-                  <div className=" block md:flex items-start gap-5 my-2">
-                    <p className=" text-slate-500 min-w-[150px]">Location : </p>
-                    <p className="">{tourData?.location}</p>
-                  </div>
-                )}
-
-                <div className=" grid grid-cols-2 gap-2 mt-6">
-                  <div className=" col-start-1 col-span-1">
-                    {tourData?.startDate && (
-                      <div className=" block lg:flex items-center gap-5">
-                        <p className=" text-slate-500">Start Date : </p>
-                        <p className="">{tourData?.startDate}</p>
-                      </div>
-                    )}
-                  </div>
-                  <div className=" col-start-1 lg:col-start-2 col-span-1">
-                    {tourData?.endDate && (
-                      <div className=" block lg:flex items-center gap-5">
-                        <p className=" text-slate-500">End Date : </p>
-                        <p className="">{tourData?.endDate}</p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-rows-1 lg:grid-cols-2 gap-2 lg:my-2">
-                  {tourData?.price && (
-                    <div className=" col-start-1 col-span-1">
-                      <div className=" block lg:flex items-center gap-5">
-                        <p className=" text-slate-500">Price : </p>
-                        <p className="">
-                          <span className=" text-[#010E3B]">$</span>
-                          {tourData?.price}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  {tourData?.salePrice && (
-                    <div
-                      className={`col-span-1 col-start-1 ${
-                        tourData?.price ? "lg:col-start-2" : "lg:col-start-1"
-                      }`}
-                    >
-                      <div className=" block lg:flex items-center gap-5">
-                        <p className=" text-slate-500">Sale Price : </p>
-                        <p className="">
-                          <span className=" text-[#010E3B]">$</span>
-                          {tourData?.salePrice}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
+            {/* No. of travellers */}
+            <div className="w-[80%] flex gap-5 ">
+              {/* adults */}
+              <div className="w-1/3 flex items-center">
+                <p className=" text-gray-700 w-[50%] text-lg">Adults:</p>
+                <input
+                  type="number"
+                  name="adults"
+                  min={1}
+                  id="adults"
+                  className="w-[50%] h-[34px] text-sm border border-[#010e3b] rounded-lg p-2"
+                  required
+                  value={adults}
+                  onChange={(e) => setAdults(parseInt(e.target.value))}
+                />
+              </div>
+              {/* childrens */}
+              <div className="w-1/3 flex items-center">
+                <p className="  text-gray-700 w-[50%] text-lg">
+                  Childrens:
+                  <br />
+                  <span className="text-sm text-gray-500">
+                    &#x28;1-10&#x29;
+                  </span>
+                </p>
+                <input
+                  type="number"
+                  name="childrens"
+                  min={0}
+                  max={10}
+                  id="childrens"
+                  className="w-[50%] h-[34px] text-sm border border-[#010e3b] rounded-lg p-2"
+                  required
+                  value={childrens}
+                  onChange={(e) => setChildrens(parseInt(e.target.value))}
+                />
+              </div>
+              {/* infants */}
+              <div className="w-1/3 flex items-center">
+                <p className=" text-gray-700 w-[50%] text-lg">
+                  Infants:
+                  <br />
+                  <span className="text-sm text-gray-500">&#x28;1-4&#x29;</span>
+                </p>
+                <input
+                  type="number"
+                  name="infants"
+                  min={0}
+                  max={4}
+                  id="infants"
+                  className="w-[50%] h-[34px] text-sm border border-[#010e3b] rounded-lg p-2"
+                  required
+                  value={infants}
+                  onChange={(e) => setInfants(parseInt(e.target.value))}
+                />
               </div>
             </div>
           </div>
 
-          <div className="mt-4 grid grid-cols-2 gap-5 px-3 py-2">
-            <div className=" col-start-1 col-span-12 lg:col-span-1">
-              <label
-                htmlFor="gender"
-                className="mb-2 font-semibold text-[#17254e]"
-              >
-                Gender
-              </label>
-              <select
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-                className="w-full border border-[#17254e] px-3 py-2 rounded-lg "
-                name="gender"
-              >
-                <option value="male">Mr.</option>
-                <option value="female">Ms.</option>
-                <option value="other">Other</option>
-              </select>
+          {/* Tour type */}
+          <div className="pb-5 md:flex items-center gap-5 ">
+            <div className="w-[20%] text-slate-700 text-lg  ">Tour type:</div>
+            <div className="w-[80%] text-slate-800 text-lg ">
+              <input
+                disabled
+                type="text"
+                name="tourType"
+                id="tourType"
+                className="w-[32%] h-[34px] mr-10 text-sm bg-[#828282] font-semibold text-white text-center border-[#010e3b] p-2 rounded-3xl"
+                required
+                value={tourType}
+                onChange={(e) => setTourType(e.target.value)}
+              />
             </div>
-            <div className=" col-start-1 lg:col-start-2 col-span-12 lg:col-span-1">
-              <label className=" mb-2 font-semibold text-[#17254e]">
-                Full Name
-              </label>
+          </div>
+
+          {/* Date of Arrival */}
+          <div className="pb-5 md:flex items-center gap-5 ">
+            <div className="w-[20%] text-slate-700 text-lg  ">
+              Date of Arrival:
+              <span className="text-sm text-gray-500">
+                &#x28;Customer's arrival date and local time in
+                {toSentenceCase(tours?.data?.country_name)}&#x29;
+              </span>
+            </div>
+            <div className="w-[80%] text-slate-800 text-lg ">
+              <input
+                className="w-[32%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
+                type="datetime-local"
+                name="arrivalDate"
+                id="arrivalDate"
+                min={minDateTime}
+                // max={maxDate}
+                required
+                value={arrivalDate}
+                onChange={(e) => setArrivalDate(e.target.value)}
+              />
+            </div>
+          </div>
+
+          {/* Travel Date*/}
+          <div className="pb-5 md:flex items-center gap-5 ">
+            <div className="w-[20%] text-slate-700 text-lg  ">
+              Date to travel:
+            </div>
+            <div className="w-[80%] text-slate-800 text-lg ">
+              <input
+                className="w-[32%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
+                type="date"
+                name="arrivalDate"
+                id="arrivalDate"
+                min={minDate}
+                required
+                value={travelDate}
+                onChange={(e) => setTravelDate(e.target.value)}
+              />
+            </div>
+          </div>
+
+          {/* Arrival airport */}
+          <div className="pb-5 md:flex items-center gap-5 ">
+            <div className="w-[20%] text-slate-700 text-lg  ">
+              Arrival airport:
+            </div>
+            <div className="w-[80%] text-lg ">
+              <div className="custom-select-wrapper wrapper-default-width ">
+                <select
+                  required
+                  name="arrivalAirport"
+                  id="arrival-airport"
+                  className="w-[32%] h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select"
+                  value={arrivalAirport}
+                  onChange={(e) => setArrivalAirport(e.target.value)}
+                >
+                  <optgroup label="Thailand">
+                    <option value="default">Please select an airport</option>
+                    <option value="Bangkok">Bangkok airport</option>
+                    <option value="Chiang Mai">Chiang Mai airport</option>
+                  </optgroup>
+                  <optgroup label="Vietnam">
+                    <option value="Hanoi">Hanoi airport</option>
+                    <option value="Ho Chi Minh">
+                      Ho Chi Minh City airport
+                    </option>
+                    <option value="Danang">Danang airport</option>
+                  </optgroup>
+                  <optgroup label="Cambodia">
+                    <option value="Siem Reap">Siem Reap airport</option>
+                    <option value="Phnom Penh">Phnom Penh airport</option>
+                  </optgroup>
+                </select>
+                <span className="custom-select-arrow">&#9662;</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Accomodations */}
+          <div className="pb-5 md:flex items-center gap-5 ">
+            <div className="w-[20%] text-slate-700 text-lg  ">
+              Accomodations:
+            </div>
+            <div className="w-[80%] text-slate-800 text-lg ">
+              <div className="custom-select-wrapper wrapper-default-width ">
+                <select
+                  required
+                  name="arrivalAirport"
+                  id="arrival-airport"
+                  className="w-[32%] h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select"
+                  value={accommo}
+                  onChange={(e) => setAccommo(e.target.value)}
+                >
+                  {accommodation.map((accommodation, index) => {
+                    return (
+                      <option key={index} value={accommodation}>
+                        {accommodation}
+                      </option>
+                    );
+                  })}
+                </select>
+                <span className="custom-select-arrow">&#9662;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Your contact information */}
+        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10  mx-auto mb-10">
+          <h1 className="pb-5 text-2xl font-semibold tracking-widest text-[#464646] ">
+            Your contact information
+          </h1>
+          {/* Full Name */}
+          <div className="pb-5 md:flex items-center gap-5">
+            <div className="w-[20%] text-slate-700 text-lg">Full Name:</div>
+            <div className="w-[80%] text-slate-800 text-lg">
               <input
                 type="text"
+                name="fullName"
+                id="fullName"
+                className="w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
+                required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                name=""
-                placeholder="Enter your full name"
-                className=" w-full border border-[#17254e] px-3 py-2 rounded-lg"
-                required
               />
             </div>
           </div>
-
-          <div className=" grid grid-cols-2 gap-5 px-3 py-2">
-            <div className=" col-start-1 col-span-12 lg:col-span-1">
-              <label className=" mb-2 font-semibold text-[#17254e]">
-                Email
-              </label>
+          {/* Email */}
+          <div className="pb-5 md:flex items-center gap-5">
+            <div className="w-[20%] text-slate-700 text-lg">Email:</div>
+            <div className="w-[80%] text-slate-800 text-lg">
               <input
-                type="email"
+                type="text"
+                name="email"
+                id="email"
+                className="w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                name=""
-                required
-                className=" w-full border border-[#17254e] px-3 py-2 rounded-lg"
               />
             </div>
-            <div className=" col-start-1 lg:col-start-2 col-span-12 lg:col-span-1">
-              <label className=" mb-2 font-semibold text-[#17254e]">
-                Phone
-              </label>
+          </div>
+          {/* Phone*/}
+          <div className="pb-5 md:flex items-center gap-5">
+            <div className="w-[20%] text-slate-700 text-lg">Phone:</div>
+            <div className="w-[80%] text-slate-800 text-lg">
               <input
                 type="text"
+                name="phone"
+                id="phone"
+                className="w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
+                required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="Enter your phone number"
-                name=""
-                required
-                className=" w-full border border-[#17254e] px-3 py-2 rounded-lg"
               />
             </div>
           </div>
-
-          <div className=" grid grid-cols-2 gap-5 px-3 py-2">
-            <div className=" col-start-1 col-span-12 md:col-span-1">
-              <label className=" mb-2 font-semibold text-[#17254e]">
-                Country
-              </label>
+          {/* Country */}
+          <div className="pb-5 md:flex items-center gap-5">
+            <div className="w-[20%] text-slate-700 text-lg">Country:</div>
+            <div className="w-[80%] text-slate-800 text-lg">
               <input
+                type="text"
+                name="country"
+                id="country"
+                className="w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
+                required
                 value={country}
-                type="text"
                 onChange={(e) => setCountry(e.target.value)}
-                placeholder="Enter your country name"
-                name=""
-                required
-                className=" w-full border border-[#17254e] px-3 py-2 rounded-lg"
-              />
-            </div>
-            <div className=" col-start-1 md:col-start-2 col-span-12 md:col-span-1">
-              <label className=" mb-2 font-semibold text-[#17254e]">City</label>
-              <input
-                value={city}
-                type="text"
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="Enter your city name"
-                name=""
-                required
-                className=" w-full border border-[#17254e] px-3 py-2 rounded-lg"
-                // onChange={(e) => setBudget(e.target.value)}
               />
             </div>
           </div>
-
-          <div className=" grid grid-cols-2 gap-5 px-3 py-2">
-            <div className=" col-start-1 col-span-12 md:col-span-1">
-              <label className=" mb-2 font-semibold text-[#17254e]">
-                Where do you know us?
-              </label>
-              <select
-                value={socialMedia}
-                onChange={(e) => setSocialMedia(e.target.value)}
-                className="w-full border border-[#17254e] px-3 py-2 rounded-lg "
-                name="social_media"
-              >
-                <option value="" selected>
-                  ---
-                </option>
-                <option value="facebook">Facebook</option>
-                <option value="internet">Internet</option>
-                <option value="friends">Friends</option>
-                <option value="ads">Ads</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div className=" col-start-1 md:col-start-2 col-span-12 md:col-span-1">
-              <div className=" h-full flex items-end justify-end">
-                <button
-                  type="submit"
-                  disabled={bookFormMutation?.isLoading}
-                  className=" px-3 py-2 bg-[#17254e] text-white rounded-lg flex items-center gap-2 cursor-pointer hover:opacity-90 transition-all"
+          {/* How know us? */}
+          <div className="pb-3 md:flex items-center gap-5">
+            <div className="w-[20%] text-slate-700 text-lg">Find Us By:</div>
+            <div className="w-[80%] text-slate-800 text-lg ">
+              <div className="custom-select-wrapper wrapper-half-width ">
+                <select
+                  required
+                  name="how"
+                  id="arrival-airport"
+                  className="w-[50%] h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select"
+                  value={how}
+                  onChange={(e) => setHow(e.target.value)}
                 >
-                  {bookFormMutation?.isLoading ? (
-                    <PuffLoader
-                      color={"#010E3B"}
-                      size={22}
-                      aria-label="Loading Spinner"
-                    />
-                  ) : (
-                    <>Submit</>
-                  )}
-                </button>
+                  {howUknow.map((how, index) => {
+                    return (
+                      <option key={index} value={how}>
+                        {how}
+                      </option>
+                    );
+                  })}
+                </select>
+                <span className="custom-select-arrow">&#9662;</span>
               </div>
             </div>
           </div>
-        </form>
-      </div>
+          {/* Other info */}
+          {how === "Others" ? (
+            <div className="pb-5 md:flex items-center gap-5">
+              <div className="w-[20%] "></div>
+              <div className="w-[80%] text-slate-700 text-lg">
+                <div className="text-slate-800 text-sm">
+                  Please fill how you found us:
+                </div>
+                <input
+                  type="text"
+                  name="otherInfo"
+                  id="otherInfo"
+                  className="w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
+                  required
+                  value={otherInfo}
+                  onChange={(e) => setOtherInfo(e.target.value)}
+                />
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+
+        {/* Other special requirement */}
+        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10 mx-auto mb-5">
+          <h1 className="pb-5 text-2xl font-semibold tracking-widest text-[#464646] ">
+            Other special requirement
+          </h1>
+          {/* Special Requirement */}
+          <div className="pb-5 md:flex items-center gap-5">
+            <div className="w-full text-slate-800 text-lg">
+              <textarea
+                name="special"
+                id="special"
+                className="w-full h-[100px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
+                required
+                value={special}
+                onChange={(e) => setSpecial(e.target.value)}
+                placeholder="Any must-have in your idea itinerary, prefer accommodations, any
+                special food request..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <p className="mb-5 text-center text-slate-700">
+          <span className="text-red-600">*</span> If you don't receive our
+          confirmation email after 1 working day, please check your spam
+          mailbox.
+        </p>
+
+        <div className=" flex justify-center">
+          <button
+            disabled={queryFormMutation.isLoading}
+            type="submit"
+            className=" md:w-1/6 w-2/5 rounded-lg bg-[#010e3b] text-white font-semibold flex justify-center align-middle items-center p-3 cursor-pointer hover:opacity-90 transition-all"
+          >
+            {queryFormMutation.isLoading ? (
+              <PuffLoader
+                color={"#010e3b"}
+                size={25}
+                aria-label="Loading Spinner"
+              />
+            ) : (
+              "Send"
+            )}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
 
-export default page;
+export default InquirySection;
+
+{
+  /* <p className="lg:text-xl text-base lg:px-24 px-6 text-center mx-auto mb-10">
+Experience tailor-made trips since 2013 designed to delight our
+esteemed guests. Share your preferences, interests, and trip details
+with us, and in as little as 24 hours, our team of experts will
+meticulously craft exceptional adventures tailored just for you. Your
+perfect travel experience awaits with our exclusive customized tour
+packages in South-East Asia, Thailand and Vietnam. Let us create
+unforgettable memories together!
+</p> */
+  /* If you've got special needs such as non-smoking rooms, dietary plans or have additional places to visit, please let us know. */
+}
