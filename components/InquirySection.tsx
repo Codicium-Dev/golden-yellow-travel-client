@@ -251,6 +251,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     if (!str) return str; // Return if the string is empty
     return str[0].toUpperCase() + str.slice(1).toLowerCase();
   }
+  // deployment
 
   return (
     <div>
