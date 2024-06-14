@@ -348,7 +348,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
 
-          {/* Travel Date*/}
+          {/**  Travel Date **/}
           <div className="pb-5 md:flex items-center gap-5 ">
             <div className="w-[20%] text-slate-700 text-lg  ">
               Date to travel:
