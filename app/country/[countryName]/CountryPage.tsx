@@ -44,8 +44,7 @@ const CountryPage = ({ countryName }: { countryName: string }) => {
   return (
     <>
       <HeroSection
-        photo={countryName == "thailand" ? "/thailand.webp" : "/vietnam.jpg"}
-        title={countryName}
+        photo={countryName == "thailand" ? "/thailand.png" : "/vietnam.png"}
       />
       <div className="px-6 md:px-16 mt-10 mb-20 gap-5 lg:gap-14 flex flex-col justify-center items-center">
         {isLoading && (

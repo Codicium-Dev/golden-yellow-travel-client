@@ -3,17 +3,9 @@ import React from "react";
 
 interface Value {
   photo: string;
-  overlayTitle?: string;
-  title?: string | null;
-  subTitle?: string;
 }
 
-export default function HeroSection({
-  photo,
-  overlayTitle = "East Asia",
-  title,
-  subTitle,
-}: Value) {
+export default function HeroSection({ photo }: Value) {
   return (
     <div>
       <Image
@@ -24,7 +16,7 @@ export default function HeroSection({
         height={2000}
         className="w-full h-[380px] md:h-[700px] object-cover"
       />
-      <div className="absolute top-[40%] left-1/2 -translate-x-[50%] w-full open-sans text-white text-center font-bold">
+      {/* <div className="absolute top-[40%] left-1/2 -translate-x-[50%] w-full open-sans text-white text-center font-bold">
         <div className="relative w-full">
           <span
             className={`w-full absolute left-1/2 -translate-x-1/2 tracking-widest text-center opacity-40 leading-tight xl:leading-normal text-[80px] md:text-9xl xl:text-[170px] ${
@@ -50,7 +42,7 @@ export default function HeroSection({
             </span>
           )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

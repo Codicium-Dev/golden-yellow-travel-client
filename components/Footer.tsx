@@ -72,7 +72,7 @@ const Footer = () => {
   };
 
   return (
-    <div>
+    <footer>
       <div className="sticky bottom-0 px-[20px] lg:px-[70px] py-5 bg-[#f1f2f3] grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-0">
         <div>
           <div className=" flex items-center gap-5">
@@ -131,13 +131,13 @@ const Footer = () => {
           <div className=" flex items-center gap-5 mt-3">
             <HiOutlineMailOpen size={28} className=" text-[#1c94ad]" />
             <a href="mailto:info@goldenyellowtravel.com">
-              info@goldenyellowtravel.com
+              goldenasiaexpedition@gmail.com
             </a>
           </div>
 
           <div className=" flex items-center gap-5 mt-3">
             <AiOutlinePhone size={28} className=" text-[#1c94ad]" />
-            <a href="tel:+959883353253">+959 883 353 253</a>
+            <a href="tel:(+66) 081 839 2938">(+66) 081 839 2938</a>
           </div>
 
           <div className=" flex items-center gap-5 mt-3">
@@ -170,7 +170,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

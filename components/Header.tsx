@@ -114,6 +114,7 @@ const Header = () => {
             "/sign-in",
             "/sign-up",
             "/book-form",
+            "/inquiry",
           ].some((route) => pathname.startsWith(route))
             ? "bg-[#010e3b]"
             : bgColor
@@ -222,9 +223,8 @@ const Header = () => {
                   type="text"
                   id="default-search"
                   value={search}
-                  className="block lg:w-[200px] h-[34px] pl-[10px] rounded-sm border-white bg-transparent focus:ring-white focus:border-white outline-none
-                text-sm border text-white placeholder-white open-sans"
-                  placeholder="Search..."
+                  className="block lg:w-[220px] h-[34px] pl-[10px] rounded-sm border-white bg-[#f1f2f3] bg-opacity-65 focus:ring-white focus:border-white outline-none text-sm border placeholder-gray-700 open-sans"
+                  placeholder="Search tour here..."
                   onChange={(e) => setSearch(e.target.value)}
                 />
                 {/* lens icon */}
@@ -248,15 +248,14 @@ const Header = () => {
               </div>
             </form>
 
-            <Link
-              href={"/inquery-form"}
-              // as={`https://goldenyellowtravel.com/inquery-form`}
+            {/* <Link
+              href={"/inquiry"}
               className="border border-white rounded-sm overflow-hidden"
             >
               <button className="py-[2px] bg-[#010e3b] text-stone-100 shadow px-3 h-[30px] w-fit text-base font-bold text-center open-sans">
-                Inquery Now
+                Inquiry Now
               </button>
-            </Link>
+            </Link> */}
           </div>
 
           {/* mobile button fixed top-[17px] right-[20px] lg:hidden */}

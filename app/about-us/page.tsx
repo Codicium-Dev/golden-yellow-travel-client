@@ -11,11 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const page = () => {
   return (
     <>
-      <HeroSection
-        photo="/aboutus.jpg"
-        overlayTitle="Golden Yellow"
-        title="About Us"
-      />
+      <HeroSection photo="/aboutus.png" />
       <div className="min-h-screen px-[20px] md:px-[70px] my-10 md:my-20 md:text-2xl text-lg open-sans">
         <div className="mb-5">
           <div>
@@ -23,7 +19,7 @@ const page = () => {
               Established in 2010, Golden Asia Expedition is one of the leading
               travel companies in Indochina. We provide tours, hotel booking,
               flight booking and other travel services in Thailand & Vietnam
-              with the <strong>Golden Yellow Guarantee</strong>.
+              with the <strong>Golden Asia Expedition Guarantee</strong>.
             </p>
 
             <p className=" mb-2">
@@ -35,7 +31,7 @@ const page = () => {
             <p className=" mb-2">
               Through Bestpricevn.com, we are committed to offer our customers{" "}
               <strong>reliable services</strong> and <strong>true value</strong>{" "}
-              at the <strong>Golden Yellow</strong>.
+              at the <strong>Golden Asia Expedition</strong>.
             </p>
           </div>
           <img
@@ -52,8 +48,8 @@ const page = () => {
           <p className=" mb-2">
             Our vision is to be a leading travel company in Asia which connects
             all local service providers in order to supply travelers with high
-            quality and full-service touristic packages at Golden Yellow, and
-            benefiting all people around us:
+            quality and full-service touristic packages at Golden Asia
+            Expedition, and benefiting all people around us:
           </p>
 
           <div className=" mb-5">
@@ -65,7 +61,7 @@ const page = () => {
                 <p className=" mb-2">
                   We aim to keep on offering best travel services for our
                   clients in order to provide them unique unforgettable
-                  experiences at the Golden Yellow.
+                  experiences at the Golden Asia Expedition.
                 </p>
               </li>
               <li className=" list-item list-disc">
@@ -114,18 +110,18 @@ const page = () => {
           <p className=" mb-2">
             The core values of Golden Asia Expedition, as a benchmark company in
             the touristic industry, are focused on offering very high
-            added-value services to our clients guaranteeing the Golden Yellow
-            and quality. In this way, our customers will be totally satisfied by
-            choosing our services. In order to match the expectations of the
-            travelers, even exceed them, we are based on the following core
-            values:
+            added-value services to our clients guaranteeing the Golden Asia
+            Expedition and quality. In this way, our customers will be totally
+            satisfied by choosing our services. In order to match the
+            expectations of the travelers, even exceed them, we are based on the
+            following core values:
           </p>
 
           <div className=" mb-5">
             <ul className=" ms-8 mb-2">
               <li className=" list-item list-disc">
                 <h1 className=" text-lg text-red-700 font-sans mb-2">
-                  Golden Yellow guaranteed
+                  Golden Asia Expedition guaranteed
                 </h1>
                 <p className=" mb-2">
                   As our name states, the first commitment we have with our
@@ -148,7 +144,7 @@ const page = () => {
                   experience. That is why,{" "}
                   <strong>we cooperate with the best companies</strong>,
                   including, hoteliers, cruisers and local suppliers in order to
-                  guarantee high quality at the Golden Yellow.
+                  guarantee high quality at the Golden Asia Expedition.
                 </p>
               </li>
               <li className=" list-item list-disc">
@@ -161,8 +157,8 @@ const page = () => {
                   clients to be fully satisfied. Golden Asia Expedition ensures,
                   by the selection of the best partners, that the services we
                   offer, provide you{" "}
-                  <strong>TRUE VALUE, AT THE Golden Yellow</strong>, and being
-                  fully <strong>RELIABLE</strong> at the same time.
+                  <strong>TRUE VALUE, AT THE Golden Asia Expedition</strong>,
+                  and being fully <strong>RELIABLE</strong> at the same time.
                 </p>
               </li>
               <li className=" list-item list-disc">
