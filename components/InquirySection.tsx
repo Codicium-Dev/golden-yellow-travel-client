@@ -69,7 +69,10 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     "Website / Blogs",
     "Others",
   ];
-
+  // date varification
+  const today = new Date();
+  const sevenDaysFromNow = new Date();
+  const eightDaysFromNow = new Date();
   const [adults, setAdults] = useState(1);
   const [childrens, setChildrens] = useState(0);
   const [infants, setInfants] = useState(0);
@@ -84,7 +87,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const [countryToTravel, setCountryToTravel] = useState("");
-  const [how, setHow] = useState("");
+  const [how, setHow] = useState("Please select how you found us");
   const [otherInfo, setOtherInfo] = useState("");
   const [special, setSpecial] = useState("");
   // const [lName, setLname] = useState("");
@@ -95,9 +98,9 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   // const [interest, setInterest] = useState("");
 
   // date varification
-  const today = new Date();
-  const sevenDaysFromNow = new Date();
-  const eightDaysFromNow = new Date();
+  // const today = new Date();
+  // const sevenDaysFromNow = new Date();
+  // const eightDaysFromNow = new Date();
 
   const getFormattedDateTime = (date: any) => {
     const year = date.getFullYear();
@@ -110,7 +113,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   };
 
   sevenDaysFromNow.setDate(today.getDate() + 7);
-  eightDaysFromNow.setDate(today.getDate() + 8);
+  // eightDaysFromNow.setDate(today.getDate() + 8);
   const minDateTime = getFormattedDateTime(sevenDaysFromNow);
   // datetime end
   const getFormattedDate = (date: any) => {
@@ -120,10 +123,11 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
     return `${year}-${month}-${day}`;
   };
-  const minDate = getFormattedDate(eightDaysFromNow);
 
   // const maxDate = getFormattedDateTime();
   // date varification end
+
+  const minDate = getFormattedDate(sevenDaysFromNow);
 
   const queryFormMutation = useMutation({
     mutationFn: (data: any) => postRequest("form/create", data),
@@ -153,21 +157,20 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     e.preventDefault();
     // date
     const selectedDateTime = new Date(arrivalDate);
-    const selectedDate = new Date(travelDate);
-    const dateTimeToDate = new Date(
+    const selectedDateToTravel = new Date(travelDate);
+
+    const arrivalDatetimeToDate = new Date(
       selectedDateTime.toISOString().split("T")[0]
     );
-    console.log("dateTimeToDate ?>>>> ", dateTimeToDate);
-    console.log("selectedDate ?>>>> ", selectedDate);
 
     if (selectedDateTime < sevenDaysFromNow) {
       toast.error(
-        "Selected arrival date must at least the next 7 days from today."
+        "The selected arrival date must be at least 7 days from today."
       );
     }
-    if (selectedDate < dateTimeToDate) {
+    if (selectedDateToTravel < arrivalDatetimeToDate) {
       toast.error(
-        "Selected tour date must at least the next day from arrival day."
+        "The selected tour date must be on or after the arrival day."
       );
     }
     // date
@@ -179,18 +182,25 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
       toast.error("Please fill accomodation field.");
     }
     if (how === "Please select how you found us") {
-      toast.error("Please fill how you found us.");
+      toast.error("Please indicate how you found us.");
     }
     if (how === "Others") {
       if (otherInfo === "") {
-        toast.warning("Please fill how you found us.");
+        toast.warning("Please indicate how you found us.");
       }
     }
+    if (selectedDateTime > sevenDaysFromNow) {
+      console.log("arrival checking pass :)");
+    }
+
+    if (selectedDateToTravel >= arrivalDatetimeToDate) {
+      console.log("tour date checking pass :)");
+    }
+
     if (
       tourType !== "" &&
-      arrivalDate !== "" &&
       selectedDateTime > sevenDaysFromNow &&
-      selectedDate < dateTimeToDate &&
+      selectedDateToTravel >= arrivalDatetimeToDate &&
       travelDate !== "" &&
       arrivalAirport !== "" &&
       accommo !== "" &&
@@ -204,6 +214,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
       arrivalAirport !== "default" &&
       how !== "Please select how you found us"
     ) {
+      console.log("Form validation ok.");
       queryFormMutation.mutateAsync({
         adults: adults,
         children: childrens,
@@ -385,7 +396,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             <div className="w-[20%] text-slate-700 text-lg  ">
               Date of Arrival:
               <span className="text-sm text-gray-500">
-                &#x28;Customer's arrival date and local time in
+                &#x28;Customer's arrival date and local time in&nbsp;
                 {toSentenceCase(tours?.data?.country_name)}&#x29;
               </span>
             </div>

@@ -138,7 +138,7 @@ const page = ({ params }: { params: { slug: string } }) => {
         socialMedia,
       };
 
-      sendMail(customerData, tourData);
+      // sendMail(customerData, tourData);
     }
   };
 

@@ -12,10 +12,11 @@ export const sendBookingEmail = async (
   try {
     // Send email using Resend API
     const response = await resend.emails.send({
-      from: "mail@goldenasiaexpedition.com",
-      // to: "goldenyellowtravel@gmail.com",
-      // to: "yaetactaung@gmail.com",
-      to: ["goldenyellowtravel@gmail.com", `${customerEmail}`],
+      // 	uab online <online@uab.com.mm>
+      from: "Golden Asia Expedition <info@goldenasiaexpedition.com>",
+      // to: ["goldenyellowtravel@gmail.com", `${customerEmail}`],
+      // to: "goldenyellowtravel@gmail.com","yaetactaung@gmail.com",
+      to: ["yaetactaung@gmail.com", `${customerEmail}`],
       subject: `Booking for "${tourData.tourName}"`,
       html: `
   <!DOCTYPE html>
@@ -46,20 +47,16 @@ export const sendBookingEmail = async (
         text-align: left;
       }
 
-      .title {
+      .title, .content-title {
         width: 20rem;
-        font-weight: 500;
-        color: rgb(60, 60, 60);
+        font-weight: 600;
+        color: darkblue;
       }
       .content {
         color: rgb(97, 97, 97);
       }
       .content.customers {
         text-align: center;
-      }
-      .content-title {
-        font-weight: 600;
-        color: rgb(90, 90, 90);
       }
       
     </style>
@@ -120,9 +117,9 @@ export const sendBookingEmail = async (
         </tr>
         <tr>
           <td class="title" rowspan="2">Number of travellers</td>
-          <td class="content content-title">Adults</td>
-          <td class="content content-title">Childrens</td>
-          <td class="content content-title">Infants</td>
+          <td class="content content-title customers">Adults</td>
+          <td class="content content-title customers">Childrens</td>
+          <td class="content content-title customers">Infants</td>
         </tr>
         <tr>
           <td class="content customers">${customerData.adults}</td>
