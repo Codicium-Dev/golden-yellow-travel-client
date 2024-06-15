@@ -179,7 +179,7 @@ export const sendBookingEmail = async (
 </html>
       `,
     });
-    console.log("Email sent successfully:", response);
+    // console.log("Email sent successfully:", response);
   } catch (error: any) {
     // Log error details
     console.error("Failed to send email:", error);

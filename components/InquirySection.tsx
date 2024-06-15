@@ -85,17 +85,10 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   const [how, setHow] = useState("");
   const [otherInfo, setOtherInfo] = useState("");
   const [special, setSpecial] = useState("");
-  // const [lName, setLname] = useState("");
-  // const [travelMonth, setTravelMonth] = useState("");
-  // const [travelYear, setTravelYear] = useState("");
-  // const [stayDays, setStayDays] = useState("");
-  // const [budget, setBudget] = useState("");
-  // const [interest, setInterest] = useState("");
 
   // date varification
   const today = new Date();
   const sevenDaysFromNow = new Date();
-  const eightDaysFromNow = new Date();
 
   const getFormattedDateTime = (date: any) => {
     const year = date.getFullYear();
@@ -108,7 +101,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   };
 
   sevenDaysFromNow.setDate(today.getDate() + 7);
-  eightDaysFromNow.setDate(today.getDate() + 8);
   const minDateTime = getFormattedDateTime(sevenDaysFromNow);
   // datetime end
   const getFormattedDate = (date: any) => {
@@ -118,7 +110,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
 
     return `${year}-${month}-${day}`;
   };
-  const minDate = getFormattedDate(eightDaysFromNow);
 
   // const maxDate = getFormattedDateTime();
   // date varification end
@@ -153,7 +144,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     const dateTimeToDate = new Date(
       selectedDateTime.toISOString().split("T")[0]
     );
-    console.log("dateTimeToDate ?>>>> ", dateTimeToDate);
 
     if (selectedDateTime < sevenDaysFromNow) {
       toast.error(
