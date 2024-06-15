@@ -76,14 +76,12 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   const [arrivalDate, setArrivalDate] = useState("");
   const [arrivalAirport, setArrivalAirport] = useState("default");
   const [tourType, setTourType] = useState("Private Tour");
-  const [travelDate, setTravelDate] = useState("");
   const [accommo, setAccommo] = useState("Please select accomodation");
   const [destinations, setDestinations] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
-  const [countryToTravel, setCountryToTravel] = useState("");
   const [how, setHow] = useState("");
   const [otherInfo, setOtherInfo] = useState("");
   const [special, setSpecial] = useState("");
@@ -138,7 +136,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
       setPhone("");
       setAccommo("");
       setCountry("");
-      setCountryToTravel("");
       setHow("");
       setOtherInfo("");
       setSpecial("");
@@ -153,23 +150,17 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     e.preventDefault();
     // date
     const selectedDateTime = new Date(arrivalDate);
-    const selectedDate = new Date(travelDate);
     const dateTimeToDate = new Date(
       selectedDateTime.toISOString().split("T")[0]
     );
     console.log("dateTimeToDate ?>>>> ", dateTimeToDate);
-    console.log("selectedDate ?>>>> ", selectedDate);
 
     if (selectedDateTime < sevenDaysFromNow) {
       toast.error(
         "Selected arrival date must at least the next 7 days from today."
       );
     }
-    if (selectedDate < dateTimeToDate) {
-      toast.error(
-        "Selected tour date must at least the next day from arrival day."
-      );
-    }
+
     // date
     // validation
     if (arrivalAirport === "default") {
@@ -190,8 +181,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
       tourType !== "" &&
       arrivalDate !== "" &&
       selectedDateTime > sevenDaysFromNow &&
-      selectedDate < dateTimeToDate &&
-      travelDate !== "" &&
       arrivalAirport !== "" &&
       accommo !== "" &&
       fullName !== "" &&
@@ -211,7 +200,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         destinations: tours?.data?.location,
         tour_type: tourType,
         arrival_date: arrivalDate,
-        travel_date: travelDate,
         arrival_airport: arrivalAirport,
         accommodation: accommo,
         full_name: fullName,
@@ -230,7 +218,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         destinations,
         tourType,
         arrivalDate,
-        travelDate,
         arrivalAirport,
         accommo,
         fullName,
@@ -400,25 +387,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                 required
                 value={arrivalDate}
                 onChange={(e) => setArrivalDate(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {/**  Travel Date **/}
-          <div className="pb-5 md:flex items-center gap-5 ">
-            <div className="w-[20%] text-slate-700 text-lg  ">
-              Date to travel:
-            </div>
-            <div className="w-[80%] text-slate-800 text-lg ">
-              <input
-                className="w-[32%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
-                type="date"
-                name="arrivalDate"
-                id="arrivalDate"
-                min={minDate}
-                required
-                value={travelDate}
-                onChange={(e) => setTravelDate(e.target.value)}
               />
             </div>
           </div>
