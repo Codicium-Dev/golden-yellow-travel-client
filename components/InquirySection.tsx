@@ -240,7 +240,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         </h1>
 
         {/* Tour Information */}
-        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-6 lg:px-10 mb-10">
+        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-6 lg:px-10 mx-auto mb-10">
           <div className="pb-5 md:flex items-center gap-5">
             <p className="text-slate-700 text-base lg:text-lg min-w-[150px] w-[20%]">
               Tour Name:
