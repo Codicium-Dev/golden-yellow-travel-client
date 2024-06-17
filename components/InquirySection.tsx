@@ -178,7 +178,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
       phone !== "" &&
       country !== "" &&
       how !== "" &&
-      special !== "" &&
       accommo !== "Please select accomodation" &&
       arrivalAirport !== "default" &&
       how !== "Please select how you found us"
@@ -573,7 +572,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                 name="special"
                 id="special"
                 className="w-full h-[100px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
-                required
                 value={special}
                 onChange={(e) => setSpecial(e.target.value)}
                 placeholder="Any must-have in your idea itinerary, prefer accommodations, any
@@ -597,7 +595,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           >
             {queryFormMutation.isLoading ? (
               <PuffLoader
-                color={"#010e3b"}
+                color={"#fff"}
                 size={25}
                 aria-label="Loading Spinner"
               />

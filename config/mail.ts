@@ -15,7 +15,7 @@ export const sendBookingEmail = async (
       from: "mail@goldenasiaexpedition.com",
       // to: "goldenyellowtravel@gmail.com",
       // to: "yaetactaung@gmail.com",
-      to: ["goldenyellowtravel@gmail.com", `${customerEmail}`],
+      to: ["goldenasiaexpedition@gmail.com", `${customerEmail}`],
       subject: `Booking for "${tourData.tourName}"`,
       html: `
   <!DOCTYPE html>
@@ -81,10 +81,6 @@ export const sendBookingEmail = async (
         <tr>
           <td class="title">City Name</td>
           <td class="content" colspan="3">${tourData.cityName}</td>
-        </tr>
-        <tr>
-          <td class="title">Tour Name</td>
-          <td class="content" colspan="3">${tourData.tourName}</td>
         </tr>
         <tr>
           <td class="title">Duration</td>
