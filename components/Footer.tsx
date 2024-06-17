@@ -128,22 +128,22 @@ const Footer = () => {
             Contact Information
           </h1>
 
-          <div className=" flex items-center gap-5 mt-3">
-            <HiOutlineMailOpen size={28} className=" text-[#1c94ad]" />
+          <div className=" flex items-center gap-3 md:gap-5 mt-3">
+            <HiOutlineMailOpen size={28} className=" text-[#1c94ad] min-w-7" />
             <a href="mailto:info@goldenyellowtravel.com">
               goldenasiaexpedition@gmail.com
             </a>
           </div>
 
-          <div className=" flex items-center gap-5 mt-3">
-            <AiOutlinePhone size={28} className=" text-[#1c94ad]" />
+          <div className=" flex items-center gap-3 md:gap-5 mt-3">
+            <AiOutlinePhone size={28} className=" text-[#1c94ad] min-w-7" />
             <a href="tel:(+66) 081 839 2938">(+66) 081 839 2938</a>
           </div>
 
-          <div className=" flex items-center gap-5 mt-3">
+          <div className=" flex items-center gap-3 md:gap-5 mt-3">
             <MdOutlineNotificationsActive
               size={28}
-              className=" text-[#1c94ad]"
+              className=" text-[#1c94ad] min-w-7"
             />
             <form
               onSubmit={(e) => handleSubscribe(e)}
