@@ -236,6 +236,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
         className="p-5 pt-[110px] md:pt-[140px] pb-[40px] bg-[#efefef] open-sans"
       >
         <h1 className="pb-5 text-xl md:text-3xl font-semibold tracking-widest text-[#464646] text-center">
+
           TOUR INQUIRING
         </h1>
 
@@ -246,10 +247,10 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
               Tour Name:
             </p>
             <p className="w-[80%] text-gray-600 text-sm md:text-lg ">
+
               {tours?.data?.name}
             </p>
           </div>
-
           <div className="pb-5 md:flex items-center gap-5">
             <p className=" text-gray-800 text-base md:text-lg min-w-[150px] w-[20%]">
               Duration:
@@ -293,7 +294,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                   name="adults"
                   min={1}
                   id="adults"
-                  className="w-[50%] h-[34px] text-sm border border-[#010e3b] rounded-lg p-2"
+                  className="block w-[60%] md:w-[50%] h-[34px] text-end text-sm border border-[#010e3b] rounded-lg p-2"
                   required
                   value={adults}
                   onChange={(e) => setAdults(parseInt(e.target.value))}
@@ -314,7 +315,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                   min={0}
                   max={10}
                   id="childrens"
-                  className="w-[50%] h-[34px] text-sm border border-[#010e3b] rounded-lg p-2"
+                  className="block w-[60%] md:w-[50%] h-[34px] text-end text-sm border border-[#010e3b] rounded-lg p-2"
                   required
                   value={childrens}
                   onChange={(e) => setChildrens(parseInt(e.target.value))}
@@ -333,7 +334,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                   min={0}
                   max={4}
                   id="infants"
-                  className="w-[50%] h-[34px] text-sm border border-[#010e3b] rounded-lg p-2"
+                  className="block w-[60%] md:w-[50%] h-[34px] text-end text-sm border border-[#010e3b] rounded-lg p-2"
                   required
                   value={infants}
                   onChange={(e) => setInfants(parseInt(e.target.value))}

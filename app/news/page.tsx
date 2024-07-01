@@ -53,7 +53,7 @@ const Page = () => {
           }}
           hasMore={hasNextPage}
           loader={
-            <div className="flex items-center justify-center">
+            <div className="flex items-center my-10 justify-center">
               <PuffLoader color={"#010E3B"} aria-label="Loading Spinner" />
             </div>
           }
