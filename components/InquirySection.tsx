@@ -249,7 +249,6 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
               {tours?.data?.name}
             </p>
           </div>
-
           <div className="pb-5 md:flex items-center gap-5">
             <p className=" text-slate-800 text-base lg:text-lg min-w-[150px] w-[20%]">
               Duration:
