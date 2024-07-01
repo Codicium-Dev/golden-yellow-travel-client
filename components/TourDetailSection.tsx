@@ -256,7 +256,7 @@ export default function TourDetailSection({ params }: any) {
                     pathname: `/inquiry/${params.slug.toString()}`,
                   }}
                 >
-                  <button className=" w-full py-3 text-center bg-[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
+                  <button className="mt-4 lg:mt-0 w-full py-3 text-center bg-[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
                     Inquire Now
                   </button>
                 </Link>
@@ -450,7 +450,9 @@ export default function TourDetailSection({ params }: any) {
                       className="w-[40px] block shrink-0 "
                     />
                     <div>
-                      Included activities
+                      <h3 className=" font-bold text-lg">
+                        Included activities
+                      </h3>
                       <p>{inclusions?.data?.data[0]?.included_activities}</p>
                     </div>
                   </div>

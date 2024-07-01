@@ -2,6 +2,10 @@
 @import "@radix-ui/colors/mauve.css";
 @import "@radix-ui/colors/violet.css";
 
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;800;900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Monda:wght@100;200;300;400;500;600;700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;500;600;800&display=swap);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -143,13 +147,13 @@ body {
 
 /* fonts */
 .inter {
-  font-family: var(--inter);
+  font-family: "Inter", sans-serif;
 }
 .open-sans {
-  font-family: var(--open-sans);
+  font-family: "Open Sans", sans-serif;
 }
 .monda {
-  font-family: var(--monda);
+  font-family: "Monda", sans-serif;
 }
 /* fonts end */
 
