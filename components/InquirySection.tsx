@@ -44,11 +44,11 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     salePrice: tours?.data?.sale_price,
   };
 
-  const destination = ["Please choose country", "Vietnam", "Thailand"];
+  // const destination = ["Please choose country", "Vietnam", "Thailand"];
 
-  const years = new Array(3)
-    .fill(0)
-    .map((_, index) => index + new Date().getFullYear());
+  // const years = new Array(3)
+  //   .fill(0)
+  //   .map((_, index) => index + new Date().getFullYear());
 
   const accommodation = [
     "Please select accomodation",
@@ -233,58 +233,60 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     <div>
       <form
         onSubmit={(e) => submitHandler(e)}
-        className="w-full p-5 pt-[110px] md:pt-[140px] pb-[40px] bg-[#efefef] open-sans "
+        className="p-5 pt-[110px] md:pt-[140px] pb-[40px] bg-[#efefef] open-sans"
       >
-        <h1 className="pb-5 text-2xl lg:text-3xl font-semibold tracking-widest text-[#464646] text-center ">
+        <h1 className="pb-5 text-xl md:text-3xl font-semibold tracking-widest text-[#464646] text-center">
+
           TOUR INQUIRING
         </h1>
 
         {/* Tour Information */}
-        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-6 lg:px-10 mx-auto mb-10">
+        <div className="w-full max-w-[1000px] px-5 md:px-10 mx-auto mb-10 flex flex-col bg-[#f6f6f6] shadow-lg py-7 rounded-lg">
           <div className="pb-5 md:flex items-center gap-5">
-            <p className="text-slate-700 text-base lg:text-lg min-w-[150px] w-[20%]">
+            <p className=" text-gray-800 text-base md:text-lg min-w-[150px] w-[20%]">
               Tour Name:
             </p>
-            <p className="w-[80%] text-base lg:text-lg text-gray-500 ">
+            <p className="w-[80%] text-gray-600 text-sm md:text-lg ">
+
               {tours?.data?.name}
             </p>
           </div>
-
           <div className="pb-5 md:flex items-center gap-5">
-            <p className=" text-slate-800 text-base lg:text-lg min-w-[150px] w-[20%]">
+            <p className=" text-gray-800 text-base md:text-lg min-w-[150px] w-[20%]">
               Duration:
             </p>
-            <p className="w-[80%] text-base lg:text-lg text-gray-500 ">
+            <p className="w-[80%] text-gray-600 text-sm md:text-lg ">
               {tours?.data?.duration}
             </p>
           </div>
 
           <div className=" md:flex items-center gap-5">
-            <p className=" text-slate-700 text-base lg:text-lg min-w-[150px] w-[20%]">
+            <p className=" text-gray-800 text-base md:text-lg min-w-[150px] w-[20%]">
               Destinations:
             </p>
-            <p className="w-[80%] text-base lg:text-lg text-gray-500 ">
+            <p className="w-[80%] text-gray-600 text-sm md:text-lg ">
               {tours?.data?.location}
             </p>
           </div>
         </div>
 
         {/* Travel Information */}
-        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-6 lg:px-10 mx-auto mb-10">
-          <h1 className="md:pb-5 text-xl lg:text-2xl font-semibold tracking-widest text-[#464646]">
-            Travel information
+        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10 mx-auto mb-10">
+          <h1 className="pb-5 text-xl md:text-2xl font-semibold tracking-widest text-[#464646]">
+            Your travel information
           </h1>
-          <div className="md:pb-5 flex-col md:flex-row items-center gap-5">
+          {/* no. of travellers */}
+          <div className="pb-5 flex flex-col lg:flex-row items-start lg:items-center gap-3 lg:gap-5">
             <div className="w-full lg:w-[20%] ">
-              <p className=" text-slate-700 text-base lg:text-lg min-w-[150px] pb-3 md:pb-0">
+              <p className=" text-gray-800 text-base md:text-lg min-w-[150px]">
                 No. of travellers:
               </p>
             </div>
             {/* No. of travellers */}
-            <div className="w-full flex-col md:flex md:flex-row gap-5 justify-between">
+            <div className="w-full lg:w-[80%] flex flex-col md:flex-row gap-5 ">
               {/* adults */}
-              <div className="w-full md:w-[30%] flex items-center justify-between pb-5 md:pb-0">
-                <p className=" text-gray-700 w-[40%] md:w-1/2 flex-col md:flex-row justify-between text-base lg:text-lg">
+              <div className="w-full md:w-1/3 flex flex-row justify-start md:items-center ">
+                <p className=" text-gray-600 text-sm md:text-lg w-[50%]">
                   Adults:
                 </p>
                 <input
@@ -299,8 +301,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                 />
               </div>
               {/* childrens */}
-              <div className="w-full md:w-[30%] flex items-center justify-between pb-4 md:pb-0">
-                <p className=" text-gray-700 w-[40%] md:w-1/2 flex-col md:block justify-between text-base lg:text-lg">
+              <div className="w-full md:w-1/3 flex flex-row justify-start md:items-center ">
+                <p className="  text-gray-600 text-sm md:text-lg w-[50%]">
                   Childrens:
                   <br />
                   <span className="text-sm text-gray-500">
@@ -320,8 +322,8 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
                 />
               </div>
               {/* infants */}
-              <div className="w-full md:w-[30%] flex items-center justify-between pb-4 md:pb-0">
-                <p className=" text-gray-700 w-[40%] md:w-1/2 flex-col md:block justify-between text-base lg:text-lg">
+              <div className="w-full md:w-1/3 flex flex-row justify-start md:items-center ">
+                <p className=" text-gray-600 text-sm md:text-lg w-[50%]">
                   Infants:
                   <br />
                   <span className="text-sm text-gray-500">&#x28;1-4&#x29;</span>
@@ -342,17 +344,17 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
 
           {/* Tour type */}
-          <div className=" w-full flex items-center justify-between pb-5">
-            <div className=" text-gray-700 md:w-1/2 justify-between text-base lg:text-lg">
+          <div className="pb-5 flex flex-col md:flex-row items-center center gap-3 md:gap-5 ">
+            <div className="w-full md:w-[40%] lg:w-[50%] text-gray-800 text-base md:text-lg  ">
               Tour type:
             </div>
-            <div className="w-[50%] flex justify-end text-slate-800 text-base lg:text-lg">
+            <div className="w-full md:w-[60%] lg:w-[50%] text-gray-800 text-base md:text-lg ">
               <input
                 disabled
                 type="text"
                 name="tourType"
                 id="tourType"
-                className="w-full md:w-[170px] h-[34px] text-sm bg-[#828282] font-semibold text-white text-center border-[#010e3b] p-2 rounded-3xl"
+                className="w-full md:w-[40%] lg:w-[50%] h-[34px] mr-10 text-sm bg-[#828282] font-semibold text-white text-center border-[#010e3b] p-2 rounded-3xl"
                 required
                 value={tourType}
                 onChange={(e) => setTourType(e.target.value)}
@@ -361,18 +363,17 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
 
           {/* Date of Arrival */}
-          <div className="pb-5 w-full flex-col md:flex md:flex-row items-center justify-between gap-5 md:gap-0">
-            <div className="w-full md:w-[65%] flex-col text-slate-700 text-base lg:text-lg ">
+          <div className="pb-5 md:flex items-center gap-5 ">
+            <div className="w-full md:w-[40%] lg:w-[50%] text-gray-800 text-base md:text-lg  ">
               Date of Arrival:
               <p className="text-sm text-gray-500">
-                &#x28;Customer's arrival date and local time in
+                &#x28;Customer's arrival date and local time in&nbsp;
                 {toSentenceCase(tours?.data?.country_name)}&#x29;
               </p>
             </div>
-            <div className="w-full md:w-[35%] text-slate-800 text-base lg:text-lg pt-2 md:pt-0">
-              {/* w-full h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select */}
+            <div className="w-full md:w-[40%] lg:w-[50%] text-gray-800 text-base md:text-lg ">
               <input
-                className="w-full h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg px-2"
+                className="w-full md:w-[60%] lg:w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
                 type="datetime-local"
                 name="arrivalDate"
                 id="arrivalDate"
@@ -386,17 +387,17 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
 
           {/* Arrival airport */}
-          <div className="pb-5 w-full flex-col md:flex md:flex-row items-center justify-between gap-5 md:gap-0">
-            <div className="w-full md:w-[65%] flex-col text-slate-700 text-base lg:text-lg ">
+          <div className="pb-5 md:flex items-center gap-5 ">
+            <div className="w-full md:w-[40%] lg:w-[50%] text-gray-800 text-base md:text-lg  ">
               Arrival airport:
             </div>
-            <div className="w-full md:w-[35%] text-slate-800 text-base lg:text-lg pt-2 md:pt-0">
-              <div className="custom-select-wrapper w-full ">
+            <div className="w-full md:w-[60%] lg:w-[50%] text-lg ">
+              <div className="custom-select-wrapper w-[100%] ">
                 <select
                   required
                   name="arrivalAirport"
                   id="arrival-airport"
-                  className="w-full h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select"
+                  className="w-[100%] h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select"
                   value={arrivalAirport}
                   onChange={(e) => setArrivalAirport(e.target.value)}
                 >
@@ -423,12 +424,12 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
 
           {/* Accomodations */}
-          <div className="pb-5 w-full flex-col md:flex md:flex-row items-center justify-between gap-5 md:gap-0">
-            <div className="w-full md:w-[65%] flex-col text-slate-700 text-base lg:text-lg ">
+          <div className="pb-5 md:flex items-center gap-5 ">
+            <div className="w-full md:w-[40%] lg:w-[50%] text-gray-800 text-base md:text-lg  ">
               Accomodations:
             </div>
-            <div className="w-full md:w-[35%] text-slate-800 text-base lg:text-lg pt-2 md:pt-0">
-              <div className="custom-select-wrapper w-full ">
+            <div className="w-full md:w-[60%] lg:w-[50%] text-gray-800 text-base md:text-lg ">
+              <div className="custom-select-wrapper w-[100%] ">
                 <select
                   required
                   name="arrivalAirport"
@@ -451,22 +452,22 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
         </div>
 
-        {/* contact information */}
-        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-6 lg:px-10  mx-auto mb-10">
-          <h1 className="pb-5 text-xl lg:text-2xl font-semibold tracking-widest text-[#464646] ">
-            Contact information
+        {/* Your contact information */}
+        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10  mx-auto mb-10">
+          <h1 className="pb-5 text-xl md:text-2xl font-semibold tracking-widest text-[#464646] ">
+            Your contact information
           </h1>
           {/* Full Name */}
           <div className="pb-5 md:flex items-center gap-5">
-            <div className="w-full md:w-[20%] text-slate-700 text-base lg:text-lg">
+            <div className="w-full md:w-[40%] lg:w-[50%] text-gray-800 text-base md:text-lg">
               Full Name:
             </div>
-            <div className="w-full md:w-[80%] text-slate-800 text-base lg:text-lg">
+            <div className="w-full md:w-[60%] lg:w-[50%] text-gray-800 text-base md:text-lg">
               <input
                 type="text"
                 name="fullName"
                 id="fullName"
-                className="w-full md:w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2 mt-2 md:mt-0"
+                className="w-full h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
@@ -475,15 +476,15 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
           {/* Email */}
           <div className="pb-5 md:flex items-center gap-5">
-            <div className="w-full md:w-[20%] text-slate-700 text-base lg:text-lg">
+            <div className="w-full md:w-[40%] lg:w-[50%] text-gray-800 text-base md:text-lg">
               Email:
             </div>
-            <div className="w-full md:w-[80%] text-slate-800 text-base lg:text-lg">
+            <div className="w-full md:w-[60%] lg:w-[50%] text-gray-800 text-base md:text-lg">
               <input
                 type="text"
                 name="email"
                 id="email"
-                className="w-full md:w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2 mt-2 md:mt-0"
+                className="w-full h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -492,15 +493,15 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
           {/* Phone*/}
           <div className="pb-5 md:flex items-center gap-5">
-            <div className="w-full md:w-[20%] text-slate-700 text-base lg:text-lg">
+            <div className="w-full md:w-[40%] lg:w-[50%] lg:w-[20%] text-gray-800 text-base md:text-lg">
               Phone:
             </div>
-            <div className="w-full md:w-[80%] text-slate-800 text-base lg:text-lg">
+            <div className="w-full md:w-[60%] lg:w-[50%] text-gray-800 text-base md:text-lg">
               <input
-                type="text"
+                type="tel"
                 name="phone"
                 id="phone"
-                className="w-full md:w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2 mt-2 md:mt-0"
+                className="w-full h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -509,15 +510,15 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
           {/* Country */}
           <div className="pb-5 md:flex items-center gap-5">
-            <div className="w-full md:w-[20%] text-slate-700 text-base lg:text-lg">
+            <div className="w-full md:w-[40%] lg:w-[50%] lg:w-[20%] text-gray-800 text-base md:text-lg">
               Country:
             </div>
-            <div className="w-full md:w-[80%] text-slate-800 text-base lg:text-lg">
+            <div className="w-full md:w-[60%] lg:w-[50%] text-gray-800 text-base md:text-lg">
               <input
                 type="text"
                 name="country"
                 id="country"
-                className="w-full md:w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2 mt-2 md:mt-0"
+                className="w-full h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
                 required
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
@@ -525,12 +526,12 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
           {/* How know us? */}
-          <div className="pb-0 md:pb-3 md:flex items-center gap-5">
-            <div className="w-full md:w-[20%] text-slate-700 text-base lg:text-lg">
+          <div className="pb-3 md:flex items-center gap-5">
+            <div className="w-full md:w-[40%] lg:w-[50%] text-gray-800 text-base md:text-lg">
               Find Us By:
             </div>
-            <div className="w-full md:w-[80%] text-slate-800 text-base lg:text-lg pt-2 md:pt-0 ">
-              <div className="custom-select-wrapper w-full md:w-1/2">
+            <div className="w-full md:w-[60%] lg:w-[50%] text-gray-800 text-base md:text-lg ">
+              <div className="custom-select-wrapper w-full ">
                 <select
                   required
                   name="how"
@@ -554,20 +555,20 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           {/* Other info */}
           {how === "Others" ? (
             <div className="pb-5 md:flex items-center gap-5">
-              <div className="w-full md:w-[20%] "></div>
-              <div className="w-full md:w-[80%] text-slate-700 text-base lg:text-lg">
-                <div className="text-slate-800 text-sm mb-2">
+              <div className="w-full md:w-[40%] lg:w-[50%]"></div>
+              <div className="w-full md:w-[60%] lg:w-[50%] text-gray-800 text-base md:text-lg">
+                <div className="text-gray-800 text-base md:text-sm">
                   Please fill how you found us:
                 </div>
-                <input
-                  type="text"
-                  name="otherInfo"
-                  id="otherInfo"
-                  className="w-full md:w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2 "
+                <textarea
+                  name="other-reason"
+                  id="other-reason"
+                  className="w-full h-[100px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2"
                   required
                   value={otherInfo}
                   onChange={(e) => setOtherInfo(e.target.value)}
-                />
+                  placeholder=""
+                ></textarea>
               </div>
             </div>
           ) : (
@@ -575,14 +576,14 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           )}
         </div>
 
-        {/* special requirement */}
-        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-6 lg:px-10 mx-auto mb-5">
-          <h1 className="pb-5 text-xl lg:text-2xl font-semibold tracking-widest text-[#464646] ">
-            Special requirement
+        {/* Other special requirement */}
+        <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-10 mx-auto mb-5">
+          <h1 className="pb-5 text-xl md:text-2xl font-semibold tracking-widest text-[#464646] ">
+            Other special requirement
           </h1>
           {/* Special Requirement */}
-          <div className=" md:flex items-center gap-5">
-            <div className="w-full text-slate-800 text-base lg:text-lg">
+          <div className="pb-5 md:flex items-center gap-5">
+            <div className="w-full text-gray-800 text-base md:text-lg">
               <textarea
                 name="special"
                 id="special"
@@ -596,7 +597,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
           </div>
         </div>
 
-        <p className="mb-5 text-center text-slate-700">
+        <p className="mb-5 text-center text-gray-800 text-xs md:text-sm">
           <span className="text-red-600">*</span> If you don't receive our
           confirmation email after 1 working day, please check your spam
           mailbox.
