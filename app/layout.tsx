@@ -33,7 +33,7 @@ export default function RootLayout({
             {/* Google Tag Manager */}
             <script
               async
-              src="https://www.googletagmanager.com/gtag/js?id=G-LH3MHM47V6"
+              src="https://www.googletagmanager.com/gtag/js?id=AW-799497474"
             ></script>
             <script
               dangerouslySetInnerHTML={{
@@ -41,7 +41,7 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-LH3MHM47V6');
+              gtag('config', 'AW-799497474');
             `,
               }}
             />

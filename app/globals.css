@@ -377,7 +377,6 @@ body {
 
 /* General styling for the select box */
 .custom-select {
-  /* width: 100%; */
   height: 34px;
   font-size: 0.875rem; /* Equivalent to text-sm */
   border: 1px solid #010e3b;

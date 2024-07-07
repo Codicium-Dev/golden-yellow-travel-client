@@ -4,7 +4,7 @@ import React from "react";
 function page({ params }: { params: { slug: string } }) {
   console.log("params.slug >> ", params.slug);
   return (
-    <div className="">
+    <div className="w-full">
       <InquirySection params={params} />
     </div>
   );
