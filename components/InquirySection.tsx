@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { PuffLoader } from "react-spinners";
+import { checkoutTour } from "@/actions/checkoutAction";
 import { getRequest } from "@/services/api/apiService";
+import { loadStripe } from "@stripe/stripe-js";
 import { postRequest } from "@/services/api/apiService";
 import { selectTours } from "@/services/redux/reducer/tourSlugSlice";
 import { sendMail } from "@/actions/emailAction";
@@ -12,6 +14,10 @@ import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 const InquirySection = ({ params }: { params: { slug: string } }) => {
   const tourSlug = useSelector(selectTours);
@@ -30,6 +36,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     queryKey: ["tour-detail", tourId],
     queryFn: () => getRequest(`tour/show/${tourId}`),
   });
+
   const tourData = {
     id: tourId,
     tourName: tours?.data?.name,
@@ -229,10 +236,33 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   }
   // deployment
 
+  const handleCheckout = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const result = await checkoutTour(
+        tourData,
+        `http://localhost:3000/inquiry/${params.slug.toString()}`
+      );
+
+      if (!result || !result.id) {
+        throw new Error("Failed to create checkout session.");
+      }
+
+      const stripe = await stripePromise;
+      await stripe!.redirectToCheckout({
+        sessionId: result.id,
+      });
+    } catch (error) {
+      console.error("Checkout error:", error);
+      toast.error("Checkout failed. Please try again.");
+    }
+  };
+
   return (
     <div>
       <form
-        onSubmit={(e) => submitHandler(e)}
+        // onSubmit={(e) => submitHandler(e)}
+        onSubmit={handleCheckout}
         className="w-full p-5 pt-[110px] md:pt-[140px] pb-[40px] bg-[#efefef] open-sans "
       >
         <h1 className="pb-5 text-2xl lg:text-3xl font-semibold tracking-widest text-[#464646] text-center ">
