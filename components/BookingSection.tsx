@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { PuffLoader } from "react-spinners";
+import { checkoutTour } from "@/actions/checkoutAction";
 import { getRequest } from "@/services/api/apiService";
+import { loadStripe } from "@stripe/stripe-js";
 import { postRequest } from "@/services/api/apiService";
 import { selectTours } from "@/services/redux/reducer/tourSlugSlice";
 import { sendMail } from "@/actions/emailAction";
@@ -12,6 +14,10 @@ import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 const BookingSection = ({ params }: { params: { slug: string } }) => {
   const tourSlug = useSelector(selectTours);
@@ -220,6 +226,29 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
       const customerEmail = email;
       sendMail(customerData, tourData, customerEmail);
       router.push("/");
+    }
+  };
+
+  const handleCheckout = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const result = await checkoutTour(
+        tours?.data,
+        `http://localhost:3000/inquiry/${params.slug.toString()}`
+      );
+
+      if (!result || !result.id) {
+        throw new Error("Failed to create checkout session.");
+      }
+
+      const stripe = await stripePromise;
+      await stripe!.redirectToCheckout({
+        sessionId: result.id,
+      });
+    } catch (error) {
+      console.error("Checkout error:", error);
+      toast.error("Checkout failed. Please try again.");
     }
   };
 
