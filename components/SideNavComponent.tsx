@@ -191,6 +191,10 @@ const SideNavComponent = () => {
                   News
                 </Link>
               </li>
+
+              <li className="text-[#010E3B] font-bold tracking-widest cursor-pointer">
+                <Link href={"/inquire"}>Inquiry</Link>
+              </li>
             </ul>
           </div>
         </div>

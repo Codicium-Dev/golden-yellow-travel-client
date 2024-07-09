@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Inquiry Form",
+  title: "Book Form",
   description: "This is the inquiry page of Golden Asia Expedition.",
   keywords: "Golden Asia Expedition, Inquiry Form",
 };

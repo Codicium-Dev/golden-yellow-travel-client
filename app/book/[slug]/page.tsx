@@ -1,11 +1,11 @@
-import InquirySection from "@/components/InquirySection";
+import BookingSection from "@/components/BookingSection";
 import React from "react";
 
 function page({ params }: { params: { slug: string } }) {
   console.log("params.slug >> ", params.slug);
   return (
     <div className="w-full">
-      <InquirySection params={params} />
+      <BookingSection params={params} />
     </div>
   );
 }
