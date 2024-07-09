@@ -5,23 +5,24 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { FaCheckCircle } from "react-icons/fa";
 import router from "next/router";
-import { toast } from "react-toastify";
+
+// import { toast } from "react-toastify";
 
 const Page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const toastShown = useRef(false);
+  // const toastShown = useRef(false);
 
   useEffect(() => {
     if (searchParams.get("session_id")) {
-      if (!toastShown.current) {
-        toast.success("Payment successful! Thank you for your purchase.");
-        toastShown.current = true;
+      // if (!toastShown.current) {
+      //   toast.success("Payment successful! Thank you for your purchase.");
+      //   toastShown.current = true;
 
-        setTimeout(() => {
-          router.push("/");
-        }, 3000); // 3 seconds
-      }
+      // }
+      setTimeout(() => {
+        router.push("/");
+      }, 3000); // 3 seconds
     } else {
       router.push("/");
     }

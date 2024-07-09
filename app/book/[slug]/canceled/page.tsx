@@ -3,23 +3,24 @@
 import React, { useRef } from "react";
 
 import { FaRegCircleXmark } from "react-icons/fa6";
-import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+// import { toast } from "react-toastify";
+
 const Page = () => {
   const router = useRouter();
-  const toastShown = useRef(false);
+  // const toastShown = useRef(false);
 
   useEffect(() => {
-    if (!toastShown.current) {
-      toast.error("Payment canceled. Please try again.");
-      toastShown.current = true;
+    // if (!toastShown.current) {
+    //   toast.error("Payment canceled. Please try again.");
+    //   toastShown.current = true;
 
-      setTimeout(() => {
-        router.push("/");
-      }, 3000); // 3 seconds
-    }
+    // }
+    setTimeout(() => {
+      router.push("/");
+    }, 3000); // 3 seconds
   }, [router]);
 
   return (
