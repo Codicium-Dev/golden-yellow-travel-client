@@ -36,8 +36,10 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
     queryKey: ["tour-detail", tourId],
     queryFn: () => getRequest(`tour/show/${tourId}`),
   });
+
   const tourData = {
     id: tourId,
+    tourPhoto: tours?.data?.tour_photo,
     tourName: tours?.data?.name,
     countryName: tours?.data?.country_name,
     cityName: tours?.data?.city_name,
@@ -225,17 +227,15 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
       };
       const customerEmail = email;
       sendMail(customerData, tourData, customerEmail);
-      router.push("/");
+      handleCheckout();
     }
   };
 
-  const handleCheckout = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleCheckout = async () => {
     try {
-      const result = await checkoutTour(
-        tours?.data,
-        `http://localhost:3000/inquiry/${params.slug.toString()}`
+      const result: any = await checkoutTour(
+        tourData,
+        `http://localhost:3000/book/${params.slug.toString()}`
       );
 
       if (!result || !result.id) {
@@ -261,7 +261,9 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
   return (
     <div>
       <form
-        onSubmit={(e) => submitHandler(e)}
+        onSubmit={(e) => {
+          submitHandler(e);
+        }}
         className="w-full p-5 pt-[110px] md:pt-[140px] pb-[40px] bg-[#efefef] open-sans "
       >
         <h1 className="pb-5 text-2xl lg:text-3xl font-semibold tracking-widest text-[#464646] text-center ">

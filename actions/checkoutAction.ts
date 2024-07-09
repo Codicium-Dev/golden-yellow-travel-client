@@ -10,6 +10,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export const checkoutTour = async (tourData: any, url: string) => {
   try {
+    const description = `
+      City: ${tourData.cityName}, ${tourData.countryName}
+      Duration: ${tourData.duration}
+      Departure: ${tourData.departure}
+      Location: ${tourData.location}
+      Start Date: ${tourData.startDate}
+      End Date: ${tourData.endDate}
+    `.trim();
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
@@ -18,8 +27,8 @@ export const checkoutTour = async (tourData: any, url: string) => {
             currency: "usd",
             product_data: {
               name: tourData.tourName,
-              description: `${tourData.cityName}, ${tourData.countryName}\nDuration: ${tourData.duration}\nDeparture: ${tourData.departure}\nLocation: ${tourData.location}\nStart Date: ${tourData.startDate}\nEnd Date: ${tourData.endDate}`,
-              images: [tourData.tour_photo],
+              description: description,
+              images: [tourData.tourPhoto],
             },
             unit_amount: tourData.salePrice * 100,
           },

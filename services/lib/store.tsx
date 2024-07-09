@@ -1,3 +1,4 @@
+import bookingReducer from "../redux/reducer/bookTourSlice";
 import cityTourSlugReducer from "../redux/reducer/cityTourSlugSlice";
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "../redux/reducer/counterSlice";
@@ -20,6 +21,7 @@ export const rootStore = configureStore({
     tourSlug: tourSlugReducer,
     cityTourSlug: cityTourSlugReducer,
     newsSlug: newsSlugReducer,
+    booking: bookingReducer,
   },
 });
 
