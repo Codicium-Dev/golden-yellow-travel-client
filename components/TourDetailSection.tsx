@@ -253,11 +253,11 @@ export default function TourDetailSection({ params }: any) {
               <div className=" ">
                 <Link
                   href={{
-                    pathname: `/inquiry/${params.slug.toString()}`,
+                    pathname: `/book/${params.slug.toString()}`,
                   }}
                 >
                   <button className="mt-4 lg:mt-0 w-full py-3 text-center bg-[#1c94ad] rounded-md text-white font-bold text-base hover:bg-[#68e6ff] transition-colors">
-                    Inquire Now
+                    Book Now
                   </button>
                 </Link>
               </div>

@@ -107,14 +107,13 @@ const Header = () => {
           [
             "/search",
             "/custom-search",
-            "/inquery-form",
+            "/inquire",
             "/news/news-detail",
             "/term-conditions",
             "/privacy-statement",
             "/sign-in",
             "/sign-up",
-            "/book-form",
-            "/inquiry",
+            "/book",
           ].some((route) => pathname.startsWith(route))
             ? "bg-[#010e3b]"
             : bgColor
@@ -131,7 +130,7 @@ const Header = () => {
                 className="w-[70px] h-[70px] md:w-[80px] md:h-[80px] xl:w-[90px] xl:h-[90px] "
                 alt="Picture of Golden Asia Expedition"
               />
-              <span className="hidden xl:block text-white text-base md:text-2xl lg:text-2xl font-bold tracking-widest monda">
+              <span className="hidden xl:block text-gray-100 text-base md:text-2xl lg:text-2xl font-bold tracking-widest monda">
                 Golden Asia Expedition
               </span>
             </div>
@@ -142,7 +141,7 @@ const Header = () => {
             <div className="min-w-[260px] relative">
               <ul className=" flex items-center justify-end gap-10 relative ">
                 <li
-                  className="text-white font-bold tracking-widest cursor-pointer select-none open-sans"
+                  className="text-gray-100 font-bold tracking-widest cursor-pointer select-none open-sans"
                   onClick={handleDes}
                 >
                   Destinations
@@ -157,7 +156,7 @@ const Header = () => {
                 >
                   {/* <div className=" flex items-center"> */}
                   <div className="">
-                    <ul className=" flex flex-col bg-stone-100 min-h-fit shadow-md rounded-sm overflow-hidden">
+                    <ul className=" flex flex-col bg-gray-100 min-h-fit shadow-md rounded-sm overflow-hidden">
                       {countries?.data?.data?.map((country: any) => {
                         const isActive = activeCountry === country.name; // Assuming activeCountry is the state holding the active country name
 
@@ -190,7 +189,7 @@ const Header = () => {
                   </div>
                 </div>
 
-                <li className="text-white font-bold tracking-widest cursor-pointer open-sans">
+                <li className="text-gray-100 font-bold tracking-widest cursor-pointer open-sans">
                   <Link
                     href={"/about-us"}
                     // as={`https://goldenyellowtravel.com/about-us.html`}
@@ -199,7 +198,7 @@ const Header = () => {
                   </Link>
                 </li>
 
-                <li className="text-white font-bold tracking-widest cursor-pointer open-sans">
+                <li className="text-gray-100 font-bold tracking-widest cursor-pointer open-sans">
                   <Link
                     href={"/news"}
                     // as={`https://goldenyellowtravel.com/news.html`}
@@ -214,7 +213,7 @@ const Header = () => {
             <form onSubmit={(e) => handleSearch(e)}>
               <label
                 htmlFor="default-search"
-                className="mb-2 text-sm font-md sr-only text-white"
+                className="mb-2 text-sm font-md sr-only text-gray-100"
               >
                 Search
               </label>
@@ -230,7 +229,7 @@ const Header = () => {
                 {/* lens icon */}
                 <div className="absolute inset-y-0 right-[10px] flex items-center pl-3 pointer-events-none">
                   <svg
-                    className="w-4 h-4 text-white"
+                    className="w-4 h-4 text-gray-100"
                     aria-hidden="true"
                     xmlns="https://www.w3.org/2000/svg"
                     fill="none"
@@ -248,14 +247,14 @@ const Header = () => {
               </div>
             </form>
 
-            {/* <Link
-              href={"/inquiry"}
+            <Link
+              href={"/inquire"}
               className="border border-white rounded-sm overflow-hidden"
             >
-              <button className="py-[2px] bg-[#010e3b] text-stone-100 shadow px-3 h-[30px] w-fit text-base font-bold text-center open-sans">
-                Inquiry Now
+              <button className="py-[2px] bg-[#010e3b] text-gray-100 shadow px-3 h-[30px] w-fit text-base font-bold text-center open-sans">
+                Inquiry
               </button>
-            </Link> */}
+            </Link>
           </div>
 
           {/* mobile button fixed top-[17px] right-[20px] lg:hidden */}

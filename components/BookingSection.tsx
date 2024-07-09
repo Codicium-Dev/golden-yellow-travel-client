@@ -13,7 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-const InquirySection = ({ params }: { params: { slug: string } }) => {
+const BookingSection = ({ params }: { params: { slug: string } }) => {
   const tourSlug = useSelector(selectTours);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -623,7 +623,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   );
 };
 
-export default InquirySection;
+export default BookingSection;
 
 {
   /* <p className="lg:text-xl text-base lg:px-24 px-6 text-center mx-auto mb-10">
