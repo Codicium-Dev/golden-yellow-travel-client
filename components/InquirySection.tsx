@@ -144,8 +144,13 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
     },
   });
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  function toSentenceCase(str: string) {
+    if (!str) return str; // Return if the string is empty
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
+  }
+
+  // deployment
+  const submitHandler = async () => {
     // date
     const selectedDateTime = new Date(arrivalDate);
     const dateTimeToDate = new Date(
@@ -226,21 +231,17 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
       };
       const customerEmail = email;
       sendMail(customerData, tourData, customerEmail);
-      router.push("/");
     }
   };
 
-  function toSentenceCase(str: string) {
-    if (!str) return str; // Return if the string is empty
-    return str[0].toUpperCase() + str.slice(1).toLowerCase();
-  }
-  // deployment
-
   const handleCheckout = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
+      await submitHandler();
+
       const result = await checkoutTour(
-        tourData,
+        tours?.data,
         `http://localhost:3000/inquiry/${params.slug.toString()}`
       );
 
@@ -261,8 +262,7 @@ const InquirySection = ({ params }: { params: { slug: string } }) => {
   return (
     <div>
       <form
-        // onSubmit={(e) => submitHandler(e)}
-        onSubmit={handleCheckout}
+        onSubmit={(e) => handleCheckout(e)}
         className="w-full p-5 pt-[110px] md:pt-[140px] pb-[40px] bg-[#efefef] open-sans "
       >
         <h1 className="pb-5 text-2xl lg:text-3xl font-semibold tracking-widest text-[#464646] text-center ">

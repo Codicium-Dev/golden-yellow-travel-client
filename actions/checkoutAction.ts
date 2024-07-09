@@ -18,7 +18,8 @@ export const checkoutTour = async (tourData: any, url: string) => {
             currency: "usd",
             product_data: {
               name: tourData.tourName,
-              description: `${tourData.cityName}, ${tourData.countryName}`,
+              description: `${tourData.cityName}, ${tourData.countryName}\nDuration: ${tourData.duration}\nDeparture: ${tourData.departure}\nLocation: ${tourData.location}\nStart Date: ${tourData.startDate}\nEnd Date: ${tourData.endDate}`,
+              images: [tourData.tour_photo],
             },
             unit_amount: tourData.salePrice * 100,
           },
