@@ -7,7 +7,8 @@ const resend = new Resend("re_j5A8Aygu_G4oQghBHqKtxJaLdWfPN9GAd");
 export const sendBookingEmail = async (
   customerData: any,
   tourData: any,
-  customerEmail: any
+  customerEmail: any,
+  resumePaymentLink: String
 ) => {
   try {
     // Send email using Resend API
@@ -171,6 +172,7 @@ export const sendBookingEmail = async (
         </tr>
       </tbody>
     </table>
+    <p>If you haven't made the payment yet, click <a href=${resumePaymentLink}>here</a>.</p>
   </body>
 </html>
       `,
