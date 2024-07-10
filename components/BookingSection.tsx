@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { PuffLoader } from "react-spinners";
+import { WEBSITE_URL } from "@/config/environment";
 import { checkoutTour } from "@/actions/checkoutAction";
 import { getRequest } from "@/services/api/apiService";
 import { loadStripe } from "@stripe/stripe-js";
@@ -145,7 +146,25 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
     },
   });
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const getSessionId = async () => {
+    try {
+      const result: any = await checkoutTour(
+        tourData,
+        `http://localhost:3000/book/${params.slug.toString()}`
+      );
+
+      if (!result || !result.id) {
+        throw new Error("Failed to create checkout session.");
+      }
+
+      return result.id;
+    } catch (error) {
+      console.error("Checkout error:", error);
+      toast.error("Checkout failed. Please try again.");
+    }
+  };
+
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // date
     const selectedDateTime = new Date(arrivalDate);
@@ -226,25 +245,20 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
         special,
       };
       const customerEmail = email;
-      sendMail(customerData, tourData, customerEmail);
-      handleCheckout();
+      const sessionId = await getSessionId();
+      const resumePaymentLink =
+        WEBSITE_URL +
+        `/book/${params.slug.toString()}/checkout?session_id=${sessionId}`;
+      sendMail(customerData, tourData, customerEmail, resumePaymentLink);
+      handleCheckout(sessionId);
     }
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (sessionId: any) => {
     try {
-      const result: any = await checkoutTour(
-        tourData,
-        `http://localhost:3000/book/${params.slug.toString()}`
-      );
-
-      if (!result || !result.id) {
-        throw new Error("Failed to create checkout session.");
-      }
-
       const stripe = await stripePromise;
       await stripe!.redirectToCheckout({
-        sessionId: result.id,
+        sessionId,
       });
     } catch (error) {
       console.error("Checkout error:", error);

@@ -37,7 +37,7 @@ export const checkoutTour = async (tourData: any, url: string) => {
       ],
       mode: "payment",
       success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${url}/canceled`,
+      cancel_url: `${url}/canceled?session_id={CHECKOUT_SESSION_ID}`,
     });
 
     return { id: session.id };
