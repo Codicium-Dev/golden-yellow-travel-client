@@ -315,7 +315,7 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
 
         {/* Travel Information */}
         <div className="bg-[#f6f6f6] shadow-lg py-7 rounded-lg w-full max-w-[1000px] px-5 md:px-6 lg:px-10 mx-auto mb-10">
-          <h1 className="md:pb-5 text-xl lg:text-2xl font-semibold tracking-widest text-[#464646]">
+          <h1 className="md:pb-5 text-xl lg:text-2xl font-semibold tracking-widest text-[#464646] mb-5">
             Travel information
           </h1>
           <div className="md:pb-5 flex-col md:flex-row items-center gap-5">
@@ -414,7 +414,6 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
               </p>
             </div>
             <div className="w-full md:w-[35%] text-slate-800 text-base lg:text-lg pt-2 md:pt-0">
-              {/* w-full h-[34px] mr-10 text-sm border border-[#010e3b] rounded-lg px-2 custom-select */}
               <input
                 className="w-full h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg px-2"
                 type="datetime-local"
@@ -467,7 +466,7 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
           </div>
 
           {/* Accomodations */}
-          <div className="pb-5 w-full flex-col md:flex md:flex-row items-center justify-between gap-5 md:gap-0">
+          <div className="w-full flex-col md:flex md:flex-row items-center justify-between gap-5 md:gap-0">
             <div className="w-full md:w-[65%] flex-col text-slate-700 text-base lg:text-lg ">
               Accomodations:
             </div>

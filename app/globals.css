@@ -415,3 +415,17 @@ body {
   background-color: #ffffff; /* Background color for options */
   color: #334155;
 }
+
+/* phone input */
+.custom-phone-input .PhoneInputInput {
+  /* border: 2px solid lightgray;  */
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  padding: 4px; /* Padding inside the input */
+}
+
+.custom-phone-input .PhoneInputInput:focus {
+  border-width: 1px;
+  border-color: gray; /* Red border on focus */
+  outline: none; /* Remove default focus outline */
+}
