@@ -87,21 +87,21 @@ const Footer = () => {
               />
             </Link>
           </div>
-          <div className="w-full mt-5 icon">
+          {/* <div className="w-full mt-5 icon">
             <h1 className="w-full font-semibold md:text-lg mb-3 follow">
               Follow us
             </h1>
             <div className="social">
               <div className=" bg-blue-600 text-white iconus mr-4 rounded-lg p-[2px] flex items-center justify-center">
-                <a href="#">
+                <Link href="https://www.facebook.com">
                   <BiLogoFacebook size={30} />
-                </a>
+                </Link>
               </div>
 
               <div className=" bg-[#C13584] text-white iconus mr-4 rounded-lg p-[2px] flex items-center justify-center">
-                <a href="">
+                <Link href="https://www.facebook.com">
                   <BiLogoInstagram size={30} />
-                </a>
+                </Link>
               </div>
 
               <div className=" bg-[#ff0000] text-white iconus mr-4 rounded-lg p-[2px] flex items-center justify-center">
@@ -110,7 +110,7 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className=" text-gray-800">

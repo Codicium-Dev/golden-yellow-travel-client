@@ -1,5 +1,6 @@
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import "react-phone-number-input/style.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import Footer from "@/components/Footer";
