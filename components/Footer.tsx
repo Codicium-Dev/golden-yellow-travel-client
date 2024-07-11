@@ -153,7 +153,7 @@ const Footer = () => {
                 type="text"
                 value={subscribeMail}
                 onChange={(e) => setSubscribeMail(e.target.value)}
-                placeholder="Enter your email for subscription"
+                placeholder="Subscribe here"
                 className=" w-full px-3 py-2 bg-slate-50 outline-none placeholder:text-sm lg:placeholder:text-base"
               />
               <button
