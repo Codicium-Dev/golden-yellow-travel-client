@@ -419,6 +419,7 @@ body {
 /* phone input */
 .custom-phone-input .PhoneInputInput {
   /* border: 2px solid lightgray;  */
+  background-color: transparent;
   border: none;
   border-radius: 4px; /* Rounded corners */
   padding: 4px; /* Padding inside the input */

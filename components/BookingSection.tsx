@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import PhoneInput from "react-phone-number-input";
 import { PuffLoader } from "react-spinners";
 import { WEBSITE_URL } from "@/config/environment";
 import { checkoutTour } from "@/actions/checkoutAction";
@@ -89,7 +90,7 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
   const [destinations, setDestinations] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone]: any = useState("");
   const [country, setCountry] = useState("");
   const [how, setHow] = useState("");
   const [otherInfo, setOtherInfo] = useState("");
@@ -245,12 +246,13 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
         special,
       };
       const customerEmail = email;
-      const sessionId = await getSessionId();
-      const resumePaymentLink =
-        WEBSITE_URL +
-        `/book/${params.slug.toString()}/checkout?session_id=${sessionId}`;
-      sendMail(customerData, tourData, customerEmail, resumePaymentLink);
-      handleCheckout(sessionId);
+      // const sessionId = await getSessionId();
+      // const resumePaymentLink =
+      //   WEBSITE_URL +
+      //   `/book/${params.slug.toString()}/checkout?session_id=${sessionId}`;
+      sendMail(customerData, tourData, customerEmail); //resumePaymentLink
+      router.push("/");
+      // handleCheckout(sessionId);
     }
   };
 
@@ -538,16 +540,18 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
             <div className="w-full md:w-[20%] text-slate-700 text-base lg:text-lg">
               Phone:
             </div>
-            <div className="w-full md:w-[80%] text-slate-800 text-base lg:text-lg">
-              <input
-                type="text"
-                name="phone"
-                id="phone"
-                className="w-full md:w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2 mt-2 md:mt-0"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
+            <div className="w-full md:w-[80%] text-slate-800 text-base lg:text-lg flex items-center">
+              <div className="w-full md:w-[50%] h-[45px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2 mt-2 md:mt-0">
+                <PhoneInput
+                  placeholder="Enter phone number"
+                  withCountryCallingCode={true}
+                  international={true}
+                  countryCallingCodeEditable={false}
+                  value={phone}
+                  onChange={setPhone}
+                  className="input-phone custom-phone-input"
+                />
+              </div>
             </div>
           </div>
           {/* Country */}
