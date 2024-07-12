@@ -6,7 +6,7 @@ export const sendMail = async (
   customerData: any,
   tourData: any,
   customerEmail: any,
-  resumePaymentLink: String
+  resumePaymentLink?: String
 ) => {
   await sendBookingEmail(
     customerData,

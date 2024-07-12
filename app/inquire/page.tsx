@@ -258,7 +258,7 @@ const InquiryForm = () => {
             {/* phone */}
             <div className="flex flex-col md:flex-row pb-2 items-center mb-5 gap:0 md:gap-5">
               <div className="w-full md:w-[30%] text-slate-700 text-sm md:text-base lg:text-lg">
-                Find Us By
+                Phone
               </div>
 
               <div className="md:flex items-center gap-5 w-full">
