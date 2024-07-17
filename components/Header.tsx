@@ -114,6 +114,7 @@ const Header = () => {
             "/sign-in",
             "/sign-up",
             "/book",
+            "/contact-us",
           ].some((route) => pathname.startsWith(route))
             ? "bg-[#010e3b]"
             : bgColor
