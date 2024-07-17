@@ -24,7 +24,7 @@ const ContactUs = () => {
   const [message, setMessage] = useState("");
 
   const contactFormMutation = useMutation({
-    mutationFn: (data: any) => postRequest("contacts/create", data),
+    mutationFn: (data: any) => postRequest("/contacts", data),
     // form cleaning
     onSuccess: () => {
       setFullName("");
@@ -47,7 +47,6 @@ const ContactUs = () => {
         phone,
         message,
       });
-
       router.push("/");
     }
   };
@@ -57,7 +56,7 @@ const ContactUs = () => {
       <div>
         <form
           onSubmit={(e) => submitHandler(e)}
-          className="w-full p-5 pt-[110px] md:pt-[140px] pb-[40px] bg-[#efefef] open-sans"
+          className="w-full p-5 pt-[110px] md:pt-[120px] pb-[40px] bg-[#efefef] open-sans"
         >
           <h1 className="mb-10 pb-5 text-2xl lg:text-3xl font-semibold tracking-widest uppercase text-[#464646] text-center">
             Get In Touch
@@ -121,7 +120,7 @@ const ContactUs = () => {
             />
           </div>
 
-          <div className=" flex justify-center mt-10">
+          <div className=" flex justify-center mt-8">
             <button
               disabled={contactFormMutation.isLoading}
               type="submit"
