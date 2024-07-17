@@ -87,6 +87,12 @@ const Footer = () => {
               />
             </Link>
           </div>
+
+          <div className="w-full hover:text-[#1c94ad] mt-5">
+            <Link href={"contact-us"} className="cursor-pointer ">
+              <h1 className="text-lg font-semibold uppercase">Contact Us</h1>
+            </Link>
+          </div>
           {/* <div className="w-full mt-5 icon">
             <h1 className="w-full font-semibold md:text-lg mb-3 follow">
               Follow us
@@ -116,15 +122,21 @@ const Footer = () => {
         <div className=" text-gray-800">
           {FooterLinks.map((link) => {
             return (
-              <Link key={link.label} href={link?.url}>
-                <p className=" text-lg font-semibold my-5">{link?.label}</p>
+              <Link
+                key={link.label}
+                href={link?.url}
+                className="select-none hover:text-[#1c94ad] cursor-pointer"
+              >
+                <p className="my-4 text-lg font-semibold uppercase ">
+                  {link?.label}
+                </p>
               </Link>
             );
           })}
         </div>
 
         <div className="my-5 text-gray-800">
-          <h1 className=" text-lg font-semibold uppercase">
+          <h1 className=" text-lg font-semibold uppercase select-none">
             Contact Information
           </h1>
 

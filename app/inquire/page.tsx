@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import PhoneInput from "react-phone-number-input";
 import { PuffLoader } from "react-spinners";
@@ -209,7 +209,6 @@ const InquiryForm = () => {
       router.push("/");
     }
   };
-  console.log("phone >>> ", phone);
   return (
     <>
       <div>
