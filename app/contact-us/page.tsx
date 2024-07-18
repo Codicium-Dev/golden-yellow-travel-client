@@ -30,7 +30,7 @@ const ContactUs = () => {
       setFullName("");
       setEmail("");
       setMessage("");
-      toast.success("Message successfully sent!");
+      toast.success("Your message was successfully sent!");
     },
     onError: () => {
       toast.error("Sending message fail! Please try again");
