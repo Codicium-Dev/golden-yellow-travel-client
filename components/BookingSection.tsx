@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import PhoneInput from "react-phone-number-input";
 import { PuffLoader } from "react-spinners";
-import { WEBSITE_URL } from "@/config/environment";
 import { checkoutTour } from "@/actions/checkoutAction";
 import { getRequest } from "@/services/api/apiService";
 import { loadStripe } from "@stripe/stripe-js";
@@ -91,7 +90,7 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone]: any = useState("");
-  const [country, setCountry] = useState("");
+  const [language, setLanguage] = useState("");
   const [how, setHow] = useState("");
   const [otherInfo, setOtherInfo] = useState("");
   const [special, setSpecial] = useState("");
@@ -124,7 +123,7 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
   // const maxDate = getFormattedDateTime();
   // date varification end
 
-  const queryFormMutation = useMutation({
+  const bookingFormMutation = useMutation({
     mutationFn: (data: any) => postRequest("form/create", data),
     // form cleaning
     onSuccess: () => {
@@ -136,7 +135,7 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
       setEmail("");
       setPhone("");
       setAccommo("");
-      setCountry("");
+      setLanguage("");
       setHow("");
       setOtherInfo("");
       setSpecial("");
@@ -204,13 +203,14 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
       fullName !== "" &&
       email !== "" &&
       phone !== "" &&
-      country !== "" &&
+      language !== "" &&
       how !== "" &&
       accommo !== "Please select accomodation" &&
       arrivalAirport !== "default" &&
       how !== "Please select how you found us"
     ) {
-      queryFormMutation.mutateAsync({
+      bookingFormMutation.mutateAsync({
+        tour_id: tourId.toString(),
         adults: adults,
         children: childrens,
         infants: infants,
@@ -222,7 +222,7 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
         full_name: fullName,
         email: email,
         phone: phone,
-        own_country: country,
+        language,
         how_u_know: how,
         other_information: otherInfo,
         special_note: special,
@@ -240,7 +240,7 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
         fullName,
         email,
         phone,
-        country,
+        language,
         how,
         otherInfo,
         special,
@@ -525,7 +525,7 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
             </div>
             <div className="w-full md:w-[80%] text-slate-800 text-base lg:text-lg">
               <input
-                type="text"
+                type="email"
                 name="email"
                 id="email"
                 className="w-full md:w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2 mt-2 md:mt-0"
@@ -554,20 +554,20 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
               </div>
             </div>
           </div>
-          {/* Country */}
+          {/* Language */}
           <div className="pb-5 md:flex items-center gap-5">
             <div className="w-full md:w-[20%] text-slate-700 text-base lg:text-lg">
-              Country:
+              Language:
             </div>
             <div className="w-full md:w-[80%] text-slate-800 text-base lg:text-lg">
               <input
                 type="text"
-                name="country"
-                id="country"
+                name="language"
+                id="language"
                 className="w-full md:w-[50%] h-[34px] mr-10 text-sm border bg-[#f0f4f8] border-[#010e3b] rounded-lg p-2 mt-2 md:mt-0"
                 required
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
               />
             </div>
           </div>
@@ -651,11 +651,11 @@ const BookingSection = ({ params }: { params: { slug: string } }) => {
 
         <div className=" flex justify-center">
           <button
-            disabled={queryFormMutation.isLoading}
+            disabled={bookingFormMutation.isLoading}
             type="submit"
             className=" md:w-1/6 w-2/5 rounded-lg bg-[#010e3b] text-white font-semibold flex justify-center align-middle items-center p-3 cursor-pointer hover:opacity-90 transition-all"
           >
-            {queryFormMutation.isLoading ? (
+            {bookingFormMutation.isLoading ? (
               <PuffLoader
                 color={"#fff"}
                 size={25}

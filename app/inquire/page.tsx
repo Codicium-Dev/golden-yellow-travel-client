@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import PhoneInput from "react-phone-number-input";
 import { PuffLoader } from "react-spinners";
@@ -40,7 +40,6 @@ const InquiryForm = () => {
   const [travelYear, setTravelYear] = useState("");
   const [budget, setBudget] = useState("");
   const [duration, setDuration] = useState(2);
-  const [interest, setInterest] = useState("");
   const [destinations, setDestinations] = useState("");
   const [Accommodation, setAccommodation] = useState("");
   const [how, setHow] = useState("");
@@ -106,7 +105,6 @@ const InquiryForm = () => {
       setTravelYear("");
       setBudget("");
       setDuration(2);
-      setInterest("");
       setDestinations("");
       setAccommodation("");
       setHow("");
@@ -122,44 +120,65 @@ const InquiryForm = () => {
     },
   });
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    function monthNameToNumber(monthName: any) {
-      const monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-      return monthNames.indexOf(monthName) + 1; // indexOf returns 0-based index, so add 1
+  function monthNameToNumber(monthName: any) {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    return monthNames.indexOf(monthName) + 1; // indexOf returns 0-based index, so add 1
+  }
+
+  // Get the current date
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+
+  // Convert state values to appropriate types
+  const selectedMonth = monthNameToNumber(travelMonth);
+  const selectedYear = parseInt(travelYear, 10); // Convert year string to integer
+
+  useEffect(() => {
+    console.log("selectedMonth", typeof selectedMonth, selectedMonth);
+    console.log("currentMonth", typeof currentMonth, currentMonth);
+    console.log("selectedYear", typeof selectedYear, selectedYear);
+    console.log("currentYear", typeof currentYear, currentYear);
+
+    if (selectedMonth !== selectedMonth) {
+      console.log("month changed");
+    }
+    if (selectedYear !== selectedYear) {
+      console.log("year changed");
     }
 
-    // Get the current date
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-
-    // Convert state values to appropriate types
-    const selectedMonth = monthNameToNumber(travelMonth);
-    const selectedYear = parseInt(travelYear, 10); // Convert year string to integer
-
-    // Compare state date with current date
-    if (
-      selectedYear > currentYear ||
-      (selectedYear === currentYear && selectedMonth >= currentMonth)
-    ) {
+    if (selectedYear > currentYear) {
+      console.log("selectedYear > currentYear");
       setTravelDateValid(true);
+    } else if (selectedYear == currentYear && selectedMonth > currentMonth) {
+      setTravelDateValid(true);
+      console.log(
+        "selectedYear == currentYear && selectedMonth >= currentMonth"
+      );
     } else {
       setTravelDateValid(false);
     }
+
     console.log("Date Valid? >> ", travelDateValid);
+  }, [selectedMonth, selectedYear, travelDateValid]);
+
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // *************************************
+
     if (Accommodation === "Please select accomodation") {
       toast.error("Please fill accomodation field.");
     }
@@ -195,7 +214,6 @@ const InquiryForm = () => {
         travel_year: travelYear,
         budget,
         duration,
-        interest,
         destinations,
         accommodation: Accommodation,
         how_know: how,
@@ -206,9 +224,29 @@ const InquiryForm = () => {
         trip_idea: idea,
       });
 
+      const inquiryInfo = {
+        fullName,
+        email,
+        phone,
+        language,
+        travelMonth,
+        travelYear,
+        budget,
+        duration,
+        destinations,
+        Accommodation,
+        how,
+        otherInfo,
+        adults,
+        children,
+        infants,
+        idea,
+      };
+
       router.push("/");
     }
   };
+
   return (
     <>
       <div>
@@ -359,14 +397,14 @@ const InquiryForm = () => {
                     value={destinations}
                     onChange={(e) => setDestinations(e.target.value)}
                   >
-                    {Destinations.map((interest, index) => {
+                    {Destinations.map((destination, index) => {
                       return (
                         <option
                           key={index}
-                          value={interest}
+                          value={destination}
                           className="text-center"
                         >
-                          {interest}
+                          {destination}
                         </option>
                       );
                     })}
@@ -419,14 +457,14 @@ const InquiryForm = () => {
                     value={travelMonth}
                     onChange={(e) => setTravelMonth(e.target.value)}
                   >
-                    {months.map((interest, index) => {
+                    {months.map((month, index) => {
                       return (
                         <option
                           key={index}
-                          value={interest}
+                          value={month}
                           className="text-center"
                         >
-                          {interest}
+                          {month}
                         </option>
                       );
                     })}

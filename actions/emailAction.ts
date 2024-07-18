@@ -15,3 +15,6 @@ export const sendMail = async (
     resumePaymentLink
   );
 };
+// export const sendInquiryMail = async (inquiryInfo: any) => {
+//   await sendInquiryMail(inquiryInfo);
+// };
